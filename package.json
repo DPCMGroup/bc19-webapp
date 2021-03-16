@@ -3,11 +3,13 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
+    "clean": "rimraf ./dist",
     "start": "ng serve",
     "build": "ng build",
-    "test": "ng test",
+    "build:prod": "ng build --prod",
+    "test": "ng test --watch=false --browsers=ChromeHeadlessCustom",
+    "test:watch": "ng test",
     "lint": "ng lint",
-    "clean": "rm -rf node_modules/",
     "e2e": "ng e2e",
     "build:prod": "ng build --prod",
     "build:ci": "npm run clean && npm run test && npm run build:prod"
