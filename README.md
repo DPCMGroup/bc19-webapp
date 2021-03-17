@@ -1,5 +1,7 @@
 # bc19-webapp
 [![Build&Tests](https://github.com/DPCMGroup/bc19-webapp/actions/workflows/build.yml/badge.svg)](https://github.com/DPCMGroup/bc19-webapp/actions/workflows/build.yml)
+[![Coverage Status](https://coveralls.io/repos/github/DPCMGroup/bc19-webapp/badge.svg)](https://coveralls.io/github/DPCMGroup/bc19-webapp)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=DPCMGroup_bc19-webapp&metric=alert_status)](https://sonarcloud.io/dashboard?id=DPCMGroup_bc19-webapp)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.4.
 
