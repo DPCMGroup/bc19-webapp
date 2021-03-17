@@ -1,4 +1,5 @@
 # bc19-webapp
+[![Build&Tests](https://github.com/DPCMGroup/bc19-webapp/actions/workflows/build.yml/badge.svg)](https://github.com/DPCMGroup/bc19-webapp/actions/workflows/build.yml)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.4.
 
