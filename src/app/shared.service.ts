@@ -10,7 +10,7 @@ export class SharedService {
   readonly APIUrl = 'http://127.0.0.1:8000';
 
   constructor(private http: HttpClient) { }
-
+  //modificare qui
   getWorkstationList(): Observable<any[]>{
     return this.http.get<any[]>(this.APIUrl + '/workstation/list');
   }
