@@ -9,12 +9,14 @@ import { AddEditWorkstationComponent } from './workstation/add-edit-workstation/
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {SharedService} from './shared.service';
+import { CredentialsComponent } from './credentials/credentials.component';
 @NgModule({
   declarations: [
     AppComponent,
     WorkstationComponent,
     ShowWorkstationComponent,
-    AddEditWorkstationComponent
+    AddEditWorkstationComponent,
+    CredentialsComponent
   ],
   imports: [
     BrowserModule,
