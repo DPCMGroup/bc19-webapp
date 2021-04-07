@@ -10,13 +10,17 @@ import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {SharedService} from './shared.service';
 import { CredentialsComponent } from './credentials/credentials.component';
+import { AddEditCredentialComponent } from './credentials/add-edit-credential/add-edit-credential.component';
+import { ShowCredentialComponent } from './credentials/show-credential/show-credential.component';
 @NgModule({
   declarations: [
     AppComponent,
     WorkstationComponent,
     ShowWorkstationComponent,
     AddEditWorkstationComponent,
-    CredentialsComponent
+    CredentialsComponent,
+    AddEditCredentialComponent,
+    ShowCredentialComponent
   ],
   imports: [
     BrowserModule,
