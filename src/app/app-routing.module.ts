@@ -5,6 +5,7 @@ import {BaseComponent} from './base/base.component';
 import {AppComponent} from './app.component';
 import {LoginComponent} from './login/login.component';
 import {CredentialsComponent} from './base/credentials/credentials.component';
+import {ReportComponent} from './base/report/report.component';
 
 const routes: Routes = [
   {
@@ -25,6 +26,10 @@ const routes: Routes = [
           {
             path: 'credential',
             component: CredentialsComponent
+          },
+          {
+            path: 'report',
+            component: ReportComponent
           }
         ]
       }
