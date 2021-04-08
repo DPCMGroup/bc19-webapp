@@ -49,7 +49,6 @@ export class ShowCredentialComponent implements OnInit {
       Type: 'Dipendente'
     });
     this.CredentialList = tempList;
-    console.log('refreshed');
 
     /*
     this.service.getWorkstationList().subscribe(data => {
