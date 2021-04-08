@@ -1,27 +1,33 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {WorkstationComponent} from './workstation/workstation.component';
+import {WorkstationComponent} from './base/workstation/workstation.component';
 import {BaseComponent} from './base/base.component';
 import {AppComponent} from './app.component';
+import {LoginComponent} from './login/login.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: AppComponent
-  },
-  {
-    path: 'base',
     children: [
       {
         path: '',
-        component: BaseComponent
+        component: AppComponent,
       },
       {
-        path: 'workstation',
-        component: WorkstationComponent
+        path: 'base',
+        component: BaseComponent,
+        children: [
+          {
+            path: 'workstation',
+            component: WorkstationComponent
+          }
+        ]
+      },
+      {
+        path: 'login',
+        component: LoginComponent
       }
     ]
-
   }
 ];
 
