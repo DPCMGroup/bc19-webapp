@@ -11,7 +11,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: AppComponent,
+        component: LoginComponent
       },
       {
         path: 'base',
@@ -22,10 +22,6 @@ const routes: Routes = [
             component: WorkstationComponent
           }
         ]
-      },
-      {
-        path: 'login',
-        component: LoginComponent
       }
     ]
   }
