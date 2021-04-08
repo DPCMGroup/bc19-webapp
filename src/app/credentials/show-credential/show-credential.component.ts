@@ -16,16 +16,17 @@ export class ShowCredentialComponent implements OnInit {
   // tslint:disable-next-line
   ActivateAddEditCredentialComp: boolean = false;
   ngOnInit(): void {
-    this.refreshWorkstationList();
+    this.refreshCredentialsList();
   }
 
   // tslint:disable-next-line:typedef
   addClick(){
     this.credential = {
-      WorkstationId: 0,
-      Xposition: '',
-      Yposition: '',
-      Status: 'NonDisponibile'};
+      Name: '',
+      Surname: '',
+      Username: '',
+      Email: '',
+      Type: 'Dipendente'};
     this.ModalTitle = 'Add credential';
     this.ActivateAddEditCredentialComp = true;
   }
@@ -33,23 +34,39 @@ export class ShowCredentialComponent implements OnInit {
   // tslint:disable-next-line:typedef
   closeClick(){
     this.ActivateAddEditCredentialComp = false;
-    this.refreshWorkstationList();
+    this.refreshCredentialsList();
   }
 
   // tslint:disable-next-line:typedef
-  refreshWorkstationList(){
+  refreshCredentialsList(){
+    /* JUST FOR TESTING*/
+    const tempList: any = [];
+    tempList.push({
+      Name: 'Mario',
+      Surname: 'Rossi',
+      Username: 'dip0',
+      Email: 'mario.rossi@gmail.com',
+      Type: 'Dipendente'
+    });
+    this.CredentialList = tempList;
+    console.log('refreshed');
+
+    /*
     this.service.getWorkstationList().subscribe(data => {
       this.CredentialList = data;
     });
+     */
   }
 
   // tslint:disable-next-line:typedef
-  deleteClick(item: { CredentialId: any; }){
+  deleteClick(item: { Username: any; }){
     if (confirm('Are you sure??')){
+      /*
       this.service.deleteWorkstation(item.CredentialId).subscribe(data => {
         alert(data.toString());
         this.refreshWorkstationList();
       });
+       */
     }
   }
 }
