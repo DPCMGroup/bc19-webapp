@@ -4,7 +4,7 @@ import {WorkstationComponent} from './base/workstation/workstation.component';
 import {BaseComponent} from './base/base.component';
 import {AppComponent} from './app.component';
 import {LoginComponent} from './login/login.component';
-import {CredentialsComponent} from './credentials/credentials.component';
+import {CredentialsComponent} from './base/credentials/credentials.component';
 
 const routes: Routes = [
   {
@@ -21,6 +21,10 @@ const routes: Routes = [
           {
             path: 'workstation',
             component: WorkstationComponent
+          },
+          {
+            path: 'credential',
+            component: CredentialsComponent
           }
         ]
       }
