@@ -15,6 +15,7 @@ import { LoginComponent } from './login/login.component';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {SharedService} from './shared.service';
+import { SearchOccupationsComponent } from './base/workstation/search-occupations/search-occupations.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import {SharedService} from './shared.service';
     AddEditCredentialComponent,
     ShowCredentialComponent,
     ReportComponent,
+    SearchOccupationsComponent,
   ],
   imports: [
     BrowserModule,
