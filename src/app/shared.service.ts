@@ -22,4 +22,8 @@ export class SharedService {
   deleteWorkstation(val: any){
     return this.http.get(this.APIUrl + '/workstation/' + val);
   }
+
+  getReportList(): Observable<any[]>{
+    return this.http.get<any[]>(this.APIUrl + '/report/list');
+  }
 }

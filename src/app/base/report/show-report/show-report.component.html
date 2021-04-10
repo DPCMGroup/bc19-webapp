@@ -1,0 +1,20 @@
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th>WorkstationID</th>
+    <th>WorkstationX</th>
+    <th>WorkstationY</th>
+    <th>Room</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let dataItem of ReportList">
+    <td>{{dataItem.WorkstationId}}</td>
+    <td>{{dataItem.Xposition}}</td>
+    <td>{{dataItem.Yposition}}</td>
+    <td>{{dataItem.Room}}</td>
+  </tr>
+  </tbody>
+
+</table>
+
