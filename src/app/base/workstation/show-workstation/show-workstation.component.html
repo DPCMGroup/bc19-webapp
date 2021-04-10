@@ -33,6 +33,7 @@
 <table class="table table-striped">
   <thead>
   <tr>
+    <th>WorkstationName</th>
     <th>WorkstationID</th>
     <th>WorkstationX</th>
     <th>WorkstationY</th>
@@ -42,10 +43,11 @@
   </thead>
   <tbody>
   <tr *ngFor="let dataItem of WorkstationList">
-    <td>{{dataItem.WorkstationId}}</td>
-    <td>{{dataItem.Xposition}}</td>
-    <td>{{dataItem.Yposition}}</td>
-    <td>{{dataItem.Status}}</td>
+    <td>{{dataItem.workstationname}}</td>
+    <td>{{dataItem.id}}</td>
+    <td>{{dataItem.xworkstation}}</td>
+    <td>{{dataItem.yworkstation}}</td>
+    <td>{{dataItem.state}}</td>
     <td>
       <button type="button" class="btn btn-light mr-1" (click)="deleteClick(dataItem)">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
