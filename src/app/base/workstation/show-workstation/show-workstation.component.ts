@@ -47,7 +47,7 @@ export class ShowWorkstationComponent implements OnInit {
     });
   }
 
-  refreshAndFilter(workstationId: string, Username: string): void{
+  refreshAndFilter(workstationId: number, Username: string): void{
     this.service.getWorkstationList().subscribe(data => {
       this.WorkstationList = data;
       if (workstationId !== null || Username !== null){
@@ -78,7 +78,7 @@ export class ShowWorkstationComponent implements OnInit {
     // leggi WorkstationId: string;
     // e Username: string;
     // Poi user this.filer
-    this.refreshAndFilter(this.WorkstationId, this.Username);
+    this.refreshAndFilter( parseInt(this.WorkstationId, 10), this.Username);
 
   }
 
