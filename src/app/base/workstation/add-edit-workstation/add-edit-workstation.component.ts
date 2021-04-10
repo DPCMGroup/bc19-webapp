@@ -9,7 +9,7 @@ import { SharedService } from '../../../shared.service';
 export class AddEditWorkstationComponent implements OnInit {
   constructor(private service: SharedService ) { }
 
-  @Input() workstation: any;
+  workstation: any;
   WorkstationId: number | undefined;
   Xposition: number | undefined;
   Yposition: number | undefined;

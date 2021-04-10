@@ -6,6 +6,7 @@ import {AppComponent} from './app.component';
 import {LoginComponent} from './login/login.component';
 import {CredentialsComponent} from './base/credentials/credentials.component';
 import {ReportComponent} from './base/report/report.component';
+import {RoomsComponent} from './base/rooms/rooms.component';
 
 const routes: Routes = [
   {
@@ -20,8 +21,8 @@ const routes: Routes = [
         component: BaseComponent,
         children: [
           {
-            path: 'workstation',
-            component: WorkstationComponent
+            path: 'rooms',
+            component: RoomsComponent,
           },
           {
             path: 'credential',

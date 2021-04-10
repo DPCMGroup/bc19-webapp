@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {SharedService} from 'src/app/shared.service';
 
 @Component({
@@ -10,13 +10,15 @@ export class ShowWorkstationComponent implements OnInit {
 
   constructor(private service: SharedService) { }
 
-  WorkstationList: any = [];
+
+  @Input() roomName = 'room';
+  @Input() WorkstationList: any = [];
   ModalTitle: string | undefined;
   workstation: any;
   // tslint:disable-next-line
   ActivateAddEditWorkstationComp: boolean = false;
   ngOnInit(): void {
-    this.refreshWorkstationList();
+    // this.refreshWorkstationList();
   }
 
   // tslint:disable-next-line:typedef
