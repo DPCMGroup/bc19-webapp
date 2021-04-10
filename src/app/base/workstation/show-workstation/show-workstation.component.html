@@ -6,6 +6,13 @@
 >
   Add Workstation
 </button>
+<button type="button" class="btn btn-primary float-right m-2"
+        data-toggle="modal" data-target="#exampleModalNew"
+        (click)="addClick()"
+        data-backdrop="static" data-keyboard="false"
+>
+  Search Occupations
+</button>
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -26,6 +33,25 @@
   </div>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="exampleModalNew" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabelNew">Search Occupations Workstations</h5>
+        <button type="button" class="close"
+                data-dismiss="modal" aria-label="Close"
+                (click)="closeClick()" >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- non so ?-->
+        <app-search-occupations [workstation]="workstation" *ngIf="ActivateAddEditWorkstationComp"></app-search-occupations>
+      </div>
+    </div>
+  </div>
+</div>
 <table class="table table-striped">
   <thead>
   <tr>
