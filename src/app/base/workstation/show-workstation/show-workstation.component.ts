@@ -15,6 +15,10 @@ export class ShowWorkstationComponent implements OnInit {
   workstation: any;
   // tslint:disable-next-line
   ActivateAddEditWorkstationComp: boolean = false;
+
+  WorkstationId: string;
+  Username: string;
+
   ngOnInit(): void {
     this.refreshWorkstationList();
   }
@@ -43,6 +47,23 @@ export class ShowWorkstationComponent implements OnInit {
     });
   }
 
+  refreshAndFilter(workstationId: string, Username: string): void{
+    this.service.getWorkstationList().subscribe(data => {
+      this.WorkstationList = data;
+      if (workstationId !== null || Username !== null){
+        // filtra il data
+        let tempWorkstationList: any = [];
+        // tslint:disable-next-line:prefer-for-of
+        for (let i = 0; i < this.WorkstationList.length; i++){
+          if (this.WorkstationList[i].id === workstationId /*check equality with the username*/){
+            tempWorkstationList.push(this.WorkstationList[i]);
+          }
+        }
+        this.WorkstationList = tempWorkstationList;
+      }
+    });
+  }
+
   // tslint:disable-next-line:typedef
   deleteClick(item: { WorkstationId: any; }){
     if (confirm('Are you sure??')){
@@ -51,5 +72,21 @@ export class ShowWorkstationComponent implements OnInit {
         this.refreshWorkstationList();
       });
     }
+  }
+
+  searchOccupation(): void {
+    // leggi WorkstationId: string;
+    // e Username: string;
+    // Poi user this.filer
+    this.refreshAndFilter(this.WorkstationId, this.Username);
+
+  }
+
+  resetFilter(): void {
+    this.refreshAndFilter(null, null);
+  }
+
+  testFunc(): void {
+    console.log(this.WorkstationList);
   }
 }
