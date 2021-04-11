@@ -12,7 +12,7 @@ export class RoomsComponent implements OnInit {
   constructor(private service: SharedService, private cd: ChangeDetectorRef) { }
   roomsMap = new Map<any, any>();
   workstationsList: any = [];
-  @Input() workstation: any;
+  workstation: any;
 
   ngOnInit(): void {
     this.refreshWorkstationList();
@@ -49,13 +49,25 @@ export class RoomsComponent implements OnInit {
   }
 
   // tslint:disable-next-line:typedef
-  deleteClick(item: { WorkstationId: any; }){
+  deleteClick(item: { id: any; }){
     if (confirm('Are you sure??')){
-      this.service.deleteWorkstation(item.WorkstationId).subscribe(data => {
+      this.service.deleteWorkstation(item.id).subscribe(data => {
         alert(data.toString());
         this.refreshWorkstationList();
       });
     }
+  }
+
+  addWorkstationClick(): void{
+    this.workstation = {
+      id: 0,
+      workstationname: 'post1',
+      xworkstation: 1,
+      yworkstation: 1,
+      idroom: 0,
+      state: 0,
+      archived: 0
+    };
   }
 
 }
