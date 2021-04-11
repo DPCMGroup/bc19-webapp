@@ -22,4 +22,24 @@ export class SharedService {
   deleteWorkstation(val: any){
     return this.http.get(this.APIUrl + '/workstation/del/' + val);
   }
+
+  modifyWorkstation(val: any): Observable<any>{
+    return this.http.get(this.APIUrl + '/workstation/modify/', val);
+  }
+
+  getRoomList(): Observable<any[]>{
+    return this.http.get<any[]>(this.APIUrl + '/room/list');
+  }
+
+  addRoom(val: any): Observable<any>{
+    return this.http.post(this.APIUrl + '/room/insert', val);
+  }
+
+  deleteRoom(val: any): Observable<any>{
+    return this.http.get(this.APIUrl + '/room/del/', val);
+  }
+
+  modifyRoom(val: any): Observable<any>{
+    return this.http.get(this.APIUrl + '/room/modify/', val);
+  }
 }
