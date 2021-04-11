@@ -9,22 +9,20 @@
   <tbody>
   <tr *ngFor="let key of roomsMap.keys()">
 
-    <h3>{{key}}</h3>
+    <h3>RoomId: {{key}}</h3>
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-primary float-right m-2"
-            data-toggle="modal" data-target="#exampleModal"
+            data-toggle="modal" [attr.data-target]="'#modal' + key"
             data-backdrop="static" data-keyboard="false"
-            (click)="addWorkstationClick()"
-    >
+            (click)="addWorkstationClick(key)">
       Add Workstation
     </button>
-    <button type="button" class="btn btn-primary float-right m-2"
-    >
+    <button type="button" class="btn btn-primary float-right m-2">
       Search
     </button>
 
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="modal{{key}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -35,7 +33,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <app-add-edit-workstation [workstation]="editedaddedWorkstation"></app-add-edit-workstation>
+            <app-add-edit-workstation [idroom]="key"></app-add-edit-workstation>
           </div>
         </div>
       </div>
@@ -44,8 +42,9 @@
     <table class="table table-striped">
       <thead>
       <tr>
-        <th>WorkstationName</th>
         <th>WorkstationID</th>
+        <th>WorkstationTag</th>
+        <th>WorkstationName</th>
         <th>WorkstationX</th>
         <th>WorkstationY</th>
         <th>Status</th>
@@ -54,8 +53,9 @@
       </thead>
       <tbody>
       <tr *ngFor="let dataItem of roomsMap.get(key)">
-        <td>{{dataItem.workstationname}}</td>
         <td>{{dataItem.id}}</td>
+        <th>{{dataItem.tag}}</th>
+        <td>{{dataItem.workstationname}}</td>
         <td>{{dataItem.xworkstation}}</td>
         <td>{{dataItem.yworkstation}}</td>
         <td>{{dataItem.state}}</td>

@@ -9,24 +9,17 @@ import { SharedService } from '../../../shared.service';
 export class AddEditWorkstationComponent implements OnInit {
   constructor(private service: SharedService ) { }
 
-  @Input() workstation: any = {
-    id: 0,
-    workstationname: 'post1',
-    xworkstation: 1,
-    yworkstation: 1,
-    idroom: 0,
-    state: 0,
-    archived: 0
-  };
   id = 0;
+  tag: string;
   workstationname: string;
   xworkstation: number;
   yworkstation: number;
-  idroom: number;
+  @Input() idroom;
   state: number;
   archived = 0;
 
   ngOnInit(): void {
+    console.log('ngOnInit ' + this.idroom);
     /*
     this.id = this.workstation.id;
     this.workstationname = this.workstation.workstationname;
@@ -37,10 +30,17 @@ export class AddEditWorkstationComponent implements OnInit {
     this.archived = this.workstation.archived;*/
   }
 
+  // tslint:disable-next-line:use-lifecycle-interface
+  ngOnChanges(obj: any): void {
+    console.log(obj);
+  }
+
   // tslint:disable-next-line:typedef
-  addWorkstation(){
+  addWorkstation() {
+    console.log('addWorkstation' + this.idroom);
     const val = {
       id: this.id,
+      tag: this.tag,
       workstationname: this.workstationname,
       xworkstation: this.xworkstation,
       yworkstation: this.yworkstation,
@@ -48,6 +48,7 @@ export class AddEditWorkstationComponent implements OnInit {
       state: this.state,
       archived: this.archived,
     };
+    console.log(val);
     this.service.addWorkstation(val).subscribe(res => {
       alert(res.toString());
     });

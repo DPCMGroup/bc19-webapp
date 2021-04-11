@@ -1,5 +1,6 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, QueryList, ViewChildren} from '@angular/core';
 import {SharedService} from 'src/app/shared.service';
+import {AddEditWorkstationComponent} from './add-edit-workstation/add-edit-workstation.component';
 
 @Component({
   selector: 'app-rooms',
@@ -15,12 +16,60 @@ export class RoomsComponent implements OnInit {
   roomsMap = new Map<any, any>();
   roomsList: any = [];
   workstationsList: any = [];
-  editedaddedWorkstation: any;
+
+  @ViewChildren('cmp') components: QueryList<AddEditWorkstationComponent>;
 
   ngOnInit(): void {
-    this.refreshAll();
+    this.refreshAllNoDB();
   }
 
+  // tslint:disable-next-line:typedef use-lifecycle-interface
+  ngAfterViewInit(){
+    // print array of CustomComponent objects
+    console.log(this.components.toArray());
+  }
+
+  refreshAllNoDB(): void {
+    this.workstationsList = [
+      {
+        id: 8,
+        tag: '00 12 10 01 8d 91 04',
+        workstationname: 'lab1-ciao3',
+        xworkstation: 6,
+        yworkstation: 6,
+        idroom: 55,
+        state: 0,
+        archived: 0
+      },
+      {
+        id: 6,
+        tag: '00 55 10 66 8d 91 04',
+        workstationname: 'lab1-ciao3',
+        xworkstation: 6,
+        yworkstation: 6,
+        idroom: 125,
+        state: 0,
+        archived: 0
+      }
+    ];
+
+    this.roomsMap = new Map<any, any>();
+    // I divide the workstations by their room
+    // For now I don't check the correspondence with the roomsList
+    this.workstationsList.forEach(function(value): void {
+      if (this.roomsMap.get(value.idroom)) {
+      } else {
+        this.roomsMap.set(value.idroom, []);
+      }
+      this.roomsMap.get(value.idroom).push(value);
+    }.bind(this));
+    // says to angular to update the view
+    this.cd.detectChanges();
+
+    console.log(this.roomsMap.keys());
+
+
+  }
 
   refreshAll(): void {
     // First I update the room list
@@ -30,6 +79,7 @@ export class RoomsComponent implements OnInit {
     }).then( () => {
       // then I update the workstation list
       this.service.getWorkstationList().toPromise().then(data => {
+
         this.workstationsList = data;
         console.log('ciao2');
         // then I update the rooms map
@@ -50,30 +100,25 @@ export class RoomsComponent implements OnInit {
   }
 
   testFunc(): void {
-    console.log(this.roomsMap);
+    console.log('test');
 
   }
 
   // tslint:disable-next-line:typedef
   deleteClick(item: { id: any; }) {
     if (confirm('Are you sure??')) {
-      this.service.deleteWorkstation(item.id).subscribe(data => {
+      this.service.deleteWorkstation(item.id).toPromise().then((data) => {
+        // here I will have to check if the server returned 'Deleted Successfully' (or something like that)
         alert(data.toString());
         this.refreshAll();
       });
     }
   }
 
-  addWorkstationClick(): void {
-    this.editedaddedWorkstation = {
-      id: 0,
-      workstationname: 'post1',
-      xworkstation: 1,
-      yworkstation: 1,
-      idroom: 0,
-      state: 0,
-      archived: 0
-    };
+  // opens the addWorkstationPage
+  addWorkstationClick(roomId): void {
+    // I have to set the workstation to something
+    // console.log('addWorkstationClick ' + roomId);
   }
 
 }
