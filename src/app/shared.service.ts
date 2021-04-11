@@ -10,7 +10,9 @@ export class SharedService {
   readonly APIUrl = 'http://127.0.0.1:8000';
 
   constructor(private http: HttpClient) { }
-  getWorkstationList(): Observable<any[]>{
+
+  // tslint:disable-next-line
+  getWorkstationList(){
     return this.http.get<any[]>(this.APIUrl + '/workstation/list');
   }
   // tslint:disable-next-line

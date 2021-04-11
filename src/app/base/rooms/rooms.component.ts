@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, QueryList, ViewChildren} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, QueryList, ViewChildren} from '@angular/core';
 import {SharedService} from 'src/app/shared.service';
 import {AddEditWorkstationComponent} from './add-edit-workstation/add-edit-workstation.component';
 
@@ -16,18 +16,14 @@ export class RoomsComponent implements OnInit {
   roomsMap = new Map<any, any>();
   roomsList: any = [];
   workstationsList: any = [];
+  visible = new Map<any, boolean>();
 
   @ViewChildren('cmp') components: QueryList<AddEditWorkstationComponent>;
 
   ngOnInit(): void {
-    this.refreshAllNoDB();
+    this.refreshAll();
   }
 
-  // tslint:disable-next-line:typedef use-lifecycle-interface
-  ngAfterViewInit(){
-    // print array of CustomComponent objects
-    console.log(this.components.toArray());
-  }
 
   refreshAllNoDB(): void {
     this.workstationsList = [
@@ -73,35 +69,26 @@ export class RoomsComponent implements OnInit {
 
   refreshAll(): void {
     // First I update the room list
-    this.service.getRoomList().toPromise().then(data => {
-      this.roomsList = data;
-      console.log('ciao1');
-    }).then( () => {
-      // then I update the workstation list
-      this.service.getWorkstationList().toPromise().then(data => {
 
-        this.workstationsList = data;
-        console.log('ciao2');
-        // then I update the rooms map
-        this.roomsMap = new Map<any, any>();
-        // I divide the workstations by their room
-        // For now I don't check the correspondence with the roomsList
-        this.workstationsList.forEach(function(value): void {
-          if (this.roomsMap.get(value.idroom)) {
-          } else {
-            this.roomsMap.set(value.idroom, []);
-          }
-          this.roomsMap.get(value.idroom).push(value);
-        }.bind(this));
-        // says to angular to update the view
-        this.cd.detectChanges();
-      });
+    // then I update the workstation list
+    this.service.getWorkstationList().subscribe(data => {
+
+      this.workstationsList = data;
+      console.log('ciao2');
+      // then I update the rooms map
+      this.roomsMap = new Map<any, any>();
+      // I divide the workstations by their room
+      // For now I don't check the correspondence with the roomsList
+      this.workstationsList.forEach(function(value): void {
+        if (this.roomsMap.get(value.idroom)) {
+        } else {
+          this.roomsMap.set(value.idroom, []);
+        }
+        this.roomsMap.get(value.idroom).push(value);
+      }.bind(this));
+      // says to angular to update the view
+      this.cd.detectChanges();
     });
-  }
-
-  testFunc(): void {
-    console.log('test');
-
   }
 
   // tslint:disable-next-line:typedef
@@ -115,10 +102,8 @@ export class RoomsComponent implements OnInit {
     }
   }
 
-  // opens the addWorkstationPage
-  addWorkstationClick(roomId): void {
-    // I have to set the workstation to something
-    // console.log('addWorkstationClick ' + roomId);
+  closeAddWorkstation(): void {
+    this.refreshAll();
   }
 
 }
