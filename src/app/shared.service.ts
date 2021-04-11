@@ -44,4 +44,8 @@ export class SharedService {
   modifyRoom(val: any): Observable<any>{
     return this.http.get(this.APIUrl + '/room/modify/', val);
   }
+
+  login(val: any): Observable<any>{
+    return this.http.post(this.APIUrl + '/user/login',val);
+  }
 }
