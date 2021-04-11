@@ -9,7 +9,14 @@ import {SharedService} from '../../../shared.service';
 export class AddEditCredentialComponent implements OnInit {
   constructor(private service: SharedService ) { }
 
-  @Input() credential: any;
+  @Input() credential: any = {
+    Name: '',
+    Surname: '',
+    Username: '',
+    Email: '',
+    Type: '',
+    Password: ''
+  };
   Name: string | undefined;
   Surname: string | undefined;
   Username: string | undefined;

@@ -19,20 +19,6 @@ export class AddEditWorkstationComponent implements OnInit {
   archived = 0;
 
   ngOnInit(): void {
-    console.log('ngOnInit ' + this.idroom);
-    /*
-    this.id = this.workstation.id;
-    this.workstationname = this.workstation.workstationname;
-    this.xworkstation = this.workstation.xworkstation;
-    this.yworkstation = this.workstation.yworkstation;
-    this.idroom = this.workstation.idroom;
-    this.state = this.workstation.state;
-    this.archived = this.workstation.archived;*/
-  }
-
-  // tslint:disable-next-line:use-lifecycle-interface
-  ngOnChanges(obj: any): void {
-    console.log(obj);
   }
 
   // tslint:disable-next-line:typedef
