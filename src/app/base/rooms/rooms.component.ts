@@ -17,8 +17,9 @@ export class RoomsComponent implements OnInit {
   roomsList: any = [];
   workstationsList: any = [];
   visible = new Map<any, boolean>();
-
-  @ViewChildren('cmp') components: QueryList<AddEditWorkstationComponent>;
+  // search
+  searchId: string;
+  searchUsername: string;
 
   ngOnInit(): void {
     this.refreshAll();
@@ -67,27 +68,33 @@ export class RoomsComponent implements OnInit {
 
   }
 
-  refreshAll(): void {
+  // this function accepts a filter
+  refreshAll(filterWorkstationId?): void {
     // First I update the room list
 
     // then I update the workstation list
     this.service.getWorkstationList().subscribe(data => {
 
       this.workstationsList = data;
+      const tempRoomsMap = new Map<any, any>();
       console.log('ciao2');
       // then I update the rooms map
       this.roomsMap = new Map<any, any>();
       // I divide the workstations by their room
       // For now I don't check the correspondence with the roomsList
-      this.workstationsList.forEach(function(value): void {
-        if (this.roomsMap.get(value.idroom)) {
-        } else {
-          this.roomsMap.set(value.idroom, []);
+      for (const w of this.workstationsList){
+        if (filterWorkstationId == null || w.id === filterWorkstationId) {
+          if (tempRoomsMap.get(w.idroom)) {
+          } else {
+            tempRoomsMap.set(w.idroom, []);
+          }
+          tempRoomsMap.get(w.idroom).push(w);
         }
-        this.roomsMap.get(value.idroom).push(value);
-      }.bind(this));
+      }
+      this.roomsMap = tempRoomsMap;
       // says to angular to update the view
       this.cd.detectChanges();
+      console.log('refreshed all');
     });
   }
 
@@ -103,6 +110,18 @@ export class RoomsComponent implements OnInit {
   }
 
   closeAddWorkstation(): void {
+    this.refreshAll();
+  }
+
+  searchOccupation(): void {
+    // leggi WorkstationId: string;
+    // e Username: string;
+    // Poi user this.filer
+    this.refreshAll( parseInt(this.searchId, 10));
+  }
+
+  resetFilter(): void {
+    // I call the refresh all without specifing filter parameters
     this.refreshAll();
   }
 
