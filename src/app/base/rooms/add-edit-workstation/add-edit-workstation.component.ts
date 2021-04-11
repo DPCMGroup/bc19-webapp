@@ -9,25 +9,32 @@ import { SharedService } from '../../../shared.service';
 export class AddEditWorkstationComponent implements OnInit {
   constructor(private service: SharedService ) { }
 
-  @Input() workstation: any;
-  WorkstationId: number | undefined;
-  Xposition: number | undefined;
-  Yposition: number | undefined;
-  Status: string | undefined;
+  id = 0;
+  tag: string;
+  workstationname: string;
+  xworkstation: number;
+  yworkstation: number;
+  @Input() idroom;
+  state: number;
+  archived = 0;
 
   ngOnInit(): void {
-    this.WorkstationId = this.workstation.WorkstationId;
-    this.Xposition = this.workstation.Xposition;
-    this.Yposition = this.workstation.Yposition;
-    this.Status = this.workstation.Status;
   }
 
   // tslint:disable-next-line:typedef
-  addWorkstation(){
-    const val = {WorkstationId: this.WorkstationId,
-      Xposition: this.Xposition,
-      Yposition: this.Yposition,
-      Status: this.Status};
+  addWorkstation() {
+    console.log('addWorkstation' + this.idroom);
+    const val = {
+      id: this.id,
+      tag: this.tag,
+      workstationname: this.workstationname,
+      xworkstation: this.xworkstation,
+      yworkstation: this.yworkstation,
+      idroom: this.idroom,
+      state: this.state,
+      archived: this.archived,
+    };
+    console.log(val);
     this.service.addWorkstation(val).subscribe(res => {
       alert(res.toString());
     });

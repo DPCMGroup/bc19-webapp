@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AddEditCredentialComponent } from './add-edit-credential.component';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
 
 describe('AddEditCredentialComponent', () => {
   let component: AddEditCredentialComponent;
@@ -8,6 +9,7 @@ describe('AddEditCredentialComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
       declarations: [ AddEditCredentialComponent ]
     })
     .compileComponents();
