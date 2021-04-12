@@ -15,6 +15,6 @@
   </div>
 </div>
 
-<button (click)="addWorkstation()" class="btn btn-primary">
-  Add
+<button (click)="takeAction()" class="btn btn-primary">
+  {{action === 'add' ? 'Add' : 'Confirm values'}}
 </button>

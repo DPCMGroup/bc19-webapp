@@ -20,10 +20,10 @@ export class RoomsComponent implements OnInit {
   // search
   searchId: string;
   searchUsername: string;
-
-  // modal
+  // workstationModal
   addEditWorkstation = this.service.workstationTemplate;
-  notifyChange = false;
+  notifyChangeVariable = false;
+  workstationAction = 'add'; // add or edit
 
   ngOnInit(): void {
     this.refreshAll();
@@ -89,8 +89,12 @@ export class RoomsComponent implements OnInit {
         // then I update the rooms map
         this.roomsMap = new Map<any, any>();
 
-        for (const r of this.roomsList){
-          tempRoomsMap.set(r.id, []);
+        // Put in the map all the rooms saved in the server, also the empty ones.
+        // Do that just if there if there isn't a filter. When you filter you don't want to see the empty rooms.
+        if ( filterWorkstationId == null ){
+          for (const r of this.roomsList){
+            tempRoomsMap.set(r.id, []);
+          }
         }
         // I divide the workstations by their room
         // If there is a workstation with a roomid not present in roomList,
@@ -108,7 +112,7 @@ export class RoomsComponent implements OnInit {
         // says to angular to update the view
         this.cd.detectChanges();
         console.log('refreshed all');
-      });
+      }, error => alert('There was an error'));
     });
     // then I update the workstation list
 
@@ -133,19 +137,28 @@ export class RoomsComponent implements OnInit {
       this.service.deleteRoom(roomId.toString()).subscribe( (data) => {
         alert(data.toString());
         this.refreshAll();
-      });
+      }, error => alert('There was an error'));
     }
   }
 
   openAddWorkstation(idroom): void{
     this.addEditWorkstation = this.service.workstationTemplate;
     this.addEditWorkstation.idroom = idroom;
-    this.notifyChange = !this.notifyChange;
+    this.workstationAction = 'add';
+    this.notifyChange();
     console.log(this.addEditWorkstation);
   }
 
   openEditWorkstation(workstation): void{
     this.addEditWorkstation = workstation;
+    this.workstationAction = 'edit';
+    this.notifyChange();
+  }
+
+  // changes a variable so that all the variables, of other components, binded to it change too.
+  // This makes the other components notice changes, even on other variables.
+  notifyChange(): void{
+    this.notifyChangeVariable = !this.notifyChangeVariable;
   }
 
   closeAddWorkstation(): void {

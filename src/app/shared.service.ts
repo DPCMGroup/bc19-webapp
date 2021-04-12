@@ -39,7 +39,7 @@ export class SharedService {
   }
 
   modifyWorkstation(val: any): Observable<any>{
-    return this.http.get(this.APIUrl + '/workstation/modify/', val);
+    return this.http.post(this.APIUrl + '/workstation/modify', val);
   }
 
   getRoomList(): Observable<any[]>{
