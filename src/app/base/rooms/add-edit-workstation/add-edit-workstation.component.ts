@@ -12,11 +12,11 @@ export class AddEditWorkstationComponent implements OnInit {
   id = 0;
   tag: string;
   workstationname: string;
-  xworkstation: number;
-  yworkstation: number;
+  xworkstation: string;
+  yworkstation: string;
   @Input() idroom;
-  state: number;
-  sanitized: number;
+  state: string;
+  sanitized = 1;
   archived = 0;
 
   ngOnInit(): void {
@@ -25,14 +25,20 @@ export class AddEditWorkstationComponent implements OnInit {
   // tslint:disable-next-line:typedef
   addWorkstation() {
     console.log('addWorkstation' + this.idroom);
+    // check whether the inputs are valid
+    const numState = parseInt(this.state, 10);
+    if( numState < 0 || numState > 3){
+      alert('State not in the valid range');
+      return;
+    }
     const val = {
       id: this.id,
       tag: this.tag,
       workstationname: this.workstationname,
-      xworkstation: this.xworkstation,
-      yworkstation: this.yworkstation,
+      xworkstation: parseInt(this.xworkstation, 10),
+      yworkstation: parseInt(this.yworkstation, 10),
       idroom: this.idroom,
-      state: this.state,
+      state: numState,
       sanitized: this.sanitized,
       archived: this.archived,
     };
