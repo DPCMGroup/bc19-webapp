@@ -20,8 +20,7 @@ export class RoomsComponent implements OnInit {
   // search
   searchId: string;
   searchUsername: string;
-
-  // workstionModal
+  // workstationModal
   addEditWorkstation = this.service.workstationTemplate;
   notifyChangeVariable = false;
   workstationAction = 'add'; // add or edit
@@ -90,8 +89,12 @@ export class RoomsComponent implements OnInit {
         // then I update the rooms map
         this.roomsMap = new Map<any, any>();
 
-        for (const r of this.roomsList){
-          tempRoomsMap.set(r.id, []);
+        // Put in the map all the rooms saved in the server, also the empty ones.
+        // Do that just if there if there isn't a filter. When you filter you don't want to see the empty rooms.
+        if ( filterWorkstationId == null ){
+          for (const r of this.roomsList){
+            tempRoomsMap.set(r.id, []);
+          }
         }
         // I divide the workstations by their room
         // If there is a workstation with a roomid not present in roomList,
@@ -109,7 +112,7 @@ export class RoomsComponent implements OnInit {
         // says to angular to update the view
         this.cd.detectChanges();
         console.log('refreshed all');
-      });
+      }, error => alert('There was an error'));
     });
     // then I update the workstation list
 
@@ -134,7 +137,7 @@ export class RoomsComponent implements OnInit {
       this.service.deleteRoom(roomId.toString()).subscribe( (data) => {
         alert(data.toString());
         this.refreshAll();
-      });
+      }, error => alert('There was an error'));
     }
   }
 

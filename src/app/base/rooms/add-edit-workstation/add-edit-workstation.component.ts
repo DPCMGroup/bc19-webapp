@@ -70,7 +70,7 @@ export class AddEditWorkstationComponent implements OnInit {
     console.log(val);
     this.service.addWorkstation(val).subscribe(res => {
       alert(res.toString());
-    });
+    }, error => alert('There was an error'));
   }
 
   editWorkstation(): void{
@@ -87,6 +87,6 @@ export class AddEditWorkstationComponent implements OnInit {
     };
     this.service.modifyWorkstation(val).subscribe(res => {
       alert(res.toString());
-    });
+    }, error => alert('There was an error'));
   }
 }
