@@ -14,9 +14,12 @@ export class LoginComponent implements OnInit {
   username: string;
   password: string;
 
+  // use this to check if the user can auto login with his saved credentials
+  autoLoggedIn: boolean;
   errorVisible: string;
 
   ngOnInit(): void {
+    this.autoLoggedIn = true;
     this.setErrorVisible(false);
     // try to do an auto login
     this.autoLogin();
@@ -38,6 +41,8 @@ export class LoginComponent implements OnInit {
       if (data.type === 0) {
         // redirect to the base url
         window.location.href = '/base';
+      }else{
+        this.autoLoggedIn = false;
       }
     });
   }
@@ -58,9 +63,10 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('username', this.username);
           localStorage.setItem('password', this.password);
         }
+      }else {
+        this.setErrorVisible(true);
+        console.log(data);
       }
-      this.setErrorVisible(true);
-      console.log(data);
 
     });
   }
