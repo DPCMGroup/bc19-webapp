@@ -13,6 +13,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {SharedService} from './shared.service';
 import { RoomsComponent } from './base/rooms/rooms.component';
+import { AddEditRoomComponent } from './base/rooms/add-edit-room/add-edit-room.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { RoomsComponent } from './base/rooms/rooms.component';
     ShowCredentialComponent,
     ReportComponent,
     RoomsComponent,
+    AddEditRoomComponent,
   ],
   imports: [
     BrowserModule,

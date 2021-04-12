@@ -11,6 +11,18 @@ export class SharedService {
 
   constructor(private http: HttpClient) { }
 
+  workstationTemplate = {
+    id: 0,
+    tag: '',
+    workstationname: '',
+    xworkstation: 0,
+    yworkstation: 0,
+    idroom: 0,
+    state: 0,
+    sanitized: 0,
+    archived: 0
+  };
+
   // tslint:disable-next-line
   getWorkstationList(){
     return this.http.get<any[]>(this.APIUrl + '/workstation/list');
@@ -38,7 +50,7 @@ export class SharedService {
   }
 
   deleteRoom(val: any): Observable<any>{
-    return this.http.get(this.APIUrl + '/room/del/', val);
+    return this.http.get(this.APIUrl + '/room/del/' + val);
   }
 
   modifyRoom(val: any): Observable<any>{

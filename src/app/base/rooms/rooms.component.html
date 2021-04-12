@@ -1,12 +1,17 @@
 <button type="button" class="btn btn-primary float-right m-2"
         data-toggle="modal" data-target="#searchModal"
 
-        data-backdrop="static" data-keyboard="false"
->
+        data-backdrop="static" data-keyboard="false">
   Search Workstation
 </button>
 
-<!-- Modal -->
+<button type="button" class="btn btn-primary float-right m-2"
+        data-toggle="modal" data-target="#addRoomModal"
+        data-backdrop="static" data-keyboard="false">
+  Add Room
+</button>
+
+<!-- Search Occupations Modal -->
 <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
     <div class="modal-content">
@@ -43,41 +48,72 @@
   </div>
 </div>
 
-<table class="table table-striped">
+<!-- Search Occupations Modal -->
+
+<!-- Add Room Modal -->
+<div class="modal fade" id="addRoomModal" tabindex="-1" role="dialog" aria-labelledby="addRoomModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addRoomModalLabel">Add room</h5>
+        <button type="button" class="close"
+                data-dismiss="modal" aria-label="Close"
+        (click)="closeAddRoom()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-add-edit-room ></app-add-edit-room>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Add Room Modal -->
+
+<!-- Add-Edit Modal -->
+<div class="modal fade" id="addEditWorkstationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add workstation</h5>
+        <button type="button" class="close"
+                (click)="closeAddWorkstation()"
+                data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-add-edit-workstation [passedWorkstation]="addEditWorkstation" ></app-add-edit-workstation>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Add-Edit Modal -->
+
+<table class="table table-striped" >
   <thead>
   <tr>
-    <th>RoomName</th>
+    <th>Rooms</th>
   </tr>
   </thead>
   <tbody>
   <tr *ngFor="let key of roomsMap.keys()">
 
-    <h3>RoomId: {{key}}</h3>
+    <h3>RoomId: {{key}} | RoomName: {{getRoomInfoById(key).roomname}} | RoomDimensions: {{getRoomInfoById(key).xroom}}x{{getRoomInfoById(key).yroom}}</h3>
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-primary float-right m-2"
-            data-toggle="modal" [attr.data-target]="'#modal' + key"
-            data-backdrop="static" data-keyboard="false">
+            data-toggle="modal" data-target="#addEditWorkstationModal"
+            data-backdrop="static" data-keyboard="false"
+            (click)="openAddWorkstation(key)">
       Add Workstation
     </button>
 
-    <!-- Modal -->
-    <div class="modal fade" id="modal{{key}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Aggiungi postazione</h5>
-            <button type="button" class="close"
-                    (click)="closeAddWorkstation()"
-                    data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <app-add-edit-workstation [idroom]="key"></app-add-edit-workstation>
-          </div>
-        </div>
-      </div>
-    </div>
+    <button type="button" class="btn btn-primary float-right m-2"
+    (click)="deleteRoom(key)">
+      Remove Room
+    </button>
+
+
 
     <table class="table table-striped" >
       <thead>
@@ -88,6 +124,7 @@
         <th>WorkstationX</th>
         <th>WorkstationY</th>
         <th>Status</th>
+        <th>Sanitized</th>
         <th>Options</th>
       </tr>
       </thead>
@@ -99,6 +136,7 @@
         <td>{{dataItem.xworkstation}}</td>
         <td>{{dataItem.yworkstation}}</td>
         <td>{{dataItem.state}}</td>
+        <td>{{dataItem.sanitized}}</td>
         <td>
           <button type="button" class="btn btn-light mr-1" (click)="deleteClick(dataItem)">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
