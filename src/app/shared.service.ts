@@ -32,6 +32,17 @@ export class SharedService {
     archived: ''
   };
 
+  userTemplate = {
+    id: '',
+    username: '',
+    password: '',
+    name: '',
+    surname: '',
+    mail: '',
+    type: '',
+    archived: ''
+  };
+
   //  WORKSTATIONS
 
   // tslint:disable-next-line

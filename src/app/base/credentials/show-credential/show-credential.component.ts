@@ -11,61 +11,37 @@ export class ShowCredentialComponent implements OnInit {
   constructor(private service: SharedService) { }
 
   CredentialList: any = [];
-  ModalTitle: string | undefined;
-  credential: any;
-  // tslint:disable-next-line
-  ActivateAddEditCredentialComp: boolean = false;
+  addEditCredential: any;
+  userAction = 'add'; // add or edit
+
   ngOnInit(): void {
+    this.addEditCredential = this.service.userTemplate;
     this.refreshCredentialsList();
   }
 
-  // tslint:disable-next-line:typedef
-  addClick(){
-    this.credential = {
-      Name: '',
-      Surname: '',
-      Username: '',
-      Email: '',
-      Type: 'Dipendente'};
-    this.ModalTitle = 'Add credential';
-    this.ActivateAddEditCredentialComp = true;
+
+  addClick(): void{
+    this.userAction = 'add';
+    this.addEditCredential = this.service.userTemplate;
   }
 
-  // tslint:disable-next-line:typedef
-  closeClick(){
-    this.ActivateAddEditCredentialComp = false;
+  closeClick(): void{
     this.refreshCredentialsList();
   }
 
-  // tslint:disable-next-line:typedef
-  refreshCredentialsList(){
-    /* JUST FOR TESTING*/
-    const tempList: any = [];
-    tempList.push({
-      Name: 'Mario',
-      Surname: 'Rossi',
-      Username: 'dip0',
-      Email: 'mario.rossi@gmail.com',
-      Type: 'Dipendente'
-    });
-    this.CredentialList = tempList;
-
-    /*
-    this.service.getWorkstationList().subscribe(data => {
+  refreshCredentialsList(): void{
+    this.service.getUserList().subscribe(data => {
       this.CredentialList = data;
     });
-     */
   }
 
-  // tslint:disable-next-line:typedef
-  deleteClick(item: { Username: any; }){
+  deleteClick(item: { id: any; }): void{
     if (confirm('Are you sure??')){
-      /*
-      this.service.deleteWorkstation(item.CredentialId).subscribe(data => {
+
+      this.service.deleteUser(item.id).subscribe(data => {
         alert(data.toString());
-        this.refreshWorkstationList();
-      });
-       */
+        this.refreshCredentialsList();
+      }, error => (alert('There was an error')));
     }
   }
 }
