@@ -113,6 +113,10 @@ export class RoomsComponent implements OnInit {
     this.refreshAll();
   }
 
+  closeAddRoom(): void {
+    this.refreshAll();
+  }
+
   searchOccupation(): void {
     // leggi WorkstationId: string;
     // e Username: string;

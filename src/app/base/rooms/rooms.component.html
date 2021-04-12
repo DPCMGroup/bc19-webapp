@@ -1,9 +1,14 @@
 <button type="button" class="btn btn-primary float-right m-2"
         data-toggle="modal" data-target="#searchModal"
 
-        data-backdrop="static" data-keyboard="false"
->
+        data-backdrop="static" data-keyboard="false">
   Search Workstation
+</button>
+
+<button type="button" class="btn btn-primary float-right m-2"
+        data-toggle="modal" data-target="#addRoomModal"
+        data-backdrop="static" data-keyboard="false">
+  Add Room
 </button>
 
 <!-- Modal -->
@@ -43,7 +48,29 @@
   </div>
 </div>
 
-<table class="table table-striped">
+<!-- Modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="addRoomModal" tabindex="-1" role="dialog" aria-labelledby="addRoomModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addRoomModalLabel">Add room</h5>
+        <button type="button" class="close"
+                data-dismiss="modal" aria-label="Close"
+        (click)="closeAddRoom()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-add-edit-room ></app-add-edit-room>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+
+<table class="table table-striped" >
   <thead>
   <tr>
     <th>RoomName</th>
@@ -65,7 +92,7 @@
       <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Aggiungi postazione</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Add workstation</h5>
             <button type="button" class="close"
                     (click)="closeAddWorkstation()"
                     data-dismiss="modal" aria-label="Close">
@@ -78,8 +105,9 @@
         </div>
       </div>
     </div>
+    <!-- Modal -->
 
-    <table class="table table-striped" >
+    <table class="table table-striped {{'notVisible'}}" >
       <thead>
       <tr>
         <th>WorkstationID</th>
