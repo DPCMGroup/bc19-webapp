@@ -20,7 +20,8 @@ export class AddEditWorkstationComponent implements OnInit {
   archived = 0;
 
   @Input() passedWorkstation: any;
-  @Input() noticeChange: boolean;
+  @Input() noticeChangeVariable: boolean;
+  @Input() action: string;
 
   ngOnInit(): void {
   }
@@ -29,12 +30,21 @@ export class AddEditWorkstationComponent implements OnInit {
   ngOnChanges(): void {
     console.log('changed');
     // assign passed workstation values into my values (just the values that need to be assigned)
+    this.id = this.passedWorkstation.id;
     this.tag = this.passedWorkstation.tag;
     this.workstationname = this.passedWorkstation.workstationname;
     this.xworkstation = this.passedWorkstation.xworkstation.toString();
     this.yworkstation = this.passedWorkstation.yworkstation.toString();
     this.idroom = this.passedWorkstation.idroom;
     this.state = this.passedWorkstation.state.toString();
+  }
+
+  takeAction(): void{
+    if (this.action === 'add'){
+      this.addWorkstation();
+    }else if(this.action === 'edit'){
+      this.editWorkstation();
+    }
   }
 
   // tslint:disable-next-line:typedef
@@ -59,6 +69,23 @@ export class AddEditWorkstationComponent implements OnInit {
     };
     console.log(val);
     this.service.addWorkstation(val).subscribe(res => {
+      alert(res.toString());
+    });
+  }
+
+  editWorkstation(): void{
+    const val = {
+      id: this.id,
+      tag: this.tag,
+      workstationname: this.workstationname,
+      xworkstation: parseInt(this.xworkstation, 10),
+      yworkstation: parseInt(this.yworkstation, 10),
+      idroom: this.idroom,
+      state: this.state,
+      sanitized: this.sanitized,
+      archived: this.archived,
+    };
+    this.service.modifyWorkstation(val).subscribe(res => {
       alert(res.toString());
     });
   }

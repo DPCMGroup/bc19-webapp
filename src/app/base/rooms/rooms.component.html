@@ -16,7 +16,7 @@
   <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabelNew">Search Occupations Workstations</h5>
+        <h5 class="modal-title" id="exampleModalLabelNew">Search Workstations</h5>
         <button type="button" class="close"
                 data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
@@ -75,7 +75,7 @@
   <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add workstation</h5>
+        <h5 class="modal-title" id="exampleModalLabel">{{workstationAction === 'add' ? 'Add workstation' : 'Edit workstation'}}</h5>
         <button type="button" class="close"
                 (click)="closeAddWorkstation()"
                 data-dismiss="modal" aria-label="Close">
@@ -83,7 +83,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <app-add-edit-workstation [passedWorkstation]="addEditWorkstation" [noticeChange]="notifyChange" ></app-add-edit-workstation>
+        <app-add-edit-workstation [passedWorkstation]="addEditWorkstation" [noticeChangeVariable]="notifyChangeVariable" [action]="workstationAction"></app-add-edit-workstation>
       </div>
     </div>
   </div>
@@ -142,6 +142,12 @@
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
               <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
             </svg></button>
+          <button type="button" class="btn btn-primary float-right m-2"
+                  data-toggle="modal" data-target="#addEditWorkstationModal"
+                  data-backdrop="static" data-keyboard="false"
+                  (click)="openEditWorkstation(dataItem)">
+            E
+          </button>
         </td>
       </tr>
       </tbody>

@@ -21,9 +21,10 @@ export class RoomsComponent implements OnInit {
   searchId: string;
   searchUsername: string;
 
-  // modal
+  // workstionModal
   addEditWorkstation = this.service.workstationTemplate;
-  notifyChange = false;
+  notifyChangeVariable = false;
+  workstationAction = 'add'; // add or edit
 
   ngOnInit(): void {
     this.refreshAll();
@@ -140,12 +141,21 @@ export class RoomsComponent implements OnInit {
   openAddWorkstation(idroom): void{
     this.addEditWorkstation = this.service.workstationTemplate;
     this.addEditWorkstation.idroom = idroom;
-    this.notifyChange = !this.notifyChange;
+    this.workstationAction = 'add';
+    this.notifyChange();
     console.log(this.addEditWorkstation);
   }
 
   openEditWorkstation(workstation): void{
     this.addEditWorkstation = workstation;
+    this.workstationAction = 'edit';
+    this.notifyChange();
+  }
+
+  // changes a variable so that all the variables, of other components, binded to it change too.
+  // This makes the other components notice changes, even on other variables.
+  notifyChange(): void{
+    this.notifyChangeVariable = !this.notifyChangeVariable;
   }
 
   closeAddWorkstation(): void {
