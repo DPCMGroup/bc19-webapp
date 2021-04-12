@@ -20,6 +20,7 @@ export class AddEditWorkstationComponent implements OnInit {
   archived = 0;
 
   @Input() passedWorkstation: any;
+  @Input() noticeChange: boolean;
 
   ngOnInit(): void {
   }

@@ -11,16 +11,17 @@ export class SharedService {
 
   constructor(private http: HttpClient) { }
 
+  // use as a reference for the values that the service expects
   workstationTemplate = {
-    id: 0,
+    id: '',
     tag: '',
     workstationname: '',
-    xworkstation: 0,
-    yworkstation: 0,
-    idroom: 0,
-    state: 0,
-    sanitized: 0,
-    archived: 0
+    xworkstation: '',
+    yworkstation: '',
+    idroom: '',
+    state: '',
+    sanitized: '',
+    archived: ''
   };
 
   // tslint:disable-next-line

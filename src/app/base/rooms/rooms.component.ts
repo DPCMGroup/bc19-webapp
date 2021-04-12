@@ -23,6 +23,7 @@ export class RoomsComponent implements OnInit {
 
   // modal
   addEditWorkstation = this.service.workstationTemplate;
+  notifyChange = false;
 
   ngOnInit(): void {
     this.refreshAll();
@@ -139,6 +140,7 @@ export class RoomsComponent implements OnInit {
   openAddWorkstation(idroom): void{
     this.addEditWorkstation = this.service.workstationTemplate;
     this.addEditWorkstation.idroom = idroom;
+    this.notifyChange = !this.notifyChange;
     console.log(this.addEditWorkstation);
   }
 
