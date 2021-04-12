@@ -6,7 +6,7 @@
 </button>
 
 <button type="button" class="btn btn-primary float-right m-2"
-        data-toggle="modal" data-target="#addRoomModal"
+        data-toggle="modal" data-target="#addEditRoomModal"
         data-backdrop="static" data-keyboard="false">
   Add Room
 </button>
@@ -50,34 +50,34 @@
 
 <!-- Search Occupations Modal -->
 
-<!-- Add Room Modal -->
-<div class="modal fade" id="addRoomModal" tabindex="-1" role="dialog" aria-labelledby="addRoomModalLabel" aria-hidden="true">
+<!-- Add-Edit Room Modal -->
+<div class="modal fade" id="addEditRoomModal" tabindex="-1" role="dialog" aria-labelledby="addEditRoomModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="addRoomModalLabel">Add room</h5>
+        <h5 class="modal-title" id="addEditRoomModalLabel">{{roomAction === 'add' ? 'Add room' : 'Edit room'}}</h5>
         <button type="button" class="close"
                 data-dismiss="modal" aria-label="Close"
-        (click)="closeAddRoom()">
+        (click)="closeAddEditRoom()">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <app-add-edit-room ></app-add-edit-room>
+        <app-add-edit-room [passedRoom]="addEditRoom" [noticeChangeVariable]="notifyChangeVariable" [action]="roomAction" ></app-add-edit-room>
       </div>
     </div>
   </div>
 </div>
-<!-- Add Room Modal -->
+<!-- Add-Edit Room Modal -->
 
 <!-- Add-Edit Workstation Modal -->
-<div class="modal fade" id="addEditWorkstationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="addEditWorkstationModal" tabindex="-1" role="dialog" aria-labelledby="addEditWorkstationModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">{{workstationAction === 'add' ? 'Add workstation' : 'Edit workstation'}}</h5>
+        <h5 class="modal-title" id="addEditWorkstationModalLabel">{{workstationAction === 'add' ? 'Add workstation' : 'Edit workstation'}}</h5>
         <button type="button" class="close"
-                (click)="closeAddWorkstation()"
+                (click)="closeAddEditWorkstation()"
                 data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -111,6 +111,13 @@
     <button type="button" class="btn btn-primary float-right m-2"
     (click)="deleteRoom(key)">
       Remove Room
+    </button>
+
+    <button type="button" class="btn btn-primary float-right m-2"
+            data-toggle="modal" data-target="#addEditRoomModal"
+            data-backdrop="static" data-keyboard="false"
+            (click)="openEditRoom(this.getRoomInfoById(key))">
+      Edit Room
     </button>
 
 
