@@ -59,6 +59,10 @@ export class AddEditRoomComponent implements OnInit {
 
   addRoom(): void{
     const newRoom = this.getRoomFromLocalValues();
+    // set values that may be not already set or set improperly but that the server requires
+    newRoom.id = 0;
+    newRoom.archived = 0;
+    console.log(newRoom);
     this.service.addRoom(newRoom).subscribe( (data) => {
       alert(data.toString());
     }, error => alert('There was an error'));
