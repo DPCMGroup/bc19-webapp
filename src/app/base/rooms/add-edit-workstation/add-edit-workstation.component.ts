@@ -15,7 +15,7 @@ export class AddEditWorkstationComponent implements OnInit {
   xworkstation: string;
   yworkstation: string;
   idroom: number;
-  state: string;
+  state = 0;
   sanitized = 1;
   archived = 0;
 
@@ -40,11 +40,6 @@ export class AddEditWorkstationComponent implements OnInit {
   }
 
   getWorkstationFromLocalValues(): any{
-    // check whether the inputs are valid
-    const numState = parseInt(this.state, 10);
-    if ( numState < 0 || numState > 3){
-      return null;
-    }
     const val = {
       id: this.id,
       tag: this.tag,
@@ -52,16 +47,17 @@ export class AddEditWorkstationComponent implements OnInit {
       xworkstation: parseInt(this.xworkstation, 10),
       yworkstation: parseInt(this.yworkstation, 10),
       idroom: this.idroom,
-      state: numState,
+      state: this.state,
       sanitized: this.sanitized,
       archived: this.archived,
     };
+    return val;
   }
 
   takeAction(): void{
     if (this.action === 'add'){
       this.addWorkstation();
-    }else if(this.action === 'edit'){
+    }else if (this.action === 'edit'){
       this.editWorkstation();
     }
   }
@@ -69,20 +65,22 @@ export class AddEditWorkstationComponent implements OnInit {
   // tslint:disable-next-line:typedef
   addWorkstation() {
     console.log('addWorkstation' + this.idroom);
-    const val = this.getWorkstationFromLocalValues();
-    if (!val){
+    const newWorkstation = this.getWorkstationFromLocalValues();
+    if (newWorkstation == null){
       alert('Values not valid');
       return;
     }
-    console.log(val);
-    this.service.addWorkstation(val).subscribe(res => {
+    // all the workstations have to be created with state 0
+    newWorkstation.state = 0;
+    console.log(newWorkstation);
+    this.service.addWorkstation(newWorkstation).subscribe(res => {
       alert(res.toString());
     }, error => alert('There was an error'));
   }
 
   editWorkstation(): void{
     const val = this.getWorkstationFromLocalValues();
-    if (!val){
+    if (val == null){
       alert('Values not valid');
       return;
     }
