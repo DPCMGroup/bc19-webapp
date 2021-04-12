@@ -7,8 +7,8 @@
     <th>WorkstationX</th>
     <th>WorkstationY</th>
     <th>Room</th>
-    <th>Role</th>
-    <th>Username</th>
+    <th *ngIf="type === 'Disinfection'" >Role</th>
+    <th *ngIf="type === 'Occupation'" >Username</th>
   </tr>
   </thead>
   <tbody>
@@ -17,8 +17,8 @@
     <td>{{dataItem.Xposition}}</td>
     <td>{{dataItem.Yposition}}</td>
     <td>{{dataItem.Room}}</td>
-    <td>{{dataItem.Role}}</td>
-    <td>{{dataItem.Username}}</td>
+    <td *ngIf="type === 'Disinfection'" >{{dataItem.Role}}</td>
+    <td *ngIf="type === 'Occupation'" >{{dataItem.Username}}</td>
   </tr>
   </tbody>
 

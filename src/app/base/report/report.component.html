@@ -30,8 +30,8 @@
     <hr>
     <fieldset>
       <legend>Report type</legend>
-        <input type="radio" id="occupazioni" value="occupazioni" name="type" checked><label for="occupazioni">Occupation</label>
-        <input type="radio" id="sanificazioni" value="sanificazioni" name="type"><label for="sanificazioni">Disinfection</label>
+        <input type="radio" id="occupazioni" (change)="setRadio('Occupation')" value="occupazioni" name="type" checked><label for="occupazioni">Occupation</label>
+        <input type="radio" id="sanificazioni" (change)="setRadio('Disinfection')" value="sanificazioni" name="type"><label for="sanificazioni">Disinfection</label>
     </fieldset>
     <button type="submit" class="btn btn-primary float-right m-2"
             (click)="addClick()"
@@ -42,5 +42,5 @@
   </form>
 </div>
 
-<!--<app-show-report></app-show-report>-->
+<app-show-report [type]="confirmedType" ></app-show-report>
 

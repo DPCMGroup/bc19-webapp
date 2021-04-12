@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-show-report',
@@ -9,7 +9,10 @@ export class ShowReportComponent implements OnInit {
 
   constructor() { }
 
+  ReportList: any = [];
+  @Input() type: string;
+
   ngOnInit(): void {
   }
-  ReportList: any = [];
+
 }
