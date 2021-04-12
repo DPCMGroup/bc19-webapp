@@ -18,10 +18,28 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.setErrorVisible(false);
+    // try to do an auto login
+    this.autoLogin();
   }
 
   focused(): void {
     this.setErrorVisible(false);
+  }
+
+  autoLogin(): void {
+    this.username = localStorage.getItem('username');
+    this.password = localStorage.getItem('password');
+    const credentials = {
+      username: this.username,
+      password: this.password
+    };
+
+    this.service.login(credentials).subscribe( (data) => {
+      if (data.type === 0) {
+        // redirect to the base url
+        window.location.href = '/base';
+      }
+    });
   }
 
   login(): void {
@@ -31,8 +49,15 @@ export class LoginComponent implements OnInit {
     };
     this.service.login(credentials).subscribe( (data) => {
       if ( data.type === 0) {
+        // redirect to the base url
         window.location.href = '/base';
         this.setErrorVisible(false);
+        // I save user credentials in localStorage
+        if (localStorage.getItem('username') === null
+        || localStorage.getItem('password') === null){
+          localStorage.setItem('username', this.username);
+          localStorage.setItem('password', this.password);
+        }
       }
       this.setErrorVisible(true);
       console.log(data);
