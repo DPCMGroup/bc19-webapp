@@ -14,12 +14,26 @@ export class AddEditWorkstationComponent implements OnInit {
   workstationname: string;
   xworkstation: string;
   yworkstation: string;
-  @Input() idroom;
+  idroom: number;
   state: string;
   sanitized = 1;
   archived = 0;
 
+  @Input() passedWorkstation: any;
+
   ngOnInit(): void {
+  }
+
+  // tslint:disable-next-line:use-lifecycle-interface
+  ngOnChanges(): void {
+    console.log('changed');
+    // assign passed workstation values into my values (just the values that need to be assigned)
+    this.tag = this.passedWorkstation.tag;
+    this.workstationname = this.passedWorkstation.workstationname;
+    this.xworkstation = this.passedWorkstation.xworkstation.toString();
+    this.yworkstation = this.passedWorkstation.yworkstation.toString();
+    this.idroom = this.passedWorkstation.idroom;
+    this.state = this.passedWorkstation.state.toString();
   }
 
   // tslint:disable-next-line:typedef
@@ -27,7 +41,7 @@ export class AddEditWorkstationComponent implements OnInit {
     console.log('addWorkstation' + this.idroom);
     // check whether the inputs are valid
     const numState = parseInt(this.state, 10);
-    if( numState < 0 || numState > 3){
+    if ( numState < 0 || numState > 3){
       alert('State not in the valid range');
       return;
     }

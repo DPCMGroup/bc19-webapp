@@ -11,7 +11,7 @@
   Add Room
 </button>
 
-<!-- Modal -->
+<!-- Search Occupations Modal -->
 <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
     <div class="modal-content">
@@ -48,9 +48,9 @@
   </div>
 </div>
 
-<!-- Modal -->
+<!-- Search Occupations Modal -->
 
-<!-- Modal -->
+<!-- Add Room Modal -->
 <div class="modal fade" id="addRoomModal" tabindex="-1" role="dialog" aria-labelledby="addRoomModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
     <div class="modal-content">
@@ -68,22 +68,43 @@
     </div>
   </div>
 </div>
-<!-- Modal -->
+<!-- Add Room Modal -->
+
+<!-- Add-Edit Modal -->
+<div class="modal fade" id="addEditWorkstationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add workstation</h5>
+        <button type="button" class="close"
+                (click)="closeAddWorkstation()"
+                data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-add-edit-workstation [passedWorkstation]="addEditWorkstation" ></app-add-edit-workstation>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Add-Edit Modal -->
 
 <table class="table table-striped" >
   <thead>
   <tr>
-    <th>RoomName</th>
+    <th>Rooms</th>
   </tr>
   </thead>
   <tbody>
   <tr *ngFor="let key of roomsMap.keys()">
 
-    <h3>RoomId: {{key}} | RoomName: {{getRoomInfoById(key).roomname}}</h3>
+    <h3>RoomId: {{key}} | RoomName: {{getRoomInfoById(key).roomname}} | RoomDimensions: {{getRoomInfoById(key).xroom}}x{{getRoomInfoById(key).yroom}}</h3>
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-primary float-right m-2"
-            data-toggle="modal" [attr.data-target]="'#modal' + key"
-            data-backdrop="static" data-keyboard="false">
+            data-toggle="modal" data-target="#addEditWorkstationModal"
+            data-backdrop="static" data-keyboard="false"
+            (click)="openAddWorkstation(key)">
       Add Workstation
     </button>
 
@@ -92,27 +113,9 @@
       Remove Room
     </button>
 
-    <!-- Modal -->
-    <div class="modal fade" id="modal{{key}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Add workstation</h5>
-            <button type="button" class="close"
-                    (click)="closeAddWorkstation()"
-                    data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <app-add-edit-workstation [idroom]="key"></app-add-edit-workstation>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- Modal -->
 
-    <table class="table table-striped {{'notVisible'}}" >
+
+    <table class="table table-striped" >
       <thead>
       <tr>
         <th>WorkstationID</th>

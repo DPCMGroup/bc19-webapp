@@ -21,6 +21,9 @@ export class RoomsComponent implements OnInit {
   searchId: string;
   searchUsername: string;
 
+  // modal
+  addEditWorkstation = this.service.workstationTemplate;
+
   ngOnInit(): void {
     this.refreshAll();
   }
@@ -131,6 +134,16 @@ export class RoomsComponent implements OnInit {
         this.refreshAll();
       });
     }
+  }
+
+  openAddWorkstation(idroom): void{
+    this.addEditWorkstation = this.service.workstationTemplate;
+    this.addEditWorkstation.idroom = idroom;
+    console.log(this.addEditWorkstation);
+  }
+
+  openEditWorkstation(workstation): void{
+    this.addEditWorkstation = workstation;
   }
 
   closeAddWorkstation(): void {
