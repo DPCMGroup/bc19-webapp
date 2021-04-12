@@ -25,6 +25,10 @@ export class RoomsComponent implements OnInit {
     this.refreshAll();
   }
 
+  getRoomInfoById(id): any {
+    return this.roomsList.find( o => o.id === id );
+  }
+
 
   refreshAllNoDB(): void {
     this.workstationsList = [
@@ -71,33 +75,42 @@ export class RoomsComponent implements OnInit {
   // this function accepts a filter
   refreshAll(filterWorkstationId?): void {
     // First I update the room list
+    this.service.getRoomList().subscribe( (roomsData) => {
+      this.roomsList = roomsData;
+      this.service.getWorkstationList().subscribe((workstationsData) => {
 
-    // then I update the workstation list
-    this.service.getWorkstationList().subscribe(data => {
+        this.workstationsList = workstationsData;
+        const tempRoomsMap = new Map<any, any>();
 
-      this.workstationsList = data;
-      const tempRoomsMap = new Map<any, any>();
-      console.log('ciao2');
-      // then I update the rooms map
-      this.roomsMap = new Map<any, any>();
-      // I divide the workstations by their room
-      // For now I don't check the correspondence with the roomsList
-      for (const w of this.workstationsList){
-        if (filterWorkstationId == null || w.id === filterWorkstationId) {
-          if (tempRoomsMap.get(w.idroom)) {
-          } else {
-            tempRoomsMap.set(w.idroom, []);
-          }
-          tempRoomsMap.get(w.idroom).push(w);
+        // then I update the rooms map
+        this.roomsMap = new Map<any, any>();
+
+        for (const r of this.roomsList){
+          tempRoomsMap.set(r.id, []);
         }
-      }
-      this.roomsMap = tempRoomsMap;
-      // says to angular to update the view
-      this.cd.detectChanges();
-      console.log('refreshed all');
+        // I divide the workstations by their room
+        // If there is a workstation with a roomid not present in roomList,
+        // i add the workstation anyway, inside a new entry of the map
+        for (const w of this.workstationsList){
+          if (filterWorkstationId == null || w.id === filterWorkstationId) {
+            if (tempRoomsMap.get(w.idroom)) {
+            } else {
+              tempRoomsMap.set(w.idroom, []);
+            }
+            tempRoomsMap.get(w.idroom).push(w);
+          }
+        }
+        this.roomsMap = tempRoomsMap;
+        // says to angular to update the view
+        this.cd.detectChanges();
+        console.log('refreshed all');
+      });
     });
+    // then I update the workstation list
+
   }
 
+  // deletes the workstation
   // tslint:disable-next-line:typedef
   deleteClick(item: { id: any; }) {
     if (confirm('Are you sure??')) {
@@ -110,8 +123,10 @@ export class RoomsComponent implements OnInit {
   }
 
   deleteRoom(roomId): void {
+    console.log(roomId);
+
     if (confirm('Are you sure?')){
-      this.service.deleteRoom(roomId).subscribe( (data) => {
+      this.service.deleteRoom(roomId.toString()).subscribe( (data) => {
         alert(data.toString());
         this.refreshAll();
       });

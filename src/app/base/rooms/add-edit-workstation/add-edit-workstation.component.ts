@@ -16,6 +16,7 @@ export class AddEditWorkstationComponent implements OnInit {
   yworkstation: number;
   @Input() idroom;
   state: number;
+  sanitized: number;
   archived = 0;
 
   ngOnInit(): void {
@@ -32,6 +33,7 @@ export class AddEditWorkstationComponent implements OnInit {
       yworkstation: this.yworkstation,
       idroom: this.idroom,
       state: this.state,
+      sanitized: this.sanitized,
       archived: this.archived,
     };
     console.log(val);

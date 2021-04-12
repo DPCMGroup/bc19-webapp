@@ -38,7 +38,7 @@ export class SharedService {
   }
 
   deleteRoom(val: any): Observable<any>{
-    return this.http.get(this.APIUrl + '/room/del/', val);
+    return this.http.get(this.APIUrl + '/room/del/' + val);
   }
 
   modifyRoom(val: any): Observable<any>{

@@ -24,9 +24,9 @@ export class AddEditRoomComponent implements OnInit {
     const newRoom = {
       roomname: this.roomname,
       xroom: this.xroom,
-      yroom: this.yroom
+      yroom: this.yroom,
+      archived: 0
     };
-
     this.service.addRoom(newRoom).subscribe( (data) => {
       alert(data.toString());
     });
