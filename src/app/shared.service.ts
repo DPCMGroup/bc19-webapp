@@ -24,6 +24,14 @@ export class SharedService {
     archived: ''
   };
 
+  roomTemplate = {
+    id: '',
+    roomname: '',
+    xroom: '',
+    yroom: '',
+    archived: ''
+  };
+
   // tslint:disable-next-line
   getWorkstationList(){
     return this.http.get<any[]>(this.APIUrl + '/workstation/list');
@@ -55,10 +63,10 @@ export class SharedService {
   }
 
   modifyRoom(val: any): Observable<any>{
-    return this.http.get(this.APIUrl + '/room/modify/', val);
+    return this.http.post(this.APIUrl + '/room/modify', val);
   }
 
   login(val: any): Observable<any>{
-    return this.http.post(this.APIUrl + '/user/login',val);
+    return this.http.post(this.APIUrl + '/user/login', val);
   }
 }

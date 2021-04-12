@@ -39,22 +39,11 @@ export class AddEditWorkstationComponent implements OnInit {
     this.state = this.passedWorkstation.state.toString();
   }
 
-  takeAction(): void{
-    if (this.action === 'add'){
-      this.addWorkstation();
-    }else if(this.action === 'edit'){
-      this.editWorkstation();
-    }
-  }
-
-  // tslint:disable-next-line:typedef
-  addWorkstation() {
-    console.log('addWorkstation' + this.idroom);
+  getWorkstationFromLocalValues(): any{
     // check whether the inputs are valid
     const numState = parseInt(this.state, 10);
     if ( numState < 0 || numState > 3){
-      alert('State not in the valid range');
-      return;
+      return null;
     }
     const val = {
       id: this.id,
@@ -67,6 +56,24 @@ export class AddEditWorkstationComponent implements OnInit {
       sanitized: this.sanitized,
       archived: this.archived,
     };
+  }
+
+  takeAction(): void{
+    if (this.action === 'add'){
+      this.addWorkstation();
+    }else if(this.action === 'edit'){
+      this.editWorkstation();
+    }
+  }
+
+  // tslint:disable-next-line:typedef
+  addWorkstation() {
+    console.log('addWorkstation' + this.idroom);
+    const val = this.getWorkstationFromLocalValues();
+    if (!val){
+      alert('Values not valid');
+      return;
+    }
     console.log(val);
     this.service.addWorkstation(val).subscribe(res => {
       alert(res.toString());
@@ -74,17 +81,12 @@ export class AddEditWorkstationComponent implements OnInit {
   }
 
   editWorkstation(): void{
-    const val = {
-      id: this.id,
-      tag: this.tag,
-      workstationname: this.workstationname,
-      xworkstation: parseInt(this.xworkstation, 10),
-      yworkstation: parseInt(this.yworkstation, 10),
-      idroom: this.idroom,
-      state: this.state,
-      sanitized: this.sanitized,
-      archived: this.archived,
-    };
+    const val = this.getWorkstationFromLocalValues();
+    if (!val){
+      alert('Values not valid');
+      return;
+    }
+    console.log(val);
     this.service.modifyWorkstation(val).subscribe(res => {
       alert(res.toString());
     }, error => alert('There was an error'));

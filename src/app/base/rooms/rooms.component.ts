@@ -16,14 +16,16 @@ export class RoomsComponent implements OnInit {
   roomsMap = new Map<any, any>();
   roomsList: any = [];
   workstationsList: any = [];
-  visible = new Map<any, boolean>();
+  notifyChangeVariable = false;
   // search
   searchId: string;
   searchUsername: string;
   // workstationModal
   addEditWorkstation = this.service.workstationTemplate;
-  notifyChangeVariable = false;
   workstationAction = 'add'; // add or edit
+  // roomModal
+  addEditRoom = this.service.roomTemplate;
+  roomAction = 'add'; // add or edit
 
   ngOnInit(): void {
     this.refreshAll();
@@ -155,17 +157,29 @@ export class RoomsComponent implements OnInit {
     this.notifyChange();
   }
 
+  openAddRoom(): void{
+    this.addEditRoom = this.service.roomTemplate;
+    this.roomAction = 'add';
+    this.notifyChange();
+  }
+
+  openEditRoom(room): void{
+    this.addEditRoom = room;
+    this.roomAction = 'edit';
+    this.notifyChange();
+  }
+
   // changes a variable so that all the variables, of other components, binded to it change too.
   // This makes the other components notice changes, even on other variables.
   notifyChange(): void{
     this.notifyChangeVariable = !this.notifyChangeVariable;
   }
 
-  closeAddWorkstation(): void {
+  closeAddEditWorkstation(): void {
     this.refreshAll();
   }
 
-  closeAddRoom(): void {
+  closeAddEditRoom(): void {
     this.refreshAll();
   }
 
