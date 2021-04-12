@@ -109,6 +109,15 @@ export class RoomsComponent implements OnInit {
     }
   }
 
+  deleteRoom(roomId): void {
+    if (confirm('Are you sure?')){
+      this.service.deleteRoom(roomId).subscribe( (data) => {
+        alert(data.toString());
+        this.refreshAll();
+      });
+    }
+  }
+
   closeAddWorkstation(): void {
     this.refreshAll();
   }
