@@ -9,7 +9,7 @@ import {SharedService} from '../../../shared.service';
 export class AddEditCredentialComponent implements OnInit {
   constructor(private service: SharedService ) { }
 
-
+  // these are the values that can be edited by the webapp user
   id: any;
   username: any;
   password: any;
@@ -28,6 +28,7 @@ export class AddEditCredentialComponent implements OnInit {
   // tslint:disable-next-line:use-lifecycle-interface
   ngOnChanges(): void {
     console.log('add-edit-credential changed');
+    // copy the values from the credential objects that was passed to the local values
     this.id = this.credential.id;
     this.username = this.credential.username;
     this.password = this.credential.password;
@@ -61,6 +62,7 @@ export class AddEditCredentialComponent implements OnInit {
     return newCredential;
   }
 
+  // decides, based on the action variable, if to add or to edit the credential
   takeAction(): void {
     if (this.action === 'add'){
       this.addCredential();
