@@ -32,6 +32,19 @@ export class SharedService {
     archived: ''
   };
 
+  userTemplate = {
+    id: '',
+    username: '',
+    password: '',
+    name: '',
+    surname: '',
+    mail: '',
+    type: '',
+    archived: ''
+  };
+
+  //  WORKSTATIONS
+
   // tslint:disable-next-line
   getWorkstationList(){
     return this.http.get<any[]>(this.APIUrl + '/workstation/list');
@@ -50,6 +63,8 @@ export class SharedService {
     return this.http.post(this.APIUrl + '/workstation/modify', val);
   }
 
+  // ROOMS
+
   getRoomList(): Observable<any[]>{
     return this.http.get<any[]>(this.APIUrl + '/room/list');
   }
@@ -66,7 +81,27 @@ export class SharedService {
     return this.http.post(this.APIUrl + '/room/modify', val);
   }
 
+  // LOGIN
+
   login(val: any): Observable<any>{
     return this.http.post(this.APIUrl + '/user/login', val);
+  }
+
+  // USERS
+
+  getUserList(): Observable<any[]>{
+    return this.http.get<any[]>(this.APIUrl + '/user/list');
+  }
+
+  addUser(val: any): Observable<any>{
+    return this.http.post(this.APIUrl + '/user/insert', val);
+  }
+
+  deleteUser(val: any): Observable<any>{
+    return this.http.get(this.APIUrl + '/user/del/' + val);
+  }
+
+  modifyUser(val: any): Observable<any>{
+    return this.http.post(this.APIUrl + '/user/modify', val);
   }
 }

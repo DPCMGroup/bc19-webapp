@@ -16,7 +16,7 @@ export class RoomsComponent implements OnInit {
   roomsMap = new Map<any, any>();
   roomsList: any = [];
   workstationsList: any = [];
-  notifyChangeVariable = false;
+  notifyChangeVariable = false; // I'm not sure this is needed anymore, since we have workstationAction and roomAction that change
   // search
   searchId: string;
   searchUsername: string;
