@@ -25,6 +25,11 @@ export class ShowCredentialComponent implements OnInit {
     this.addEditCredential = this.service.userTemplate;
   }
 
+  editClick(credential): void{
+    this.userAction = 'edit';
+    this.addEditCredential = credential;
+  }
+
   closeClick(): void{
     this.refreshCredentialsList();
   }

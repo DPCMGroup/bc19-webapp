@@ -55,7 +55,7 @@ export class AddEditCredentialComponent implements OnInit {
       archived: this.archived
     };
 
-    newCredential.id = 0;
+    // all created or edited credentials will have archived = 0
     newCredential.archived = 0;
 
     return newCredential;
@@ -73,6 +73,7 @@ export class AddEditCredentialComponent implements OnInit {
     const newCredential = this.getCredentialFromLocalValues();
     if (newCredential == null){
       alert('Type is not in the valid range');
+      return;
     }
     console.log('addingCredential');
     console.log(newCredential);
@@ -86,6 +87,7 @@ export class AddEditCredentialComponent implements OnInit {
     const newCredential = this.getCredentialFromLocalValues();
     if (newCredential == null){
       alert('Type is not in the valid range');
+      return;
     }
     console.log('editingCredential');
     console.log(newCredential);
