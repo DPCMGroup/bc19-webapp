@@ -12,4 +12,17 @@ export class BaseComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  logout(): void {
+    if (confirm('Are you sure?')){
+      this.clearSavedCredentials();
+      window.location.href = '/';
+    }
+  }
+
+  clearSavedCredentials(): void {
+    localStorage.removeItem('username');
+    localStorage.removeItem('password');
+
+  }
+
 }
