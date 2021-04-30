@@ -4,12 +4,12 @@ import {AddEditWorkstationComponent} from './add-edit-workstation/add-edit-works
 import {WorkstationData} from '../../models/workstation-data';
 import {RoomData} from '../../models/room-data';
 import {WorkstationsService} from '../../services/workstations.service';
+import {filter} from 'rxjs/operators';
 
 @Component({
   selector: 'app-rooms',
   templateUrl: './rooms.component.html',
-  styleUrls: ['./rooms.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./rooms.component.css']
 })
 export class RoomsComponent implements OnInit {
 
@@ -21,8 +21,8 @@ export class RoomsComponent implements OnInit {
   workstationsList: any = [];
   notifyChangeVariable = false; // I'm not sure this is needed anymore, since we have workstationAction and roomAction that change
   // search
-  searchId: string;
-  searchUsername: string;
+  searchId = '';
+  searchUsername = '';
   // workstationModal
   addEditWorkstation = new WorkstationData();
   workstationAction = 'add'; // add or edit
@@ -32,6 +32,10 @@ export class RoomsComponent implements OnInit {
 
   ngOnInit(): void {
     this.refreshAll();
+  }
+
+  getRoomsMapKeys(): number[]{
+    return Array.from(this.roomsMap.keys());
   }
 
   getRoomInfoById(id): any {
@@ -74,53 +78,64 @@ export class RoomsComponent implements OnInit {
       this.roomsMap.get(value.idroom).push(value);
     }.bind(this));
     // says to angular to update the view
-    this.cd.detectChanges();
+    // this.cd.detectChanges();
 
     console.log(this.roomsMap.keys());
 
 
   }
 
+  setRoomsList(roomsData: RoomData[]): void{
+    this.roomsList = roomsData;
+  }
+
+  setWorkstationList(workstationsData: WorkstationData[]): void{
+    this.workstationsList = workstationsData;
+  }
+
   // this function accepts a filter
-  refreshAll(filterWorkstationId?): void {
-    // First I update the room list
-    this.roomService.getRoomList().subscribe( (roomsData) => {
-      this.roomsList = roomsData;
-      this.workstationService.getWorkstationList().subscribe((workstationsData) => {
+  async refreshAll(filterWorkstationId?: number): Promise<void> {
+    // First update the room list and workstation list
+    const prom1 = this.roomService.getRoomList().toPromise();
+    const prom2 = this.workstationService.getWorkstationList().toPromise();
+    const todo = [await prom1.then((data) => this.setRoomsList(data)),
+      await prom2.then((data) => this.setWorkstationList(data))];
+    await Promise.all(todo);
 
-        this.workstationsList = workstationsData;
-        const tempRoomsMap = new Map<any, any>();
+    // Then populate roomsMap
+    this.populateRoomsMap(filterWorkstationId);
 
-        // then I update the rooms map
-        this.roomsMap = new Map<any, any>();
+  }
 
-        // Put in the map all the rooms saved in the server, also the empty ones.
-        // Do that just if there if there isn't a filter. When you filter you don't want to see the empty rooms.
-        if ( filterWorkstationId == null ){
-          for (const r of this.roomsList){
-            tempRoomsMap.set(r.id, []);
-          }
+  populateRoomsMap(filterWorkstationId?: number): void{
+    const tempRoomsMap = new Map<number, WorkstationData[]>();
+
+    // then I update the rooms map
+    this.roomsMap = new Map<number, WorkstationData[]>();
+
+    // Put in the map all the rooms saved in the server, also the empty ones.
+    // Do that just if there if there isn't a filter. When you filter you don't want to see the empty rooms.
+    if ( filterWorkstationId == null ){
+      for (const r of this.roomsList){
+        tempRoomsMap.set(r.id, []);
+      }
+    }
+    // I divide the workstations by their room
+    // If there is a workstation with a roomid not present in roomList,
+    // i add the workstation anyway, inside a new entry of the map
+    for (const w of this.workstationsList){
+      if (filterWorkstationId == null || w.id === filterWorkstationId) {
+        if (tempRoomsMap.get(w.idroom)) {
+        } else {
+          tempRoomsMap.set(w.idroom, []);
         }
-        // I divide the workstations by their room
-        // If there is a workstation with a roomid not present in roomList,
-        // i add the workstation anyway, inside a new entry of the map
-        for (const w of this.workstationsList){
-          if (filterWorkstationId == null || w.id === filterWorkstationId) {
-            if (tempRoomsMap.get(w.idroom)) {
-            } else {
-              tempRoomsMap.set(w.idroom, []);
-            }
-            tempRoomsMap.get(w.idroom).push(w);
-          }
-        }
-        this.roomsMap = tempRoomsMap;
-        // says to angular to update the view
-        this.cd.detectChanges();
-        console.log('refreshed all');
-      }, error => alert('There was an error'));
-    });
-    // then I update the workstation list
-
+        tempRoomsMap.get(w.idroom).push(w);
+      }
+    }
+    this.roomsMap = tempRoomsMap;
+    // says to angular to update the view
+    this.cd.detectChanges();
+    console.log('refreshed all');
   }
 
   // deletes the workstation

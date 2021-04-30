@@ -1,10 +1,10 @@
 export class UserData {
-  id: number;
-  username: string;
-  password: string;
-  name: string;
-  surname: string;
-  mail: string;
-  type: number;
-  archived: number;
+  id = 0;
+  username = '';
+  password = '';
+  name = '';
+  surname = '';
+  mail = '';
+  type = 0;
+  archived = 0;
 }

@@ -98,7 +98,7 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let key of roomsMap.keys()">
+  <tr *ngFor="let key of getRoomsMapKeys()">
 
     <h3>RoomId: {{key}} | RoomName: {{getRoomInfoById(key).roomname}} | RoomDimensions: {{getRoomInfoById(key).xroom}}x{{getRoomInfoById(key).yroom}}</h3>
     <!-- Button trigger modal -->

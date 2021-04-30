@@ -1,7 +1,7 @@
 export class RoomData {
-  id: number;
-  roomname: string;
-  xroom: number;
-  yroom: number;
-  archived: number;
+  id = 0;
+  roomname = '';
+  xroom = 0;
+  yroom = 0;
+  archived = 0;
 }

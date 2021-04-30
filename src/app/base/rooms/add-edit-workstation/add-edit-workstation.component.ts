@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import { WorkstationsService } from '../../../services/workstations.service';
+import {WorkstationData} from '../../../models/workstation-data';
 
 @Component({
   selector: 'app-add-edit-workstation',
@@ -19,7 +20,7 @@ export class AddEditWorkstationComponent implements OnInit {
   sanitized = 1;
   archived = 0;
 
-  @Input() passedWorkstation: any;
+  @Input() passedWorkstation: WorkstationData;
   @Input() noticeChangeVariable: boolean;
   @Input() action: string;
 
@@ -36,11 +37,11 @@ export class AddEditWorkstationComponent implements OnInit {
     this.xworkstation = this.passedWorkstation.xworkstation.toString();
     this.yworkstation = this.passedWorkstation.yworkstation.toString();
     this.idroom = this.passedWorkstation.idroom;
-    this.state = this.passedWorkstation.state.toString();
+    this.state = this.passedWorkstation.state;
   }
 
   getWorkstationFromLocalValues(): any{
-    const val = {
+    const val: WorkstationData = {
       id: this.id,
       tag: this.tag,
       workstationname: this.workstationname,

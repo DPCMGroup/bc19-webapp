@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {LoginService} from '../services/login.service';
 import {compareSegments} from '@angular/compiler-cli/src/ngtsc/sourcemaps/src/segment_marker';
+import {LoginData} from '../models/login-data';
 
 @Component({
   selector: 'app-login',
@@ -32,7 +33,7 @@ export class LoginComponent implements OnInit {
   autoLogin(): void {
     this.username = localStorage.getItem('username');
     this.password = localStorage.getItem('password');
-    const credentials = {
+    const credentials: LoginData = {
       username: this.username,
       password: this.password
     };

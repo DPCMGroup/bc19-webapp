@@ -1,11 +1,11 @@
 export class WorkstationData {
-  id: number;
-  tag: string;
-  workstationname: string;
-  xworkstation: number;
-  yworkstation: number;
-  idroom: number;
-  state: number;
-  sanitized: number;
-  archived: number;
+  id = 0;
+  tag = '';
+  workstationname = '';
+  xworkstation = 0;
+  yworkstation = 0;
+  idroom = 0;
+  state = 0;
+  sanitized = 0;
+  archived = 0;
 }

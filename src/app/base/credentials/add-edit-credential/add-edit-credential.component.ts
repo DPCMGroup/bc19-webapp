@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {UserService} from '../../../services/user.service';
+import {UserData} from '../../../models/user-data';
 
 @Component({
   selector: 'app-add-edit-credential',
@@ -45,7 +46,7 @@ export class AddEditCredentialComponent implements OnInit {
     if (typeNum < 0 || typeNum > 2){
       return null;
     }
-    const newCredential = {
+    const newCredential: UserData = {
       id: this.id,
       username: this.username,
       password: this.password,

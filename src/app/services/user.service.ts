@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
+import {UserData} from '../models/user-data';
 
 @Injectable({
   providedIn: 'root'
@@ -13,19 +14,19 @@ export class UserService {
 
   // USERS
 
-  getUserList(): Observable<any[]>{
-    return this.http.get<any[]>(this.APIUrl + '/user/list');
+  getUserList(): Observable<UserData[]>{
+    return this.http.get<UserData[]>(this.APIUrl + '/user/list');
   }
 
-  addUser(val: any): Observable<any>{
-    return this.http.post(this.APIUrl + '/user/insert', val);
+  addUser(val: UserData): Observable<string>{
+    return this.http.post<string>(this.APIUrl + '/user/insert', val);
   }
 
-  deleteUser(val: any): Observable<any>{
-    return this.http.get(this.APIUrl + '/user/del/' + val);
+  deleteUser(val: number): Observable<string>{
+    return this.http.get<string>(this.APIUrl + '/user/del/' + val);
   }
 
-  modifyUser(val: any): Observable<any>{
-    return this.http.post(this.APIUrl + '/user/modify', val);
+  modifyUser(val: UserData): Observable<string>{
+    return this.http.post<string>(this.APIUrl + '/user/modify', val);
   }
 }
