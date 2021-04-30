@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {LocalAccountService} from '../services/local-account.service';
 
 @Component({
   selector: 'app-base',
@@ -7,22 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BaseComponent implements OnInit {
 
-  constructor() { }
+  constructor(private localAccountService: LocalAccountService) { }
 
   ngOnInit(): void {
   }
 
   logout(): void {
     if (confirm('Are you sure?')){
-      this.clearSavedCredentials();
+      this.localAccountService.deleteSavedCredentials();
       window.location.href = '/';
     }
-  }
-
-  clearSavedCredentials(): void {
-    localStorage.removeItem('username');
-    localStorage.removeItem('password');
-
   }
 
 }

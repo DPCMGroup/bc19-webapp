@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {LoginService} from '../services/login.service';
 import {compareSegments} from '@angular/compiler-cli/src/ngtsc/sourcemaps/src/segment_marker';
 import {LoginData} from '../models/login-data';
+import {LocalAccountService} from '../services/local-account.service';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +11,7 @@ import {LoginData} from '../models/login-data';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private service: LoginService ) { }
+  constructor(private loginService: LoginService, private localAccountService: LocalAccountService ) { }
 
   username: string;
   password: string;
@@ -31,14 +32,15 @@ export class LoginComponent implements OnInit {
   }
 
   autoLogin(): void {
-    this.username = localStorage.getItem('username');
-    this.password = localStorage.getItem('password');
+    const retrievedCreds = this.localAccountService.retrieveLocalCredentials();
+    this.username = retrievedCreds.username;
+    this.password = retrievedCreds.password;
     const credentials: LoginData = {
       username: this.username,
       password: this.password
     };
 
-    this.service.login(credentials).subscribe( (data) => {
+    this.loginService.login(credentials).subscribe( (data) => {
       if (data.type === 0) {
         // redirect to the base url
         window.location.href = '/base';
@@ -49,21 +51,17 @@ export class LoginComponent implements OnInit {
   }
 
   login(): void {
-    const credentials = {
+    const credentials: LoginData = {
       username: this.username,
       password: this.password
     };
-    this.service.login(credentials).subscribe( (data) => {
+    this.loginService.login(credentials).subscribe( (data) => {
       if ( data.type === 0) {
         // redirect to the base url
         window.location.href = '/base';
         this.setErrorVisible(false);
         // I save user credentials in localStorage
-        if (localStorage.getItem('username') === null
-        || localStorage.getItem('password') === null){
-          localStorage.setItem('username', this.username);
-          localStorage.setItem('password', this.password);
-        }
+        this.localAccountService.saveCredentialsLocally(credentials);
       }else {
         this.setErrorVisible(true);
         console.log(data);
