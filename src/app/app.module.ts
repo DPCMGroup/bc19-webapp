@@ -11,9 +11,12 @@ import { BaseComponent } from './base/base.component';
 import { LoginComponent } from './login/login.component';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {SharedService} from './shared.service';
 import { RoomsComponent } from './base/rooms/rooms.component';
 import { AddEditRoomComponent } from './base/rooms/add-edit-room/add-edit-room.component';
+import {RoomsService} from './services/rooms.service';
+import {WorkstationsService} from './services/workstations.service';
+import {UserService} from './services/user.service';
+import {LoginService} from './services/login.service';
 
 @NgModule({
   declarations: [
@@ -35,7 +38,7 @@ import { AddEditRoomComponent } from './base/rooms/add-edit-room/add-edit-room.c
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [SharedService],
+  providers: [RoomsService, WorkstationsService, UserService, LoginService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

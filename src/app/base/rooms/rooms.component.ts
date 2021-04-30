@@ -1,6 +1,9 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, QueryList, ViewChildren} from '@angular/core';
-import {SharedService} from 'src/app/shared.service';
+import {RoomsService} from 'src/app/services/rooms.service';
 import {AddEditWorkstationComponent} from './add-edit-workstation/add-edit-workstation.component';
+import {WorkstationData} from '../../models/workstation-data';
+import {RoomData} from '../../models/room-data';
+import {WorkstationsService} from '../../services/workstations.service';
 
 @Component({
   selector: 'app-rooms',
@@ -10,7 +13,7 @@ import {AddEditWorkstationComponent} from './add-edit-workstation/add-edit-works
 })
 export class RoomsComponent implements OnInit {
 
-  constructor(private service: SharedService, private cd: ChangeDetectorRef) {
+  constructor(private roomService: RoomsService, private workstationService: WorkstationsService, private cd: ChangeDetectorRef) {
   }
 
   roomsMap = new Map<any, any>();
@@ -21,10 +24,10 @@ export class RoomsComponent implements OnInit {
   searchId: string;
   searchUsername: string;
   // workstationModal
-  addEditWorkstation = this.service.workstationTemplate;
+  addEditWorkstation = new WorkstationData();
   workstationAction = 'add'; // add or edit
   // roomModal
-  addEditRoom = this.service.roomTemplate;
+  addEditRoom = new RoomData();
   roomAction = 'add'; // add or edit
 
   ngOnInit(): void {
@@ -81,9 +84,9 @@ export class RoomsComponent implements OnInit {
   // this function accepts a filter
   refreshAll(filterWorkstationId?): void {
     // First I update the room list
-    this.service.getRoomList().subscribe( (roomsData) => {
+    this.roomService.getRoomList().subscribe( (roomsData) => {
       this.roomsList = roomsData;
-      this.service.getWorkstationList().subscribe((workstationsData) => {
+      this.workstationService.getWorkstationList().subscribe((workstationsData) => {
 
         this.workstationsList = workstationsData;
         const tempRoomsMap = new Map<any, any>();
@@ -124,7 +127,7 @@ export class RoomsComponent implements OnInit {
   // tslint:disable-next-line:typedef
   deleteClick(item: { id: any; }) {
     if (confirm('Are you sure??')) {
-      this.service.deleteWorkstation(item.id).toPromise().then((data) => {
+      this.workstationService.deleteWorkstation(item.id).toPromise().then((data) => {
         // here I will have to check if the server returned 'Deleted Successfully' (or something like that)
         alert(data.toString());
         this.refreshAll();
@@ -136,7 +139,7 @@ export class RoomsComponent implements OnInit {
     console.log(roomId);
 
     if (confirm('Are you sure?')){
-      this.service.deleteRoom(roomId.toString()).subscribe( (data) => {
+      this.roomService.deleteRoom(roomId.toString()).subscribe( (data) => {
         alert(data.toString());
         this.refreshAll();
       }, error => alert('There was an error'));
@@ -144,7 +147,7 @@ export class RoomsComponent implements OnInit {
   }
 
   openAddWorkstation(idroom): void{
-    this.addEditWorkstation = this.service.workstationTemplate;
+    this.addEditWorkstation = new WorkstationData();
     this.addEditWorkstation.idroom = idroom;
     this.workstationAction = 'add';
     this.notifyChange();
@@ -158,7 +161,7 @@ export class RoomsComponent implements OnInit {
   }
 
   openAddRoom(): void{
-    this.addEditRoom = this.service.roomTemplate;
+    this.addEditRoom = new RoomData();
     this.roomAction = 'add';
     this.notifyChange();
   }

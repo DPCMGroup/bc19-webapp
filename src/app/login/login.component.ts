@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {SharedService} from '../shared.service';
+import {LoginService} from '../services/login.service';
 import {compareSegments} from '@angular/compiler-cli/src/ngtsc/sourcemaps/src/segment_marker';
 
 @Component({
@@ -9,7 +9,7 @@ import {compareSegments} from '@angular/compiler-cli/src/ngtsc/sourcemaps/src/se
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private service: SharedService ) { }
+  constructor(private service: LoginService ) { }
 
   username: string;
   password: string;

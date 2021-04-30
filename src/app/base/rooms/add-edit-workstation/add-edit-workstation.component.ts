@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import { SharedService } from '../../../shared.service';
+import { WorkstationsService } from '../../../services/workstations.service';
 
 @Component({
   selector: 'app-add-edit-workstation',
@@ -7,7 +7,7 @@ import { SharedService } from '../../../shared.service';
   styleUrls: ['./add-edit-workstation.component.css']
 })
 export class AddEditWorkstationComponent implements OnInit {
-  constructor(private service: SharedService ) { }
+  constructor(private service: WorkstationsService ) { }
 
   id = 0;
   tag: string;

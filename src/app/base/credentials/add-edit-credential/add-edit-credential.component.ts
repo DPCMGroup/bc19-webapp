@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {SharedService} from '../../../shared.service';
+import {UserService} from '../../../services/user.service';
 
 @Component({
   selector: 'app-add-edit-credential',
@@ -7,7 +7,7 @@ import {SharedService} from '../../../shared.service';
   styleUrls: ['./add-edit-credential.component.css']
 })
 export class AddEditCredentialComponent implements OnInit {
-  constructor(private service: SharedService ) { }
+  constructor(private service: UserService ) { }
 
   // these are the values that can be edited by the webapp user
   id: any;

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {SharedService} from 'src/app/shared.service';
+import {UserService} from 'src/app/services/user.service';
+import {UserData} from '../../../models/user-data';
 
 @Component({
   selector: 'app-show-credential',
@@ -8,21 +9,21 @@ import {SharedService} from 'src/app/shared.service';
 })
 export class ShowCredentialComponent implements OnInit {
 
-  constructor(private service: SharedService) { }
+  constructor(private service: UserService) { }
 
-  CredentialList: any = [];
-  addEditCredential: any;
+  CredentialList: UserData[] = [];
+  addEditCredential: UserData;
   userAction = 'add'; // add or edit
 
   ngOnInit(): void {
-    this.addEditCredential = this.service.userTemplate;
+    this.addEditCredential = new UserData();
     this.refreshCredentialsList();
   }
 
 
   addClick(): void{
     this.userAction = 'add';
-    this.addEditCredential = this.service.userTemplate;
+    this.addEditCredential = new UserData();
   }
 
   editClick(credential): void{
@@ -34,10 +35,12 @@ export class ShowCredentialComponent implements OnInit {
     this.refreshCredentialsList();
   }
 
+  setCredentialsList(data: any[]): void {
+    this.CredentialList = data;
+  }
+
   refreshCredentialsList(): void{
-    this.service.getUserList().subscribe(data => {
-      this.CredentialList = data;
-    });
+    this.service.getUserList().subscribe(data => this.setCredentialsList(data));
   }
 
   deleteClick(item: { id: any; }): void{

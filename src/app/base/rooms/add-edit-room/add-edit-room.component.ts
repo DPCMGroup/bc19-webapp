@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {SharedService} from '../../../shared.service';
+import {RoomsService} from '../../../services/rooms.service';
 
 @Component({
   selector: 'app-add-edit-room',
@@ -8,7 +8,7 @@ import {SharedService} from '../../../shared.service';
 })
 export class AddEditRoomComponent implements OnInit {
 
-  constructor(private service: SharedService) { }
+  constructor(private service: RoomsService) { }
 
 // {"id": 1, "roomname": "lab1", "xroom": 10, "yroom": 10, "archived": 0}
   id: number;
