@@ -13,7 +13,7 @@ import {filter} from 'rxjs/operators';
 })
 export class RoomsComponent implements OnInit {
 
-  constructor(private roomService: RoomsService, private workstationService: WorkstationsService, private cd: ChangeDetectorRef) {
+  constructor(private roomService: RoomsService, private workstationService: WorkstationsService) {
   }
 
   roomsMap = new Map<any, any>();
@@ -134,7 +134,6 @@ export class RoomsComponent implements OnInit {
     }
     this.roomsMap = tempRoomsMap;
     // says to angular to update the view
-    this.cd.detectChanges();
     console.log('refreshed all');
   }
 
