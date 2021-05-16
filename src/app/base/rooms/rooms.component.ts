@@ -114,7 +114,7 @@ export class RoomsComponent implements OnInit {
         // says to angular to update the view
         this.cd.detectChanges();
         console.log('refreshed all');
-      }, error => alert('There was an error'));
+      }, error => alert('C\'è stato un errore'));
     });
     // then I update the workstation list
 
@@ -123,7 +123,7 @@ export class RoomsComponent implements OnInit {
   // deletes the workstation
   // tslint:disable-next-line:typedef
   deleteClick(item: { id: any; }) {
-    if (confirm('Are you sure??')) {
+    if (confirm('Sei sicuro?')) {
       this.service.deleteWorkstation(item.id).toPromise().then((data) => {
         // here I will have to check if the server returned 'Deleted Successfully' (or something like that)
         alert(data.toString());
@@ -135,11 +135,11 @@ export class RoomsComponent implements OnInit {
   deleteRoom(roomId): void {
     console.log(roomId);
 
-    if (confirm('Are you sure?')){
+    if (confirm('Sei sicuro?')){
       this.service.deleteRoom(roomId.toString()).subscribe( (data) => {
         alert(data.toString());
         this.refreshAll();
-      }, error => alert('There was an error'));
+      }, error => alert('C\'è stato un errore'));
     }
   }
 

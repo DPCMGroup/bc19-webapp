@@ -13,7 +13,7 @@ export class BaseComponent implements OnInit {
   }
 
   logout(): void {
-    if (confirm('Are you sure?')){
+    if (confirm('Sei sicuro?')){
       this.clearSavedCredentials();
       window.location.href = '/';
     }

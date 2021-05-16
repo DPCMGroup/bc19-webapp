@@ -41,12 +41,12 @@ export class ShowCredentialComponent implements OnInit {
   }
 
   deleteClick(item: { id: any; }): void{
-    if (confirm('Are you sure??')){
+    if (confirm('Sei sicuro??')){
 
       this.service.deleteUser(item.id).subscribe(data => {
         alert(data.toString());
         this.refreshCredentialsList();
-      }, error => (alert('There was an error')));
+      }, error => (alert('C\'è stato un errore')));
     }
   }
 }

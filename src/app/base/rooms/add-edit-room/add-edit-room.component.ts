@@ -65,7 +65,7 @@ export class AddEditRoomComponent implements OnInit {
     console.log(newRoom);
     this.service.addRoom(newRoom).subscribe( (data) => {
       alert(data.toString());
-    }, error => alert('There was an error'));
+    }, error => alert('C\'è stato un errore'));
   }
 
   editRoom(): void{
@@ -74,7 +74,7 @@ export class AddEditRoomComponent implements OnInit {
     console.log(newRoom);
     this.service.modifyRoom(newRoom).subscribe( (data) => {
       alert(data.toString());
-    }, error => alert('There was an error'));
+    }, error => alert('C\'è stato un errore'));
 
   }
 

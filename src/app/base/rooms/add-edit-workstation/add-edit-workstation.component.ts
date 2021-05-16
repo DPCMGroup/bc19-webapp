@@ -67,7 +67,7 @@ export class AddEditWorkstationComponent implements OnInit {
     console.log('addWorkstation' + this.idroom);
     const newWorkstation = this.getWorkstationFromLocalValues();
     if (newWorkstation == null){
-      alert('Values not valid');
+      alert('Valori non validi');
       return;
     }
     // all the workstations have to be created with state 0
@@ -75,18 +75,18 @@ export class AddEditWorkstationComponent implements OnInit {
     console.log(newWorkstation);
     this.service.addWorkstation(newWorkstation).subscribe(res => {
       alert(res.toString());
-    }, error => alert('There was an error'));
+    }, error => alert('C\'è stato un errore'));
   }
 
   editWorkstation(): void{
     const val = this.getWorkstationFromLocalValues();
     if (val == null){
-      alert('Values not valid');
+      alert('Valori non validi');
       return;
     }
     console.log(val);
     this.service.modifyWorkstation(val).subscribe(res => {
       alert(res.toString());
-    }, error => alert('There was an error'));
+    }, error => alert('C\'è stato un errore'));
   }
 }
