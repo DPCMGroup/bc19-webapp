@@ -75,28 +75,28 @@ export class AddEditCredentialComponent implements OnInit {
   addCredential(): void{
     const newCredential = this.getCredentialFromLocalValues();
     if (newCredential == null){
-      alert('Type is not in the valid range');
+      alert('Il tipo non è nell\'intervallo ammissibile');
       return;
     }
     console.log('addingCredential');
     console.log(newCredential);
     this.service.addUser(newCredential).subscribe(res => {
       alert(res.toString());
-    }, error => (alert('There was an error')));
+    }, error => (alert('C\'è stato un errore')));
 
   }
 
   editredential(): void{
     const newCredential = this.getCredentialFromLocalValues();
     if (newCredential == null){
-      alert('Type is not in the valid range');
+      alert('Il tipo non è nell\'intervallo ammissibile');
       return;
     }
     console.log('editingCredential');
     console.log(newCredential);
     this.service.modifyUser(newCredential).subscribe(res => {
       alert(res.toString());
-    }, error => (alert('There was an error')));
+    }, error => (alert('C\'è stato un errore')));
 
   }
 }

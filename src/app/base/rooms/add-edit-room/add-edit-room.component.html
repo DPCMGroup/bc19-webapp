@@ -1,17 +1,17 @@
 <div class="form-froup row">
 
-  <label class="col-sm-2 col-form-label">Room</label>
+  <label class="col-sm-2 col-form-label">Stanza</label>
   <div class="col-sm-10">
     <input type="text" class="form-control" [(ngModel)]="roomname"
-           placeholder="Enter Room Name">
+           placeholder="Inserire nome">
     <input type="text" class="form-control" [(ngModel)]="xroom"
-           placeholder="Enter Room X dimension">
+           placeholder="Inserire dimensione x">
     <input type="text" class="form-control" [(ngModel)]="yroom"
-           placeholder="Enter Room Y dimension">
+           placeholder="Inserire dimensione y">
   </div>
 </div>
 
 <button (click)="takeAction()" class="btn btn-primary">
-  {{action === 'add' ? 'Add' : 'Confirm values'}}
+  {{action === 'add' ? 'Aggiungi' : 'Conferma valori'}}
 </button>
 
