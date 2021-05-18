@@ -9,7 +9,7 @@ import {UserData} from '../models/user-data';
 })
 export class LoginService {
 
-  readonly APIUrl = 'http://127.0.0.1:8000';
+  readonly APIUrl = 'http://192.168.210.35:8000';
 
   constructor(private http: HttpClient) { }
 
