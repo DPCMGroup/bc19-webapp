@@ -1,0 +1,9 @@
+<table class="table table-striped">
+  <tbody>
+  <tr *ngFor="let row of roomArray">
+    <td *ngFor="let value of row">
+      <button>{{value === true ? '*' : ''}}</button>
+    </td>
+  </tr>
+  </tbody>
+</table>

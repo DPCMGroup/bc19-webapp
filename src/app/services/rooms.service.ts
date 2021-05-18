@@ -8,7 +8,7 @@ import {RoomData} from '../models/room-data';
 })
 export class RoomsService {
 
-  readonly APIUrl = 'http://192.168.210.35:8000';
+  readonly APIUrl = 'http://dpcm2077.duckdns.org:8000';
 
   constructor(private http: HttpClient) { }
 
