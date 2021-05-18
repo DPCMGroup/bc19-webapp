@@ -52,4 +52,20 @@ export class ShowCredentialComponent implements OnInit {
       }, error => (alert('C\'è stato un errore')));
     }
   }
+
+  typeNumToString(type: number): string{
+    let typeString = '';
+    switch (type){
+      case 0:
+        typeString = 'Amministratore';
+        break;
+      case 1:
+        typeString = 'Dipendente';
+        break;
+      case 2:
+        typeString = 'Addetto';
+        break;
+    }
+    return typeString;
+  }
 }
