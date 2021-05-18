@@ -212,4 +212,36 @@ export class RoomsComponent implements OnInit {
     this.refreshAll();
   }
 
+  stateNumToString(type: number): string{
+    let typeString = '';
+    switch (type){
+      case 0:
+        typeString = 'Disponibile';
+        break;
+      case 1:
+        typeString = 'Occupata';
+        break;
+      case 2:
+        typeString = 'Prenotata';
+        break;
+      case 3:
+        typeString = 'Rotta';
+        break;
+    }
+    return typeString;
+  }
+
+  sanitizedNumToString(type: number): string{
+    let typeString = '';
+    switch (type){
+      case 0:
+        typeString = 'Non igienizzata';
+        break;
+      case 1:
+        typeString = 'Igienizzata';
+        break;
+    }
+    return typeString;
+  }
+
 }
