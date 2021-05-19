@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import {WorkstationData} from '../../models/workstation-data';
-import {WorkstationsService} from '../../services/workstations.service';
-import {RoomData} from '../../models/room-data';
-import {RoomsService} from '../../services/rooms.service';
+import {Component, Input, OnChanges, OnInit} from '@angular/core';
+import {WorkstationData} from '../../../models/workstation-data';
+import {WorkstationsService} from '../../../services/workstations.service';
+import {RoomData} from '../../../models/room-data';
+import {RoomsService} from '../../../services/rooms.service';
 import {filter} from 'rxjs/operators';
 
 @Component({
@@ -10,7 +10,7 @@ import {filter} from 'rxjs/operators';
   templateUrl: './griglia.component.html',
   styleUrls: ['./griglia.component.css']
 })
-export class GrigliaComponent implements OnInit {
+export class GrigliaComponent implements OnInit, OnChanges{
 
   constructor(private workstationService: WorkstationsService, private roomService: RoomsService) { }
 
@@ -18,11 +18,17 @@ export class GrigliaComponent implements OnInit {
   roomsList: RoomData[] = [];
   roomArray: boolean[][] = [];
   room: RoomData;
-  roomId = 6;
+  @Input() roomId = 6;
+  @Input() changeVariable = false;
 
   ngOnInit(): void {
     this.init();
   }
+
+  ngOnChanges(): void {
+    this.init();
+  }
+
 
   async init(): Promise<void> {
     await this.workstationService.getWorkstationList().toPromise().then((data: WorkstationData[]) => {this.workstationsList = data; });
@@ -58,7 +64,6 @@ export class GrigliaComponent implements OnInit {
         filteredWorks.push(w);
       }
     }
-    console.log(filteredWorks.length);
     if (filteredWorks.length > 0){
       return filteredWorks[0];
     }else{

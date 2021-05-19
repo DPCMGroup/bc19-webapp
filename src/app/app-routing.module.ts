@@ -6,7 +6,7 @@ import {LoginComponent} from './login/login.component';
 import {CredentialsComponent} from './base/credentials/credentials.component';
 import {ReportComponent} from './base/report/report.component';
 import {RoomsComponent} from './base/rooms/rooms.component';
-import {GrigliaComponent} from './base/griglia/griglia.component';
+import {GrigliaComponent} from './base/rooms/griglia/griglia.component';
 
 const routes: Routes = [
   {
@@ -31,10 +31,6 @@ const routes: Routes = [
           {
             path: 'report',
             component: ReportComponent
-          },
-          {
-            path: 'griglia',
-            component: GrigliaComponent
           }
         ]
       }

@@ -193,7 +193,9 @@ export class RoomsComponent implements OnInit {
   }
 
   closeAddEditWorkstation(): void {
+    console.log('closeAddEditWorkstation');
     this.refreshAll();
+    this.notifyChange();
   }
 
   closeAddEditRoom(): void {

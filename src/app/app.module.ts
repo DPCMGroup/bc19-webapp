@@ -17,7 +17,7 @@ import {RoomsService} from './services/rooms.service';
 import {WorkstationsService} from './services/workstations.service';
 import {UserService} from './services/user.service';
 import {LoginService} from './services/login.service';
-import { GrigliaComponent } from './base/griglia/griglia.component';
+import { GrigliaComponent } from './base/rooms/griglia/griglia.component';
 
 @NgModule({
   declarations: [
