@@ -16,8 +16,8 @@ export class GrigliaComponent implements OnInit, OnChanges{
 
   workstationsList: WorkstationData[] = [];
   roomsList: RoomData[] = [];
-  roomArray: boolean[][] = [];
-  room: RoomData;
+  roomArray: WorkstationData[][] = [];
+  room: RoomData = null;
   @Input() roomId = 6;
   @Input() changeVariable = false;
 
@@ -71,18 +71,19 @@ export class GrigliaComponent implements OnInit, OnChanges{
     }
   }
 
-  workstationsToRoomGrid(works: WorkstationData[], dimx: number, dimy: number): boolean[][] {
-    const roomArr: boolean[][] = [];
+  workstationsToRoomGrid(works: WorkstationData[], dimx: number, dimy: number): WorkstationData[][] {
+    const roomArr: WorkstationData[][] = [];
     for (let i = 0; i < dimx; i += 1){
       roomArr.push([]);
       for (let j = 0; j < dimy; j += 1){
         // console.log(`${i} : ${j}`);
-        if (this.filterWorkstationsByPosition(works, i, j)){
+        const filteredWork = this.filterWorkstationsByPosition(works, i, j)
+        if (filteredWork){
           // console.log('true');
 
-          roomArr[i].push(true);
+          roomArr[i].push(filteredWork);
         }else{
-          roomArr[i].push(false);
+          roomArr[i].push(null);
         }
       }
     }

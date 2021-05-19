@@ -18,6 +18,7 @@ import {WorkstationsService} from './services/workstations.service';
 import {UserService} from './services/user.service';
 import {LoginService} from './services/login.service';
 import { GrigliaComponent } from './base/rooms/griglia/griglia.component';
+import { WorkstationComponent } from './base/rooms/griglia/workstation/workstation.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { GrigliaComponent } from './base/rooms/griglia/griglia.component';
     RoomsComponent,
     AddEditRoomComponent,
     GrigliaComponent,
+    WorkstationComponent,
   ],
   imports: [
     BrowserModule,
