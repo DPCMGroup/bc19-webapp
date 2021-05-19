@@ -1,6 +1,13 @@
 <table class="table table-striped">
+
+  <thead>
+    <tr>
+      <th class="tableIndex" *ngFor="let i of getArrayFromNum(room.xroom+1)">{{i-1 !== -1 ? i-1 : ""}}</th>
+    </tr>
+  </thead>
   <tbody>
   <tr *ngFor="let row of roomArray">
+    <td class="verticalTableIndex tableIndex">{{roomArray.indexOf(row)}}</td>
     <td *ngFor="let value of row">
       <button>{{value === true ? '*' : ''}}</button>
     </td>

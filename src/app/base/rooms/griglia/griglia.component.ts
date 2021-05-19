@@ -89,6 +89,15 @@ export class GrigliaComponent implements OnInit, OnChanges{
     return roomArr;
   }
 
+  getArrayFromNum(n: number): number[] {
+    const arr = new Array(n);
+    // tslint:disable-next-line:prefer-for-of
+    for (let i = 0; i < arr.length; i++){
+      arr[i] = i;
+    }
+    return arr;
+  }
+
 
 
 
