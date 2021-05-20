@@ -102,7 +102,7 @@
   <tbody>
   <tr *ngFor="let key of getRoomsMapKeys()">
 
-    <h3>Id: {{key}} | Nome: {{getRoomInfoById(key).roomname}} | Dimensioni: {{getRoomInfoById(key).xroom}}x{{getRoomInfoById(key).yroom}}</h3>
+    <h3>Id: {{key}} | Nome: {{getRoomInfoById(key).roomname}} | Dimensioni: {{getRoomInfoById(key).xroom}}x{{getRoomInfoById(key).yroom}} | Occupanti: {{getNumberOfOccupantsByRoomId(key)}}</h3>
 
     <button type="button" class="btn btn-primary float-right m-2"
             (click)="invertRoomVisibility(key)">

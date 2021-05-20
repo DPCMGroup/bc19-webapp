@@ -117,7 +117,7 @@ export class RoomsComponent implements OnInit {
 
     // Put in the map all the rooms saved in the server, also the empty ones.
     // Do that just if there if there isn't a filter. When you filter you don't want to see the empty rooms.
-    if ( filterWorkstationId == null ){
+    if ( filterWorkstationId === null ){
       for (const r of this.roomsList){
         tempRoomsMap.set(r.id, []);
       }
@@ -219,41 +219,24 @@ export class RoomsComponent implements OnInit {
     this.refreshAll();
   }
 
-  stateNumToString(type: number): string{
-    let typeString = '';
-    switch (type){
-      case 0:
-        typeString = 'Disponibile';
-        break;
-      case 1:
-        typeString = 'Occupata';
-        break;
-      case 2:
-        typeString = 'Prenotata';
-        break;
-      case 3:
-        typeString = 'Rotta';
-        break;
-    }
-    return typeString;
-  }
 
-  sanitizedNumToString(type: number): string{
-    let typeString = '';
-    switch (type){
-      case 0:
-        typeString = 'Non igienizzata';
-        break;
-      case 1:
-        typeString = 'Igienizzata';
-        break;
-    }
-    return typeString;
-  }
 
   invertRoomVisibility(roomId: number): void {
     const old = this.roomVisible.get(roomId);
     this.roomVisible.set(roomId, !old);
+  }
+
+  getNumberOfOccupantsByRoomId(roomId: number): number{
+    const roomsWorkstations = this.roomsMap.get(roomId);
+    let occupantsNum = 0;
+    if (roomsWorkstations) {
+      for (const work of roomsWorkstations){
+        if (work.state === 1) {
+          occupantsNum += 1;
+        }
+      }
+    }
+    return occupantsNum;
   }
 
 
