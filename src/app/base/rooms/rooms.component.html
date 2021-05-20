@@ -101,7 +101,12 @@
   <tr *ngFor="let key of getRoomsMapKeys()">
 
     <h3>Id: {{key}} | Nome: {{getRoomInfoById(key).roomname}} | Dimensioni: {{getRoomInfoById(key).xroom}}x{{getRoomInfoById(key).yroom}}</h3>
-    <!-- Button trigger modal -->
+
+    <button type="button" class="btn btn-primary float-right m-2"
+            (click)="invertRoomVisibility(key)">
+      {{roomVisible.get(key) ? '▲' : '▼'}}
+    </button>
+
     <button type="button" class="btn btn-primary float-right m-2"
             data-toggle="modal" data-target="#addEditWorkstationModal"
             data-backdrop="static" data-keyboard="false"
@@ -123,7 +128,10 @@
 
 
 
-    <app-griglia [roomId]="key" [changeVariable]="notifyChangeVariable"></app-griglia>
+
+    <div [hidden]="!roomVisible.get(key)">
+      <app-griglia [roomId]="key" [changeVariable]="notifyChangeVariable"></app-griglia>
+    </div>
   </tr>
   </tbody>
 

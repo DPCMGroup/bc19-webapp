@@ -16,7 +16,7 @@ export class RoomsComponent implements OnInit {
   constructor(private roomService: RoomsService, private workstationService: WorkstationsService) {
   }
 
-  roomsMap = new Map<any, any>();
+  roomsMap = new Map<number, WorkstationData[]>();
   roomsList: any = [];
   workstationsList: any = [];
   notifyChangeVariable = false; // I'm not sure this is needed anymore, since we have workstationAction and roomAction that change
@@ -29,6 +29,8 @@ export class RoomsComponent implements OnInit {
   // roomModal
   addEditRoom = new RoomData();
   roomAction = 'add'; // add or edit
+
+  roomVisible = new Map<number, boolean>();
 
   ngOnInit(): void {
     this.refreshAll();
@@ -244,6 +246,11 @@ export class RoomsComponent implements OnInit {
         break;
     }
     return typeString;
+  }
+
+  invertRoomVisibility(roomId: number): void {
+    const old = this.roomVisible.get(roomId);
+    this.roomVisible.set(roomId, !old);
   }
 
 }
