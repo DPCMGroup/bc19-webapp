@@ -117,7 +117,7 @@ export class RoomsComponent implements OnInit {
 
     // Put in the map all the rooms saved in the server, also the empty ones.
     // Do that just if there if there isn't a filter. When you filter you don't want to see the empty rooms.
-    if ( filterWorkstationId === null ){
+    if ( filterWorkstationId == null ){
       for (const r of this.roomsList){
         tempRoomsMap.set(r.id, []);
       }
