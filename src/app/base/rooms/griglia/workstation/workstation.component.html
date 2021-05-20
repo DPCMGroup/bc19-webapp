@@ -24,8 +24,15 @@
 
       </div>
       <div class="modal-footer">
-        <button class="btn btn-primary" data-target="#addEditWorkstationModal" data-toggle="modal" data-dismiss="modal"
+        <button class="btn btn-primary" (click)="openEditWorkstation()"
+                data-toggle="modal"
+                data-dismiss="modal"
+                data-target="#addEditWorkstationModal"
+                data-backdrop="static" data-keyboard="false"
         > Modifica
+        </button>
+        <button class="btn btn-primary" (click)="deleteWorkstation()"
+        > Elimina
         </button>
       </div>
     </div>

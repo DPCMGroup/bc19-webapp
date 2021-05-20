@@ -82,7 +82,7 @@ export class RoomsComponent implements OnInit {
     // says to angular to update the view
     // this.cd.detectChanges();
 
-    console.log(this.roomsMap.keys());
+    // console.log(this.roomsMap.keys());
 
 
   }
@@ -136,7 +136,7 @@ export class RoomsComponent implements OnInit {
     }
     this.roomsMap = tempRoomsMap;
     // says to angular to update the view
-    console.log('refreshed all');
+    // console.log('refreshed all');
   }
 
   // deletes the workstation
@@ -152,7 +152,7 @@ export class RoomsComponent implements OnInit {
   }
 
   deleteRoom(roomId): void {
-    console.log(roomId);
+    // console.log(roomId);
 
     if (confirm('Sei sicuro?')){
       this.roomService.deleteRoom(roomId.toString()).subscribe( (data) => {
@@ -167,10 +167,13 @@ export class RoomsComponent implements OnInit {
     this.addEditWorkstation.idroom = idroom;
     this.workstationAction = 'add';
     this.notifyChange();
-    console.log(this.addEditWorkstation);
+    // console.log(this.addEditWorkstation);
   }
 
   openEditWorkstation(workstation): void{
+    console.log('rooms received item: ');
+    console.log(workstation);
+
     this.addEditWorkstation = workstation;
     this.workstationAction = 'edit';
     this.notifyChange();

@@ -28,7 +28,7 @@ export class AddEditRoomComponent implements OnInit {
 
   // tslint:disable-next-line:use-lifecycle-interface
   ngOnChanges(): void {
-    console.log('changed');
+    // console.log('changed');
     // assign passed room values into my values (just the values that need to be assigned)
     this.id = this.passedRoom.id;
     this.roomname = this.passedRoom.roomname;
@@ -62,7 +62,7 @@ export class AddEditRoomComponent implements OnInit {
     // set values that may be not already set or set improperly but that the server requires
     newRoom.id = 0;
     newRoom.archived = 0;
-    console.log(newRoom);
+    // console.log(newRoom);
     this.service.addRoom(newRoom).subscribe( (data) => {
       alert(data.toString());
     }, error => alert('C\'è stato un errore'));
@@ -70,8 +70,8 @@ export class AddEditRoomComponent implements OnInit {
 
   editRoom(): void{
     const newRoom = this.getRoomFromLocalValues();
-    console.log('editRoom ');
-    console.log(newRoom);
+    // console.log('editRoom ');
+    // console.log(newRoom);
     this.service.modifyRoom(newRoom).subscribe( (data) => {
       alert(data.toString());
     }, error => alert('C\'è stato un errore'));

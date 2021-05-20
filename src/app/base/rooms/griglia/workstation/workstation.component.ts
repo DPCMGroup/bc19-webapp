@@ -1,5 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {WorkstationData} from '../../../../models/workstation-data';
+import {WorkstationsService} from '../../../../services/workstations.service';
 
 @Component({
   selector: 'app-workstation',
@@ -8,7 +9,7 @@ import {WorkstationData} from '../../../../models/workstation-data';
 })
 export class WorkstationComponent implements OnInit {
 
-  constructor() { }
+  constructor(private workstationService: WorkstationsService) { }
 
   @Input() workstation: WorkstationData;
   id = 0;
@@ -20,6 +21,8 @@ export class WorkstationComponent implements OnInit {
   state = 0;
   sanitized = 0;
   archived = 0;
+
+  @Output() newItemEvent = new EventEmitter<WorkstationData>();
 
   ngOnInit(): void {
     this.setAttributes();
@@ -62,25 +65,14 @@ export class WorkstationComponent implements OnInit {
     }
   }
 
-  printWorkstation(): void {
-    console.log(this.workstation);
+  deleteWorkstation(): void{
+    this.workstationService.deleteWorkstation(this.workstation.id).subscribe(
+      (data) => {alert(data); this.workstation = null; }
+    );
   }
 
-  printTag(): void {
-    console.log('tag: ' + this.tag);
-  }
-
-  getTag(): string {
-    return this.tag;
-  }
-
-  printWorkstationNull(): void {
-    console.log(this.workstation === null);
-  }
-
-  openModal(id){
-    const modal = document.getElementById(id);
-    // modal.modal('show');
+  openEditWorkstation(): void {
+    this.newItemEvent.emit(this.workstation);
   }
 
 }

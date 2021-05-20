@@ -42,7 +42,7 @@ import { WorkstationComponent } from './base/rooms/griglia/workstation/workstati
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [{provide: 'apiUrl', useValue: 'http://192.168.210.35:8000'},
+  providers: [{provide: 'apiUrl', useValue: 'http://dpcm2077.duckdns.org:8000'},
     RoomsService, WorkstationsService, UserService, LoginService],
   bootstrap: [AppComponent]
 })

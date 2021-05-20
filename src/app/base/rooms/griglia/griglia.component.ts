@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
 import {WorkstationData} from '../../../models/workstation-data';
 import {WorkstationsService} from '../../../services/workstations.service';
 import {RoomData} from '../../../models/room-data';
@@ -20,6 +20,8 @@ export class GrigliaComponent implements OnInit, OnChanges{
   room: RoomData = null;
   @Input() roomId = 6;
   @Input() changeVariable = false;
+
+  @Output() newItemEvent = new EventEmitter<WorkstationData>();
 
   ngOnInit(): void {
     this.init();
@@ -77,7 +79,7 @@ export class GrigliaComponent implements OnInit, OnChanges{
       roomArr.push([]);
       for (let j = 0; j < dimy; j += 1){
         // console.log(`${i} : ${j}`);
-        const filteredWork = this.filterWorkstationsByPosition(works, i, j)
+        const filteredWork = this.filterWorkstationsByPosition(works, i, j);
         if (filteredWork){
           // console.log('true');
 
@@ -97,6 +99,12 @@ export class GrigliaComponent implements OnInit, OnChanges{
       arr[i] = i;
     }
     return arr;
+  }
+
+  receiveItem(item: WorkstationData): void {
+    console.log('griglia received item: ');
+    console.log(item);
+    this.newItemEvent.emit(item);
   }
 
 
