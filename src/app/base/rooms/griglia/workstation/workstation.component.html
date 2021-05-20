@@ -1,3 +1,28 @@
 
 
-<button class="btn btn-{{getColorByState()}}">{{workstation ? workstation.id : ""}}</button>
+<button class="btn btn-{{getColorByState()}}"
+        data-toggle="modal" data-target="#workstationModal"
+
+        data-backdrop="static" data-keyboard="false"
+        (click)="setAttributes(); printTag();"
+>{{workstation ? workstation.id : ""}}</button>
+
+<!-- Workstation Modal -->
+<div class="modal" id="workstationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabelNew">Postazione </h5>
+        <button type="button" class="close"
+                data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Tag: </p>{{tag}}
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Workstation Modal -->

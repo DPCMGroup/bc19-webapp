@@ -42,7 +42,8 @@ import { WorkstationComponent } from './base/rooms/griglia/workstation/workstati
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [RoomsService, WorkstationsService, UserService, LoginService],
+  providers: [{provide: 'apiUrl', useValue: 'http://192.168.210.35:8000'},
+    RoomsService, WorkstationsService, UserService, LoginService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
