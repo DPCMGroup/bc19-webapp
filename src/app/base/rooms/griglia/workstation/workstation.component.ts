@@ -26,15 +26,15 @@ export class WorkstationComponent implements OnInit {
   }
 
   setAttributes(): void {
-    this.id = this.workstation ? this.workstation.id : 0;
-    this.tag = this.workstation ? this.workstation.tag : '';
-    this.workstationname = this.workstation ? this.workstation.workstationname : '';
-    this.xworkstation = this.workstation ? this.workstation.xworkstation : 0;
-    this.yworkstation = this.workstation ? this.workstation.yworkstation : 0;
-    this.idroom = this.workstation ? this.workstation.idroom : 0;
-    this.state = this.workstation ? this.workstation.state : 0;
-    this.sanitized = this.workstation ? this.workstation.sanitized : 0;
-    this.archived = this.workstation ? this.workstation.archived : 0;
+    this.id = this.workstation !== null ? this.workstation.id : 0;
+    this.tag = this.workstation !== null ? this.workstation.tag : '';
+    this.workstationname = this.workstation !== null ? this.workstation.workstationname : '';
+    this.xworkstation = this.workstation !== null ? this.workstation.xworkstation : 0;
+    this.yworkstation = this.workstation !== null ? this.workstation.yworkstation : 0;
+    this.idroom = this.workstation !== null ? this.workstation.idroom : 0;
+    this.state = this.workstation !== null ? this.workstation.state : 0;
+    this.sanitized = this.workstation !== null ? this.workstation.sanitized : 0;
+    this.archived = this.workstation !== null ? this.workstation.archived : 0;
   }
 
   getColorByState(): string{
@@ -68,6 +68,19 @@ export class WorkstationComponent implements OnInit {
 
   printTag(): void {
     console.log('tag: ' + this.tag);
+  }
+
+  getTag(): string {
+    return this.tag;
+  }
+
+  printWorkstationNull(): void {
+    console.log(this.workstation === null);
+  }
+
+  openModal(id){
+    const modal = document.getElementById(id);
+    // modal.modal('show');
   }
 
 }

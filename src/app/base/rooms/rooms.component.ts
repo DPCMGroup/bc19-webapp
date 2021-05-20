@@ -253,4 +253,6 @@ export class RoomsComponent implements OnInit {
     this.roomVisible.set(roomId, !old);
   }
 
+
+
 }

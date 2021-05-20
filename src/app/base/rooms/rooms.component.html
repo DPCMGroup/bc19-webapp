@@ -56,7 +56,7 @@
   <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="addEditRoomModalLabel">{{roomAction === 'add' ? 'Add room' : 'Edit room'}}</h5>
+        <h5 class="modal-title" id="addEditRoomModalLabel">{{roomAction === 'add' ? 'Aggiungi stanza' : 'Modifica stanza'}}</h5>
         <button type="button" class="close"
                 data-dismiss="modal" aria-label="Chiudi"
         (click)="closeAddEditRoom()">
@@ -76,7 +76,7 @@
   <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="addEditWorkstationModalLabel">{{workstationAction === 'add' ? 'Add workstation' : 'Edit workstation'}}</h5>
+        <h5 class="modal-title" id="addEditWorkstationModalLabel">{{workstationAction === 'add' ? 'Aggiungi postazione' : 'Modifica postazione'}}</h5>
         <button type="button" class="close"
                 (click)="closeAddEditWorkstation()"
                 data-dismiss="modal" aria-label="Chiudi">
@@ -90,6 +90,8 @@
   </div>
 </div>
 <!-- Add-Edit Workstation Modal -->
+
+
 
 <table class="table table-striped" >
   <thead>

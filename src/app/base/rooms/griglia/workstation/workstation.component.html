@@ -1,25 +1,32 @@
 
 
 <button class="btn btn-{{getColorByState()}}"
-        data-toggle="modal" data-target="#workstationModal"
-
+        data-toggle="modal"
+        [attr.data-target] = "'#workstationModal' + id"
         data-backdrop="static" data-keyboard="false"
-        (click)="setAttributes(); printTag();"
->{{workstation ? workstation.id : ""}}</button>
+>{{workstation ? workstation.id : ''}}</button>
 
 <!-- Workstation Modal -->
-<div class="modal" id="workstationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
+<div class="modal fade" id="workstationModal{{id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabelNew">Postazione </h5>
+        <h5 class="modal-title" id="exampleModalLabel">Postazione {{id}}-{{workstationname}}</h5>
         <button type="button" class="close"
                 data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <p>Tag: </p>{{tag}}
+        <p>Id: {{id}}</p>
+        <p>Nome: {{workstationname}}</p>
+        <p>Tag: {{tag}}</p>
+
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" data-target="#addEditWorkstationModal" data-toggle="modal" data-dismiss="modal"
+        > Modifica
+        </button>
       </div>
     </div>
   </div>
