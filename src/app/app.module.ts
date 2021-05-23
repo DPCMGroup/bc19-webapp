@@ -17,6 +17,8 @@ import {RoomsService} from './services/rooms.service';
 import {WorkstationsService} from './services/workstations.service';
 import {UserService} from './services/user.service';
 import {LoginService} from './services/login.service';
+import { GrigliaComponent } from './base/rooms/griglia/griglia.component';
+import { WorkstationComponent } from './base/rooms/griglia/workstation/workstation.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,8 @@ import {LoginService} from './services/login.service';
     ReportComponent,
     RoomsComponent,
     AddEditRoomComponent,
+    GrigliaComponent,
+    WorkstationComponent,
   ],
   imports: [
     BrowserModule,
@@ -38,7 +42,8 @@ import {LoginService} from './services/login.service';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [RoomsService, WorkstationsService, UserService, LoginService],
+  providers: [{provide: 'apiUrl', useValue: 'http://dpcm2077.duckdns.org:8000'},
+    RoomsService, WorkstationsService, UserService, LoginService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

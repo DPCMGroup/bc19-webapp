@@ -29,7 +29,7 @@ export class AddEditWorkstationComponent implements OnInit {
 
   // tslint:disable-next-line:use-lifecycle-interface
   ngOnChanges(): void {
-    console.log('changed');
+    // console.log('changed');
     // assign passed workstation values into my values (just the values that need to be assigned)
     this.id = this.passedWorkstation.id;
     this.tag = this.passedWorkstation.tag;
@@ -65,7 +65,7 @@ export class AddEditWorkstationComponent implements OnInit {
 
   // tslint:disable-next-line:typedef
   addWorkstation() {
-    console.log('addWorkstation' + this.idroom);
+    // console.log('addWorkstation' + this.idroom);
     const newWorkstation = this.getWorkstationFromLocalValues();
     if (newWorkstation == null){
       alert('Valori non validi');
@@ -73,7 +73,7 @@ export class AddEditWorkstationComponent implements OnInit {
     }
     // all the workstations have to be created with state 0
     newWorkstation.state = 0;
-    console.log(newWorkstation);
+    // console.log(newWorkstation);
     this.service.addWorkstation(newWorkstation).subscribe(res => {
       alert(res.toString());
     }, error => alert('C\'è stato un errore'));
@@ -85,7 +85,7 @@ export class AddEditWorkstationComponent implements OnInit {
       alert('Valori non validi');
       return;
     }
-    console.log(val);
+    // console.log(val);
     this.service.modifyWorkstation(val).subscribe(res => {
       alert(res.toString());
     }, error => alert('C\'è stato un errore'));

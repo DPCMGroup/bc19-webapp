@@ -56,7 +56,7 @@
   <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="addEditRoomModalLabel">{{roomAction === 'add' ? 'Add room' : 'Edit room'}}</h5>
+        <h5 class="modal-title" id="addEditRoomModalLabel">{{roomAction === 'add' ? 'Aggiungi stanza' : 'Modifica stanza'}}</h5>
         <button type="button" class="close"
                 data-dismiss="modal" aria-label="Chiudi"
         (click)="closeAddEditRoom()">
@@ -76,7 +76,7 @@
   <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="addEditWorkstationModalLabel">{{workstationAction === 'add' ? 'Add workstation' : 'Edit workstation'}}</h5>
+        <h5 class="modal-title" id="addEditWorkstationModalLabel">{{workstationAction === 'add' ? 'Aggiungi postazione' : 'Modifica postazione'}}</h5>
         <button type="button" class="close"
                 (click)="closeAddEditWorkstation()"
                 data-dismiss="modal" aria-label="Chiudi">
@@ -91,6 +91,8 @@
 </div>
 <!-- Add-Edit Workstation Modal -->
 
+
+
 <table class="table table-striped" >
   <thead>
   <tr>
@@ -100,8 +102,13 @@
   <tbody>
   <tr *ngFor="let key of getRoomsMapKeys()">
 
-    <h3>Id: {{key}} | Nome: {{getRoomInfoById(key).roomname}} | Dimensioni: {{getRoomInfoById(key).xroom}}x{{getRoomInfoById(key).yroom}}</h3>
-    <!-- Button trigger modal -->
+    <h3>Id: {{key}} | Nome: {{getRoomInfoById(key).roomname}} | Dimensioni: {{getRoomInfoById(key).xroom}}x{{getRoomInfoById(key).yroom}} | Occupanti: {{getNumberOfOccupantsByRoomId(key)}}</h3>
+
+    <button type="button" class="btn btn-primary float-right m-2"
+            (click)="invertRoomVisibility(key)">
+      {{roomVisible.get(key) ? '▲' : '▼'}}
+    </button>
+
     <button type="button" class="btn btn-primary float-right m-2"
             data-toggle="modal" data-target="#addEditWorkstationModal"
             data-backdrop="static" data-keyboard="false"
@@ -123,44 +130,10 @@
 
 
 
-    <table class="table table-striped" >
-      <thead>
-      <tr>
-        <th>Id</th>
-        <th>Tag</th>
-        <th>Nome</th>
-        <th>Posizione X</th>
-        <th>Posizione Y</th>
-        <th>Stato</th>
-        <th>Sanificata</th>
-        <th>Opzioni</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let dataItem of roomsMap.get(key)">
-        <td>{{dataItem.id}}</td>
-        <th>{{dataItem.tag}}</th>
-        <td>{{dataItem.workstationname}}</td>
-        <td>{{dataItem.xworkstation}}</td>
-        <td>{{dataItem.yworkstation}}</td>
-        <td>{{stateNumToString(dataItem.state)}}</td>
-        <td>{{sanitizedNumToString(dataItem.sanitized)}}</td>
-        <td>
-          <button type="button" class="btn btn-light mr-1" (click)="deleteClick(dataItem)">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
-              <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
-            </svg></button>
-          <button type="button" class="btn btn-primary float-right m-2"
-                  data-toggle="modal" data-target="#addEditWorkstationModal"
-                  data-backdrop="static" data-keyboard="false"
-                  (click)="openEditWorkstation(dataItem)">
-            M
-          </button>
-        </td>
-      </tr>
-      </tbody>
 
-    </table>
+    <div [hidden]="!roomVisible.get(key)">
+      <app-griglia (newItemEvent)="openEditWorkstation($event)" [roomId]="key" [changeVariable]="notifyChangeVariable"></app-griglia>
+    </div>
   </tr>
   </tbody>
 

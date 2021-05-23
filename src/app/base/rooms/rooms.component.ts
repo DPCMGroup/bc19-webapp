@@ -16,7 +16,7 @@ export class RoomsComponent implements OnInit {
   constructor(private roomService: RoomsService, private workstationService: WorkstationsService) {
   }
 
-  roomsMap = new Map<any, any>();
+  roomsMap = new Map<number, WorkstationData[]>();
   roomsList: any = [];
   workstationsList: any = [];
   notifyChangeVariable = false; // I'm not sure this is needed anymore, since we have workstationAction and roomAction that change
@@ -29,6 +29,8 @@ export class RoomsComponent implements OnInit {
   // roomModal
   addEditRoom = new RoomData();
   roomAction = 'add'; // add or edit
+
+  roomVisible = new Map<number, boolean>();
 
   ngOnInit(): void {
     this.refreshAll();
@@ -80,7 +82,7 @@ export class RoomsComponent implements OnInit {
     // says to angular to update the view
     // this.cd.detectChanges();
 
-    console.log(this.roomsMap.keys());
+    // console.log(this.roomsMap.keys());
 
 
   }
@@ -134,7 +136,7 @@ export class RoomsComponent implements OnInit {
     }
     this.roomsMap = tempRoomsMap;
     // says to angular to update the view
-    console.log('refreshed all');
+    // console.log('refreshed all');
   }
 
   // deletes the workstation
@@ -150,7 +152,7 @@ export class RoomsComponent implements OnInit {
   }
 
   deleteRoom(roomId): void {
-    console.log(roomId);
+    // console.log(roomId);
 
     if (confirm('Sei sicuro?')){
       this.roomService.deleteRoom(roomId.toString()).subscribe( (data) => {
@@ -165,10 +167,13 @@ export class RoomsComponent implements OnInit {
     this.addEditWorkstation.idroom = idroom;
     this.workstationAction = 'add';
     this.notifyChange();
-    console.log(this.addEditWorkstation);
+    // console.log(this.addEditWorkstation);
   }
 
   openEditWorkstation(workstation): void{
+    console.log('rooms received item: ');
+    console.log(workstation);
+
     this.addEditWorkstation = workstation;
     this.workstationAction = 'edit';
     this.notifyChange();
@@ -193,7 +198,9 @@ export class RoomsComponent implements OnInit {
   }
 
   closeAddEditWorkstation(): void {
+    console.log('closeAddEditWorkstation');
     this.refreshAll();
+    this.notifyChange();
   }
 
   closeAddEditRoom(): void {
@@ -212,36 +219,26 @@ export class RoomsComponent implements OnInit {
     this.refreshAll();
   }
 
-  stateNumToString(type: number): string{
-    let typeString = '';
-    switch (type){
-      case 0:
-        typeString = 'Disponibile';
-        break;
-      case 1:
-        typeString = 'Occupata';
-        break;
-      case 2:
-        typeString = 'Prenotata';
-        break;
-      case 3:
-        typeString = 'Rotta';
-        break;
-    }
-    return typeString;
+
+
+  invertRoomVisibility(roomId: number): void {
+    const old = this.roomVisible.get(roomId);
+    this.roomVisible.set(roomId, !old);
   }
 
-  sanitizedNumToString(type: number): string{
-    let typeString = '';
-    switch (type){
-      case 0:
-        typeString = 'Non igienizzata';
-        break;
-      case 1:
-        typeString = 'Igienizzata';
-        break;
+  getNumberOfOccupantsByRoomId(roomId: number): number{
+    const roomsWorkstations = this.roomsMap.get(roomId);
+    let occupantsNum = 0;
+    if (roomsWorkstations) {
+      for (const work of roomsWorkstations){
+        if (work.state === 1) {
+          occupantsNum += 1;
+        }
+      }
     }
-    return typeString;
+    return occupantsNum;
   }
+
+
 
 }
