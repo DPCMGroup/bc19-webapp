@@ -9,11 +9,12 @@ import {UserData} from '../models/user-data';
 })
 export class LoginService {
 
-  // readonly APIUrl = 'http://dpcm2077.duckdns.org:8000';
+   readonly APIUrl = 'http://dpcm2077.duckdns.org:8000';
 
   constructor(
-    private http: HttpClient,
-    @Inject('apiUrl') private APIUrl: string) { }
+    private http: HttpClient
+    // @Inject('apiUrl') private APIUrl: string
+  ) { }
 
   // LOGIN
 

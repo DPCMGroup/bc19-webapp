@@ -20,6 +20,9 @@ import {LoginService} from './services/login.service';
 import { GrigliaComponent } from './base/rooms/griglia/griglia.component';
 import { WorkstationComponent } from './base/rooms/griglia/workstation/workstation.component';
 
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,4 +49,5 @@ import { WorkstationComponent } from './base/rooms/griglia/workstation/workstati
     RoomsService, WorkstationsService, UserService, LoginService],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }
