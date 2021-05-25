@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {RoomsService} from '../../../services/rooms.service';
 import {UtilsService} from '../../../services/utils.service';
+import {RoomData} from '../../../models/room-data';
 
 @Component({
   selector: 'app-add-edit-room',
@@ -17,6 +18,7 @@ export class AddEditRoomComponent implements OnInit {
   xroom: string;
   yroom: string;
   archived: number;
+  unavailable: number;
 
   @Input() noticeChangeVariable: boolean;
 
@@ -36,15 +38,17 @@ export class AddEditRoomComponent implements OnInit {
     this.xroom = this.passedRoom.xroom;
     this.yroom = this.passedRoom.yroom;
     this.archived = this.passedRoom.archived;
+    this.unavailable = this.passedRoom.unavailable;
   }
 
   getRoomFromLocalValues(): any{
-    const newRoom = {
+    const newRoom: RoomData = {
       id: this.id,
       roomname: this.roomname,
       xroom: parseInt(this.xroom, 10),
       yroom: parseInt(this.yroom, 10),
-      archived: this.archived
+      archived: this.archived,
+      unavailable: this.unavailable
     };
     return newRoom;
   }

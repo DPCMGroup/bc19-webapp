@@ -4,4 +4,5 @@ export class RoomData {
   xroom = 0;
   yroom = 0;
   archived = 0;
+  unavailable = 0;
 }
