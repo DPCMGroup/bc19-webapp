@@ -1,3 +1,4 @@
+
 <table class="table table-striped">
 
   <thead>
@@ -6,10 +7,10 @@
     </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let row of roomArray">
-    <td class="verticalTableIndex tableIndex">{{roomArray.indexOf(row)}}</td>
-    <td *ngFor="let work of row">
-      <app-workstation (newItemEvent)="receiveItem($event)" [workstation]="work"></app-workstation>
+  <tr *ngFor="let i of getArrayFromNum(room ? room.yroom : 0)">
+    <td class="verticalTableIndex tableIndex">{{i}}</td>
+    <td *ngFor="let j of getArrayFromNum(room ? room.xroom : 0)">
+      <app-workstation (newItemEvent)="receiveItem($event)" [workstation]=" room ? (filterWorkstationsByPosition(filterWorkstationsByRoom(workstationsList, room.id),i,j)) : null"></app-workstation>
     </td>
   </tr>
   </tbody>
