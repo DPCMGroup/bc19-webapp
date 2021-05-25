@@ -154,17 +154,16 @@ export class RoomsComponent implements OnInit {
     this.notifyChangeVariable = !this.notifyChangeVariable;
   }
 
-  async closeAddEditWorkstation(): Promise<void> {
+  closeAddEditWorkstation(): void {
     console.log('closeAddEditWorkstation');
-    const delay = ms => new Promise(res => setTimeout(res, ms));
-    this.notifyChange();
-    await delay(7000);
-    console.log('finished waiting');
+    // const delay = ms => new Promise(res => setTimeout(res, ms));
     this.refreshAll();
+    this.notifyChange();
   }
 
   closeAddEditRoom(): void {
     this.refreshAll();
+    this.notifyChange();
   }
 
   searchOccupation(): void {

@@ -13,6 +13,9 @@ export class WorkstationComponent implements OnInit {
   constructor(private workstationService: WorkstationsService) { }
 
   @Input() workstation: WorkstationData;
+  @Input() insertedPosX: number;
+  @Input() insertedPosY: number;
+  @Input() insertedRoomId: number;
   id = 0;
   tag = '';
   workstationname = '';

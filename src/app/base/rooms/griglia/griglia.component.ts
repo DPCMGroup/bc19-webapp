@@ -18,7 +18,7 @@ export class GrigliaComponent implements OnInit, OnChanges{
   roomsList: RoomData[] = [];
   roomArray: WorkstationData[][] = [];
   room: RoomData = null;
-  @Input() roomId = 6;
+  @Input() roomId: number;
   @Input() changeVariable = false;
 
   @Output() newItemEvent = new EventEmitter<WorkstationData>();

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { WorkstationsService } from '../../../services/workstations.service';
 import {WorkstationData} from '../../../models/workstation-data';
 import {UtilsService} from '../../../services/utils.service';
