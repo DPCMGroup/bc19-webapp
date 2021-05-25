@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {WorkstationData} from '../../../../models/workstation-data';
 import {WorkstationsService} from '../../../../services/workstations.service';
+import {UtilsService} from '../../../../services/utils.service';
 
 @Component({
   selector: 'app-workstation',
@@ -67,7 +68,7 @@ export class WorkstationComponent implements OnInit {
 
   deleteWorkstation(): void{
     this.workstationService.deleteWorkstation(this.workstation.id).subscribe(
-      (data) => {alert(data); this.workstation = null; }
+      (data) => {alert(UtilsService.checkReturnType(data)); this.workstation = null; }
     );
   }
 
@@ -105,6 +106,10 @@ export class WorkstationComponent implements OnInit {
         break;
     }
     return typeString;
+  }
+
+  print(s: string): void {
+    console.log(s);
   }
 
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {UserService} from 'src/app/services/user.service';
 import {UserData} from '../../../models/user-data';
+import {UtilsService} from '../../../services/utils.service';
 
 @Component({
   selector: 'app-show-credential',
@@ -47,7 +48,7 @@ export class ShowCredentialComponent implements OnInit {
     if (confirm('Sei sicuro??')){
 
       this.service.deleteUser(item.id).subscribe(data => {
-        alert(data.toString());
+        alert(UtilsService.checkReturnType(data));
         this.refreshCredentialsList();
       }, error => (alert('C\'è stato un errore')));
     }

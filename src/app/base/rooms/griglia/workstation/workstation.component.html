@@ -4,6 +4,7 @@
         data-toggle="modal"
         [attr.data-target] = "'#workstationModal' + id"
         data-backdrop="static" data-keyboard="false"
+        (click)="print('workstationOpened')"
 >{{workstation ? workstation.id : ''}}</button>
 
 <!-- Workstation Modal -->

@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import { WorkstationsService } from '../../../services/workstations.service';
 import {WorkstationData} from '../../../models/workstation-data';
+import {UtilsService} from '../../../services/utils.service';
 
 @Component({
   selector: 'app-add-edit-workstation',
@@ -75,7 +76,7 @@ export class AddEditWorkstationComponent implements OnInit {
     newWorkstation.state = 0;
     // console.log(newWorkstation);
     this.service.addWorkstation(newWorkstation).subscribe(res => {
-      alert(res.toString());
+      alert(UtilsService.checkReturnType(res));
     }, error => alert('C\'è stato un errore'));
   }
 
@@ -87,7 +88,7 @@ export class AddEditWorkstationComponent implements OnInit {
     }
     // console.log(val);
     this.service.modifyWorkstation(val).subscribe(res => {
-      alert(res.toString());
+      alert(UtilsService.checkReturnType(res));
     }, error => alert('C\'è stato un errore'));
   }
 }

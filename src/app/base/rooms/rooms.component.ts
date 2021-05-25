@@ -5,6 +5,7 @@ import {WorkstationData} from '../../models/workstation-data';
 import {RoomData} from '../../models/room-data';
 import {WorkstationsService} from '../../services/workstations.service';
 import {filter} from 'rxjs/operators';
+import {UtilsService} from '../../services/utils.service';
 
 @Component({
   selector: 'app-rooms',
@@ -42,49 +43,6 @@ export class RoomsComponent implements OnInit {
 
   getRoomInfoById(id): any {
     return this.roomsList.find( o => o.id === id );
-  }
-
-
-  refreshAllNoDB(): void {
-    this.workstationsList = [
-      {
-        id: 8,
-        tag: '00 12 10 01 8d 91 04',
-        workstationname: 'lab1-ciao3',
-        xworkstation: 6,
-        yworkstation: 6,
-        idroom: 55,
-        state: 0,
-        archived: 0
-      },
-      {
-        id: 6,
-        tag: '00 55 10 66 8d 91 04',
-        workstationname: 'lab1-ciao3',
-        xworkstation: 6,
-        yworkstation: 6,
-        idroom: 125,
-        state: 0,
-        archived: 0
-      }
-    ];
-
-    this.roomsMap = new Map<any, any>();
-    // I divide the workstations by their room
-    // For now I don't check the correspondence with the roomsList
-    this.workstationsList.forEach(function(value): void {
-      if (this.roomsMap.get(value.idroom)) {
-      } else {
-        this.roomsMap.set(value.idroom, []);
-      }
-      this.roomsMap.get(value.idroom).push(value);
-    }.bind(this));
-    // says to angular to update the view
-    // this.cd.detectChanges();
-
-    // console.log(this.roomsMap.keys());
-
-
   }
 
   setRoomsList(roomsData: RoomData[]): void{
@@ -135,8 +93,7 @@ export class RoomsComponent implements OnInit {
       }
     }
     this.roomsMap = tempRoomsMap;
-    // says to angular to update the view
-    // console.log('refreshed all');
+    console.log('populated all');
   }
 
   // deletes the workstation
@@ -145,7 +102,7 @@ export class RoomsComponent implements OnInit {
     if (confirm('Sei sicuro?')) {
       this.workstationService.deleteWorkstation(item.id).toPromise().then((data) => {
         // here I will have to check if the server returned 'Deleted Successfully' (or something like that)
-        alert(data.toString());
+        alert(UtilsService.checkReturnType(data));
         this.refreshAll();
       });
     }
@@ -156,7 +113,7 @@ export class RoomsComponent implements OnInit {
 
     if (confirm('Sei sicuro?')){
       this.roomService.deleteRoom(roomId.toString()).subscribe( (data) => {
-        alert(data.toString());
+        alert(UtilsService.checkReturnType(data));
         this.refreshAll();
       }, error => alert('C\'è stato un errore'));
     }
@@ -197,10 +154,13 @@ export class RoomsComponent implements OnInit {
     this.notifyChangeVariable = !this.notifyChangeVariable;
   }
 
-  closeAddEditWorkstation(): void {
+  async closeAddEditWorkstation(): Promise<void> {
     console.log('closeAddEditWorkstation');
-    this.refreshAll();
+    const delay = ms => new Promise(res => setTimeout(res, ms));
     this.notifyChange();
+    await delay(7000);
+    console.log('finished waiting');
+    this.refreshAll();
   }
 
   closeAddEditRoom(): void {

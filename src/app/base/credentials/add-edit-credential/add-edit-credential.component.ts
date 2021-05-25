@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {UserService} from '../../../services/user.service';
 import {UserData} from '../../../models/user-data';
+import {UtilsService} from '../../../services/utils.service';
 
 @Component({
   selector: 'app-add-edit-credential',
@@ -81,7 +82,7 @@ export class AddEditCredentialComponent implements OnInit {
     console.log('addingCredential');
     console.log(newCredential);
     this.service.addUser(newCredential).subscribe(res => {
-      alert(res.toString());
+      alert(UtilsService.checkReturnType(res));
     }, error => (alert('C\'è stato un errore')));
 
   }
@@ -95,7 +96,7 @@ export class AddEditCredentialComponent implements OnInit {
     console.log('editingCredential');
     console.log(newCredential);
     this.service.modifyUser(newCredential).subscribe(res => {
-      alert(res.toString());
+      alert(UtilsService.checkReturnType(res));
     }, error => (alert('C\'è stato un errore')));
 
   }

@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {RoomsService} from '../../../services/rooms.service';
+import {UtilsService} from '../../../services/utils.service';
 
 @Component({
   selector: 'app-add-edit-room',
@@ -64,7 +65,7 @@ export class AddEditRoomComponent implements OnInit {
     newRoom.archived = 0;
     // console.log(newRoom);
     this.service.addRoom(newRoom).subscribe( (data) => {
-      alert(data.toString());
+      alert(UtilsService.checkReturnType(data));
     }, error => alert('C\'è stato un errore'));
   }
 
@@ -73,7 +74,7 @@ export class AddEditRoomComponent implements OnInit {
     // console.log('editRoom ');
     // console.log(newRoom);
     this.service.modifyRoom(newRoom).subscribe( (data) => {
-      alert(data.toString());
+      alert( UtilsService.checkReturnType(data));
     }, error => alert('C\'è stato un errore'));
 
   }
