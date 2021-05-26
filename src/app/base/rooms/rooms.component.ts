@@ -41,7 +41,8 @@ export class RoomsComponent implements OnInit {
     return Array.from(this.roomsMap.keys());
   }
 
-  getRoomInfoById(id): any {
+  getRoomInfoById(id): RoomData {
+    console.log(this.roomsList.find( o => o.id === id ).unavailable === 0);
     return this.roomsList.find( o => o.id === id );
   }
 
@@ -196,6 +197,10 @@ export class RoomsComponent implements OnInit {
       }
     }
     return occupantsNum;
+  }
+
+  getRoomsUnavailabilityDates(roomId: number): any {
+
   }
 
 
