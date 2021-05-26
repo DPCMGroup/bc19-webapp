@@ -61,6 +61,17 @@ export class LoginComponent implements OnInit {
       password: this.password
     };
     this.loginService.login(credentials).subscribe( (data) => {
+      /*
+      se archived è uguale a 1 l'api restituisce un errore numerico
+      se l'utente non è presente l'api restituisce un altro errore numerico
+      se l'utente è presente e non archiviato l'api resituisce un oggetto di tipo UserData
+      */
+      console.log(data);
+      /*if(){
+        // errore utente non trovato
+      }else if () {
+        // errore utente disabilitato
+      }else */
       if ( data.type === 0 && data.archived === 0 ) {
         // redirect to the base url
         window.location.href = '/base';
@@ -69,11 +80,12 @@ export class LoginComponent implements OnInit {
         // I save user credentials in localStorage
         this.localAccountService.saveCredentialsLocally(credentials);
         console.log('primo');
-      }else if ( data.type !== 0 ) {
+      }
+      /*else if ( data.type !== 0) {
         this.setErrorVisible(true);
         console.log('secondo');
-      }else {this.setErrorVisible_(true);
-             console.log('terzo'); }
+      }else { this.setErrorVisible_(true);
+              console.log('terzo'); }*/
     });
   }
 
