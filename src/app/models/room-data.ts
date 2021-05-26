@@ -6,3 +6,7 @@ export class RoomData {
   archived = 0;
   unavailable = 0;
 }
+
+export class RoomDataWithField extends RoomData{
+  isDataAvailable = 0;
+}

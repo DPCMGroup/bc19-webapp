@@ -198,10 +198,9 @@ export class RoomsComponent implements OnInit {
     }
     return occupantsNum;
   }
-
+  /*
   getRoomsUnavailabilityDates(roomId: number): any {
-
-  }
+  }*/
 
 
 
