@@ -67,31 +67,71 @@ export class RoomsComponent implements OnInit {
 
   }
 
-  populateRoomsMap(filterWorkstationId?: number): void{
+  populateRoomsMap(filterWorkstationName?: string, filterRoomName?: string): void{
     const tempRoomsMap = new Map<number, WorkstationData[]>();
 
     // then I update the rooms map
     this.roomsMap = new Map<number, WorkstationData[]>();
 
-    // Put in the map all the rooms saved in the server, also the empty ones.
-    // Do that just if there if there isn't a filter. When you filter you don't want to see the empty rooms.
-    if ( filterWorkstationId == null ){
-      for (const r of this.roomsList){
-        tempRoomsMap.set(r.id, []);
-      }
-    }
-    // I divide the workstations by their room
-    // If there is a workstation with a roomid not present in roomList,
-    // i add the workstation anyway, inside a new entry of the map
-    for (const w of this.workstationsList){
-      if (filterWorkstationId == null || w.id === filterWorkstationId) {
-        if (tempRoomsMap.get(w.idroom)) {
-        } else {
-          tempRoomsMap.set(w.idroom, []);
+    if (filterWorkstationName == null && filterRoomName == null) {
+      // non c'è alcun filtro
+
+        for (const r of this.roomsList){
+          tempRoomsMap.set(r.id, []);
         }
-        tempRoomsMap.get(w.idroom).push(w);
+      // I divide the workstations by their room
+      // If there is a workstation with a roomid not present in roomList,
+      // i add the workstation anyway, inside a new entry of the map
+      for (const w of this.workstationsList){
+          if (tempRoomsMap.get(w.idroom)) {
+          } else {
+            tempRoomsMap.set(w.idroom, []);
+          }
+          tempRoomsMap.get(w.idroom).push(w);
+      }
+    }else if (filterWorkstationName != null) {
+      // filtro postazione
+
+      if ( filterWorkstationId == null ){
+        for (const r of this.roomsList){
+          tempRoomsMap.set(r.id, []);
+        }
+      }
+      // I divide the workstations by their room
+      // If there is a workstation with a roomid not present in roomList,
+      // i add the workstation anyway, inside a new entry of the map
+      for (const w of this.workstationsList){
+        if (filterWorkstationId == null || w.id === filterWorkstationId) {
+          if (tempRoomsMap.get(w.idroom)) {
+          } else {
+            tempRoomsMap.set(w.idroom, []);
+          }
+          tempRoomsMap.get(w.idroom).push(w);
+        }
+      }
+    } else if (filterRoomName != null) {
+      // filtro stanza
+      for (const r of this.roomsList){
+        if(/* nome stanza è quello cercato */ ){
+          tempRoomsMap.set(r.id, []);
+        }
+      }
+      // I divide the workstations by their room
+      // If there is a workstation with a roomid not present in roomList,
+      // i add the workstation anyway, inside a new entry of the map
+      for (const w of this.workstationsList){
+        if (/* idStanza della postazione corrisponde a quello della stanza con il nome cercato*/) {
+          if (tempRoomsMap.get(w.idroom)) {
+          } else {
+            tempRoomsMap.set(w.idroom, []);
+          }
+          tempRoomsMap.get(w.idroom).push(w);
+        }
       }
     }
+    // Put in the map all the rooms saved in the server, also the empty ones.
+    // Do that just if there isn't a filter. When you filter you don't want to see the empty rooms.
+
     this.roomsMap = tempRoomsMap;
     console.log('populated all');
   }
