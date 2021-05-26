@@ -69,4 +69,16 @@ export class ShowCredentialComponent implements OnInit {
     }
     return typeString;
   }
+  typeNumToString1(type: number): string{
+    let typeString = '';
+    switch (type){
+      case 0:
+        typeString = 'Abilitato';
+        break;
+      case 1:
+        typeString = 'Non Abilitato';
+        break;
+    }
+    return typeString;
+  }
 }

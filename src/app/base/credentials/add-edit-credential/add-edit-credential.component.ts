@@ -59,7 +59,6 @@ export class AddEditCredentialComponent implements OnInit {
     };
 
     // all created or edited credentials will have archived = 0
-    newCredential.archived = 0;
 
     return newCredential;
   }
@@ -84,7 +83,6 @@ export class AddEditCredentialComponent implements OnInit {
     this.service.addUser(newCredential).subscribe(res => {
       alert(UtilsService.checkReturnType(res));
     }, error => (alert('C\'è stato un errore')));
-
   }
 
   editredential(): void{
