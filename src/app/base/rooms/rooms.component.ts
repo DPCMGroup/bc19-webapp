@@ -173,6 +173,10 @@ export class RoomsComponent implements OnInit {
     this.refreshAll( parseInt(this.searchId, 10));
   }
 
+  searchRoom(): void {
+    this.refreshAll()
+  }
+
   resetFilter(): void {
     // I call the refresh all without specifing filter parameters
     this.refreshAll();
