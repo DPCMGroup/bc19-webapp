@@ -49,6 +49,16 @@ export class AddEditRoomComponent implements OnInit {
       const passedRoomWithDates = this.passedRoom as RoomDataWithDates;
       this.startDate = UtilsService.convertDateAPIToHtml(passedRoomWithDates.failureFrom);
       this.endDate = UtilsService.convertDateAPIToHtml(passedRoomWithDates.failureTo);
+    }else{
+      const currentDate = new Date().toLocaleDateString();
+      const parts = currentDate.split('/');
+      for (let i = 0; i < parts.length; i++){
+        parts[i] = parts[i].length === 1 ? '0' + parts[i] : parts[i];
+      }
+      const newDate = parts[2] + '-' + parts[0] + '-' + parts[1];
+      console.log(newDate);
+      this.startDate = newDate;
+      this.endDate = '2030-01-01';
     }
   }
 
