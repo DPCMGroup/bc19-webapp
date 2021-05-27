@@ -70,8 +70,4 @@ export class UtilsService {
     // console.log('date conversion: '+newDate);
     return newDate;
   }
-
-  /*public stati convertDateJSToHtml(datetime: string):string{
-
-  }*/
 }
