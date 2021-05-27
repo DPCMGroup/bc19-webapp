@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
 import {WorkstationData, WorkstationDataWithDates} from '../../../../models/workstation-data';
 import {WorkstationsService} from '../../../../services/workstations.service';
 import {UtilsService} from '../../../../services/utils.service';
@@ -8,7 +8,7 @@ import {UtilsService} from '../../../../services/utils.service';
   templateUrl: './workstation.component.html',
   styleUrls: ['./workstation.component.css']
 })
-export class WorkstationComponent implements OnInit {
+export class WorkstationComponent implements OnInit, OnChanges {
 
   constructor(private workstationService: WorkstationsService) { }
 
@@ -34,6 +34,10 @@ export class WorkstationComponent implements OnInit {
     this.setAttributes();
   }
 
+  ngOnChanges(): void {
+    this.setAttributes();
+  }
+
   setAttributes(): void {
     this.id = this.workstation !== null ? this.workstation.id : 0;
     this.tag = this.workstation !== null ? this.workstation.tag : '';
@@ -46,9 +50,9 @@ export class WorkstationComponent implements OnInit {
     this.archived = this.workstation !== null ? this.workstation.archived : 0;
     if ( this.workstation != null && this.workstation.state === 3){
       const passedWorkstationWithDates = this.workstation as WorkstationDataWithDates;
-      console.log('passedWorkWithDates');
-      console.log(passedWorkstationWithDates.isDataSet);
-      console.log(this.workstation.id);
+      // console.log('passedWorkWithDates');
+      // console.log(passedWorkstationWithDates.isDataSet);
+      // console.log(this.workstation.id);
       this.startDate = UtilsService.convertDateAPIToHtml(passedWorkstationWithDates.failureFrom);
       this.endDate = UtilsService.convertDateAPIToHtml(passedWorkstationWithDates.failureTo);
     }else{
@@ -58,7 +62,7 @@ export class WorkstationComponent implements OnInit {
         parts[i] = parts[i].length === 1 ? '0' + parts[i] : parts[i];
       }
       const newDate = parts[2] + '-' + parts[0] + '-' + parts[1];
-      console.log(newDate);
+      // console.log(newDate);
       this.startDate = newDate;
       this.endDate = '2030-01-01';
     }
