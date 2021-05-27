@@ -18,7 +18,7 @@ export class AddEditRoomComponent implements OnInit {
   xroom: string;
   yroom: string;
   archived: number;
-  unavailable: number;
+  unavailable: boolean;
 
   @Input() noticeChangeVariable: boolean;
 
@@ -48,7 +48,7 @@ export class AddEditRoomComponent implements OnInit {
       xroom: parseInt(this.xroom, 10),
       yroom: parseInt(this.yroom, 10),
       archived: this.archived,
-      unavailable: this.unavailable
+      unavailable: this.unavailable === true ? 1 : 0
     };
     return newRoom;
   }

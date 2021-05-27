@@ -103,7 +103,7 @@
   <tr *ngFor="let key of getRoomsMapKeys()">
 
     <h3>Id: {{key}} | Nome: {{getRoomInfoById(key).roomname}} | Dimensioni: {{getRoomInfoById(key).xroom}}x{{getRoomInfoById(key).yroom}} | Occupanti: {{getNumberOfOccupantsByRoomId(key)}}
-    <br/>| Guasta: {{getRoomInfoById(key).unavailable === 1 ? 'sì' : 'no'}}</h3>
+    <br/>{{getRoomInfoById(key).unavailable !== 1 ? '' : ('| Inaccessibile: ' + (getRoomsUnavailabilityDates(key) ? getRoomsUnavailabilityDates(key).failureFrom + ' - ' + getRoomsUnavailabilityDates(key).failureTo : 'nessuna data' ))}}</h3>
 
     <button type="button" class="btn btn-primary float-right m-2"
             (click)="invertRoomVisibility(key)">

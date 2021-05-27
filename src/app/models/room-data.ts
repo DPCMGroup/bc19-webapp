@@ -7,6 +7,8 @@ export class RoomData {
   unavailable = 0;
 }
 
-export class RoomDataWithField extends RoomData{
-  isDataAvailable = 0;
+export class RoomDataWithDates extends RoomData{
+  isDataSet = 1;
+  failureFrom = '';
+  failureTo = '';
 }

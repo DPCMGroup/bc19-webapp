@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, QueryList
 import {RoomsService} from 'src/app/services/rooms.service';
 import {AddEditWorkstationComponent} from './add-edit-workstation/add-edit-workstation.component';
 import {WorkstationData} from '../../models/workstation-data';
-import {RoomData} from '../../models/room-data';
+import {RoomData, RoomDataWithDates} from '../../models/room-data';
 import {WorkstationsService} from '../../services/workstations.service';
 import {filter} from 'rxjs/operators';
 import {UtilsService} from '../../services/utils.service';
@@ -42,7 +42,7 @@ export class RoomsComponent implements OnInit {
   }
 
   getRoomInfoById(id): RoomData {
-    console.log(this.roomsList.find( o => o.id === id ).unavailable === 0);
+    // console.log(this.roomsList.find( o => o.id === id ).unavailable === 0);
     return this.roomsList.find( o => o.id === id );
   }
 
@@ -198,9 +198,13 @@ export class RoomsComponent implements OnInit {
     }
     return occupantsNum;
   }
-  /*
-  getRoomsUnavailabilityDates(roomId: number): any {
-  }*/
+
+  getRoomsUnavailabilityDates(roomId: number): RoomDataWithDates {
+    if (this.getRoomInfoById(roomId).unavailable === 1){
+      return this.getRoomInfoById(roomId) as RoomDataWithDates;
+    }
+    return null;
+  }
 
 
 
