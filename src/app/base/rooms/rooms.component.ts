@@ -47,7 +47,8 @@ export class RoomsComponent implements OnInit {
   }
 
   getRoomInfoByName(name): any {
-    return this.roomsList.find( o => o.name === name );
+    console.log(this.roomsList);
+    return this.roomsList.find( o => o.roomname === name );
   }
 
   setRoomsList(roomsData: RoomData[]): void{
@@ -80,7 +81,7 @@ export class RoomsComponent implements OnInit {
 
     if (filterWorkstationName == null && filterRoomName == null) {
       // non c'è alcun filtro
-
+        console.log('1');
         for (const r of this.roomsList){
           tempRoomsMap.set(r.id, []);
         }
@@ -96,17 +97,13 @@ export class RoomsComponent implements OnInit {
       }
     }else if (filterWorkstationName != null) {
       // filtro postazione
+      console.log('2');
 
-      if ( filterWorkstationName == null ){
-        for (const r of this.roomsList){
-          tempRoomsMap.set(r.id, []);
-        }
-      }
       // I divide the workstations by their room
       // If there is a workstation with a roomid not present in roomList,
       // i add the workstation anyway, inside a new entry of the map
       for (const w of this.workstationsList){
-        if (filterWorkstationName == null || w.name === filterWorkstationName) {
+        if (w.workstationname === filterWorkstationName) {
           if (tempRoomsMap.get(w.idroom)) {
           } else {
             tempRoomsMap.set(w.idroom, []);
@@ -115,9 +112,10 @@ export class RoomsComponent implements OnInit {
         }
       }
     } else if (filterRoomName != null) {
+      console.log('3');
       // filtro stanza
       for (const r of this.roomsList){
-        if (/* nome stanza è quello cercato */ r.name === filterRoomName){
+        if (/* nome stanza è quello cercato */ r.roomname === filterRoomName){
           tempRoomsMap.set(r.id, []);
         }
       }
@@ -216,11 +214,11 @@ export class RoomsComponent implements OnInit {
     // leggi WorkstationId: string;
     // e Username: string;
     // Poi user this.filer
-    this.refreshAll( parseInt(this.searchId, 10));
+    this.refreshAll(this.filterWorkstationName);
   }
 
   searchRoom(): void {
-    this.refreshAll()
+    this.refreshAll(null, this.filterRoomName);
   }
 
   resetFilter(): void {
