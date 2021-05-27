@@ -1,3 +1,4 @@
+
 export class WorkstationData {
   id = 0;
   tag = '';
@@ -8,4 +9,10 @@ export class WorkstationData {
   state = 0;
   sanitized = 0;
   archived = 0;
+}
+
+export class WorkstationDataWithDates extends WorkstationData{
+  isDataSet = 1;
+  failureFrom = '';
+  failureTo = '';
 }

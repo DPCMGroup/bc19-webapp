@@ -1,6 +1,6 @@
 export class WorkstationFailureData {
   id: number;
-  workstationId: number;
-  startTime: string;
-  endTime: string;
+  idworkstation: number;
+  starttime: string;
+  endtime: string;
 }

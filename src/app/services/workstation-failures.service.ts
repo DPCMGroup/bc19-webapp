@@ -6,7 +6,7 @@ import {WorkstationFailureData} from '../models/workstationFailure-data';
 @Injectable({
   providedIn: 'root'
 })
-export class RoomFailuresService {
+export class WorkstationFailuresService {
 
   constructor(
     private http: HttpClient,
@@ -27,5 +27,9 @@ export class RoomFailuresService {
 
   deleteFailure(id: number): Observable<string>{
     return this.http.get<string>(this.APIUrl + '/workstation/failure/del/' + id);
+  }
+
+  deleteFailureById(workid: number): Observable<string>{
+    return this.http.get<string>(this.APIUrl + '/workstation/failure/delall/' + workid);
   }
 }

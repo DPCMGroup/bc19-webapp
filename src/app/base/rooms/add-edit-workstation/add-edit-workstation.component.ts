@@ -1,7 +1,10 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { WorkstationsService } from '../../../services/workstations.service';
-import {WorkstationData} from '../../../models/workstation-data';
+import {WorkstationData, WorkstationDataWithDates} from '../../../models/workstation-data';
 import {UtilsService} from '../../../services/utils.service';
+import {WorkstationFailureData} from '../../../models/workstationFailure-data';
+import {WorkstationFailuresService} from '../../../services/workstation-failures.service';
+import {RoomDataWithDates} from '../../../models/room-data';
 
 @Component({
   selector: 'app-add-edit-workstation',
@@ -9,7 +12,7 @@ import {UtilsService} from '../../../services/utils.service';
   styleUrls: ['./add-edit-workstation.component.css']
 })
 export class AddEditWorkstationComponent implements OnInit {
-  constructor(private service: WorkstationsService ) { }
+  constructor(private service: WorkstationsService, private workFailuresService: WorkstationFailuresService) { }
 
   id = 0;
   tag: string;
@@ -20,6 +23,10 @@ export class AddEditWorkstationComponent implements OnInit {
   state = 0;
   sanitized = 1;
   archived = 0;
+
+  stateIsBroken: boolean;
+  startDate: string;
+  endDate: string;
 
   @Input() passedWorkstation: WorkstationData;
   @Input() noticeChangeVariable: boolean;
@@ -39,9 +46,27 @@ export class AddEditWorkstationComponent implements OnInit {
     this.yworkstation = this.passedWorkstation.yworkstation.toString();
     this.idroom = this.passedWorkstation.idroom;
     this.state = this.passedWorkstation.state;
+
+    this.stateIsBroken = (this.state === 3);
+
+    if (this.passedWorkstation.state === 3){
+      const passedRoomWithDates = this.passedWorkstation as WorkstationDataWithDates;
+      this.startDate = UtilsService.convertDateAPIToHtml(passedRoomWithDates.failureFrom);
+      this.endDate = UtilsService.convertDateAPIToHtml(passedRoomWithDates.failureTo);
+    }else{
+      const currentDate = new Date().toLocaleDateString();
+      const parts = currentDate.split('/');
+      for (let i = 0; i < parts.length; i++){
+        parts[i] = parts[i].length === 1 ? '0' + parts[i] : parts[i];
+      }
+      const newDate = parts[2] + '-' + parts[0] + '-' + parts[1];
+      console.log(newDate);
+      this.startDate = newDate;
+      this.endDate = '2030-01-01';
+    }
   }
 
-  getWorkstationFromLocalValues(): any{
+  getWorkstationFromLocalValues(): WorkstationData{
     const val: WorkstationData = {
       id: this.id,
       tag: this.tag,
@@ -49,11 +74,25 @@ export class AddEditWorkstationComponent implements OnInit {
       xworkstation: parseInt(this.xworkstation, 10),
       yworkstation: parseInt(this.yworkstation, 10),
       idroom: this.idroom,
-      state: this.state,
+      state: this.stateIsBroken ? 3 : (this.state === 3 ? 0 : this.state),
       sanitized: this.sanitized,
       archived: this.archived,
     };
     return val;
+  }
+
+  getWorkFailureFromLocalValues(): WorkstationFailureData {
+    if (this.stateIsBroken){
+      const failure: WorkstationFailureData = {
+        id : 0,
+        idworkstation: this.id,
+        starttime: this.startDate + ' 00:00:00',
+        endtime: this.endDate + ' 00:00:00'
+      };
+      return failure;
+    }else{
+      return null;
+    }
   }
 
   takeAction(): void{
@@ -86,9 +125,13 @@ export class AddEditWorkstationComponent implements OnInit {
       alert('Valori non validi');
       return;
     }
-    // console.log(val);
+    const fail = this.getWorkFailureFromLocalValues();
     this.service.modifyWorkstation(val).subscribe(res => {
       alert(UtilsService.checkReturnType(res));
     }, error => alert('C\'è stato un errore'));
+    this.workFailuresService.deleteFailureById(this.id).subscribe( (data) => alert(data));
+    if (fail !== null) {
+      this.workFailuresService.addFailure(fail).subscribe((data) => alert(data));
+    }
   }
 }
