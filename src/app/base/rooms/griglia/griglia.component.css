@@ -5,3 +5,9 @@
 .verticalTableIndex {
   font-weight: bold;
 }
+table{
+  display:table;
+  width:100%;
+  table-layout:fixed;
+}
+
