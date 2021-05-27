@@ -15,8 +15,8 @@ export class RoomsService {
 
   // ROOMS
 
-  getRoomList(): Observable<any[]>{
-    return this.http.get<any[]>(this.APIUrl + '/room/list');
+  getRoomList(): Observable<RoomData[]>{
+    return this.http.get<RoomData[]>(this.APIUrl + '/room/list');
   }
 
   addRoom(val: RoomData): Observable<string>{

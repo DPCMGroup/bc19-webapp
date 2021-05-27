@@ -199,9 +199,13 @@ export class RoomsComponent implements OnInit {
     return occupantsNum;
   }
 
-  getRoomsUnavailabilityDates(roomId: number): RoomDataWithDates {
-    if (this.getRoomInfoById(roomId).unavailable === 1){
-      return this.getRoomInfoById(roomId) as RoomDataWithDates;
+  getRoomsUnavailabilityDates(roomId: number): any {
+    const room = this.getRoomInfoById(roomId);
+    if (room.unavailable === 1){
+      return {
+        failureFrom : UtilsService.convertDateAPIToHtml((room as RoomDataWithDates).failureFrom),
+        failureTo : UtilsService.convertDateAPIToHtml((room as RoomDataWithDates).failureTo)
+      };
     }
     return null;
   }

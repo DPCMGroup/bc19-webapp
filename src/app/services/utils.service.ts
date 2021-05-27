@@ -62,4 +62,12 @@ export class UtilsService {
       }
     }
   }
+
+  public static convertDateAPIToHtml(datetime: string): string{
+    const date = datetime.split(' ')[0];
+    const dateParts = date.split('/');
+    const newDate = dateParts[2] + '-' + dateParts[1] + '-' + dateParts[0];
+    // console.log('date conversion: '+newDate);
+    return newDate;
+  }
 }

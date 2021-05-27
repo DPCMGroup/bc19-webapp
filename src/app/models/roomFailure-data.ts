@@ -1,6 +1,5 @@
 export class RoomFailureData {
-  id: number;
-  roomId: number;
-  startTime: string;
-  endTime: string;
+  idroom: number;
+  starttime: string;
+  endtime: string;
 }

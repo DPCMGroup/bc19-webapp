@@ -28,4 +28,8 @@ export class RoomFailuresService {
   deleteFailure(id: number): Observable<string>{
     return this.http.get<string>(this.APIUrl + '/room/failure/del/' + id);
   }
+
+  deleteFailuresById(roomid: number): Observable<string>{
+    return this.http.get<string>(this.APIUrl + '/room/failure/delall/' + roomid);
+  }
 }
