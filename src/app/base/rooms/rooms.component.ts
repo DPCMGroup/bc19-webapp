@@ -33,6 +33,7 @@ export class RoomsComponent implements OnInit {
   filterWorkstationName: string;
   filterRoomName: string;
   roomVisible = new Map<number, boolean>();
+  selectedWorkstationName: string;
 
   ngOnInit(): void {
     this.refreshAll();
@@ -49,6 +50,10 @@ export class RoomsComponent implements OnInit {
   getRoomInfoByName(name): any {
     console.log(this.roomsList);
     return this.roomsList.find( o => o.roomname === name );
+  }
+
+  getWorkstationsListByRoomId(roomId): any {
+    return this.roomsMap.get(roomId);
   }
 
   setRoomsList(roomsData: RoomData[]): void{
@@ -111,6 +116,7 @@ export class RoomsComponent implements OnInit {
           tempRoomsMap.get(w.idroom).push(w);
         }
       }
+      console.log(tempRoomsMap);
     } else if (filterRoomName != null) {
       console.log('3');
       // filtro stanza
@@ -124,7 +130,7 @@ export class RoomsComponent implements OnInit {
       // i add the workstation anyway, inside a new entry of the map
       const stanza = this.getRoomInfoByName(filterRoomName);
       for (const w of this.workstationsList){
-        if (/* idStanza della postazione corrisponde a quello della stanza con il nome cercato*/ w.idroom === stanza.id) {
+        if (/* idStanza della postazione corrisponde a quello della stanza con il nome cercato*/ stanza != null && w.idroom === stanza.id) {
           if (tempRoomsMap.get(w.idroom)) {
           } else {
             tempRoomsMap.set(w.idroom, []);
@@ -137,6 +143,7 @@ export class RoomsComponent implements OnInit {
     // Do that just if there isn't a filter. When you filter you don't want to see the empty rooms.
 
     this.roomsMap = tempRoomsMap;
+    console.log(tempRoomsMap);
     console.log('populated all');
   }
 
@@ -214,6 +221,7 @@ export class RoomsComponent implements OnInit {
     // leggi WorkstationId: string;
     // e Username: string;
     // Poi user this.filer
+    this.selectWorkstationName(this.filterWorkstationName);
     this.refreshAll(this.filterWorkstationName);
   }
 
@@ -244,6 +252,10 @@ export class RoomsComponent implements OnInit {
       }
     }
     return occupantsNum;
+  }
+
+  selectWorkstationName(name: string){
+    this.selectedWorkstationName = name;
   }
 
 
