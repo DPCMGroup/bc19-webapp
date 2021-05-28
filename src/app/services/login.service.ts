@@ -18,7 +18,7 @@ export class LoginService {
 
   // LOGIN
 
-  login(val: LoginData): Observable<UserData>{
-    return this.http.post<UserData>(this.APIUrl + '/user/login', val);
+  login(val: LoginData): Observable<any>{
+    return this.http.post<any>(this.APIUrl + '/user/login', val);
   }
 }

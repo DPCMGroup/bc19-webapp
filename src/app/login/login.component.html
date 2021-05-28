@@ -8,15 +8,13 @@
     <input type="text" id="textUsername" class="form-control" name="username" placeholder="Inserire Username" (focus)="focused()" required autofocus [(ngModel)]="username">
     <label for="password" class="sr-only" >Password</label>
     <input type="password" id="password" placeholder="Inserire Password" class="form-control" name="password" (focus)="focused()" required autofocus [(ngModel)]="password">
-    <p id="loginError" [style.visibility]="errorVisible">Non sei un amministratore o non sei registrato</p>
-    <p id="loginError1" [style.visibility]="errorVisible1">Credenziali disabilitate</p>
     <div class="mt-3">
       <button class="btn btn-lg btn-primary btn-block" (click)="login()" >Invia</button>
     </div>
+    <p id="loginError" [style.visibility]="errorVisible">Non sei un amministratore o non sei registrato</p>
+    <p id="loginError1" [style.visibility]="errorVisible1">Credenziali disabilitate</p>
   </form>
 </div>
-
-
 
 
 

@@ -67,11 +67,11 @@ export class LoginComponent implements OnInit {
       se l'utente è presente e non archiviato l'api resituisce un oggetto di tipo UserData
       */
       console.log(data);
-      /*if(){
-        // errore utente non trovato
-      }else if () {
-        // errore utente disabilitato
-      }else */
+      if ( data === 16386 ){
+        this.setErrorVisible(true);
+      }else if ( data === 16392 ) {
+        this.setErrorVisible_(true);
+      }else
       if ( data.type === 0 && data.archived === 0 ) {
         // redirect to the base url
         window.location.href = '/base';
