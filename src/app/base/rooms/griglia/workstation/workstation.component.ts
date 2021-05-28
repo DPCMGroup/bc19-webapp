@@ -16,6 +16,7 @@ export class WorkstationComponent implements OnInit {
   @Input() insertedPosX: number;
   @Input() insertedPosY: number;
   @Input() insertedRoomId: number;
+
   id = 0;
   tag = '';
   workstationname = '';

@@ -1,3 +1,9 @@
+
+<button type="button" class="btn btn-primary float-right m-2"
+        (click)="resetFilter()">
+  Reset filtro
+</button>
+
 <button type="button" class="btn btn-primary float-right m-2"
         data-toggle="modal" data-target="#searchModal"
 
@@ -6,11 +12,23 @@
 </button>
 
 <button type="button" class="btn btn-primary float-right m-2"
+        data-toggle="modal" data-target="#searchRoomModal"
+
+        data-backdrop="static" data-keyboard="false">
+  Cerca una stanza
+</button>
+
+<button type="button" class="btn btn-primary float-right m-2"
         data-toggle="modal" data-target="#addEditRoomModal"
         data-backdrop="static" data-keyboard="false"
         (click)="openAddRoom()">
   Crea una stanza
 </button>
+
+
+
+
+
 
 <!-- Search Occupations Modal -->
 <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -29,7 +47,7 @@
 
           <label class="col-sm-2 col-form-label">Occupazioni</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" [(ngModel)]="searchId"
+            <input type="text" class="form-control" [(ngModel)]="filterWorkstationName"
                    placeholder="Inserire l'id della postazione">
             <input type="text" class="form-control" [(ngModel)]="searchUsername"
                    placeholder="Inserire username">
@@ -40,9 +58,6 @@
 
         <button (click)="searchOccupation()" class="btn btn-primary">
           Cerca
-        </button>
-        <button (click)="resetFilter()" class="btn btn-primary">
-          Reset filtro
         </button>
       </div>
     </div>
@@ -91,7 +106,39 @@
 </div>
 <!-- Add-Edit Workstation Modal -->
 
+<!-- Search Rooms Modal -->
+<div class="modal fade" id="searchRoomModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabelNew2">Cerca una stanza</h5>
+        <button type="button" class="close"
+                data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- non so ?-->
+        <div class="form-froup row">
 
+          <label class="col-sm-2 col-form-label">Stanza</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" [(ngModel)]="filterRoomName"
+                   placeholder="Inserire nome della stanza">
+          </div>
+
+
+        </div>
+
+        <button (click)="searchRoom()" class="btn btn-primary">
+          Cerca
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Search Occupations Modal -->
 
 <table class="table table-striped" >
   <thead>
@@ -132,7 +179,8 @@
 
 
     <div [hidden]="!roomVisible.get(key)">
-      <app-griglia (newItemEvent)="openEditWorkstation($event)" [roomId]="key" [changeVariable]="notifyChangeVariable"></app-griglia>
+      <app-griglia (newItemEvent)="openEditWorkstation($event)" [roomId]="key" [changeVariable]="notifyChangeVariable"
+      [workstationsList]="getWorkstationsListByRoomId(key)"></app-griglia>
     </div>
   </tr>
   </tbody>

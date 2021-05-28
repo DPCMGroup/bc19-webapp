@@ -9,7 +9,8 @@
   <tr *ngFor="let i of getArrayFromNum(room ? room.yroom : 0)">
     <td class="verticalTableIndex tableIndex">{{i}}</td>
     <td *ngFor="let j of getArrayFromNum(room ? room.xroom : 0)">
-      <app-workstation (newItemEvent)="receiveItem($event)" [workstation]=" (filterWorkstationsByPosition(filterWorkstationsByRoom(workstationsList, room.id),i,j))"></app-workstation>
+      <app-workstation (newItemEvent)="receiveItem($event)" [workstation]=" (filterWorkstationsByPosition(filterWorkstationsByRoom(workstationsList, room.id),i,j))"
+      ></app-workstation>
     </td>
   </tr>
   </tbody>

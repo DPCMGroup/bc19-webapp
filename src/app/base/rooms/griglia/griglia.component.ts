@@ -14,7 +14,7 @@ export class GrigliaComponent implements OnInit, OnChanges{
 
   constructor(private workstationService: WorkstationsService, private roomService: RoomsService) { }
 
-  workstationsList: WorkstationData[] = [];
+  @Input() workstationsList: WorkstationData[] = [];
   roomsList: RoomData[] = [];
   roomArray: WorkstationData[][] = [];
   room: RoomData = null;
@@ -33,7 +33,7 @@ export class GrigliaComponent implements OnInit, OnChanges{
 
 
   async init(): Promise<void> {
-    await this.workstationService.getWorkstationList().toPromise().then((data: WorkstationData[]) => {this.workstationsList = data; });
+    // await this.workstationService.getWorkstationList().toPromise().then((data: WorkstationData[]) => {this.workstationsList = data; });
 
     await this.roomService.getRoomList().toPromise().then( (data: RoomData[]) => {this.roomsList = data; });
     // console.log(`this.roomsList:`);
