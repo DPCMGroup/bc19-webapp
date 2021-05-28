@@ -10,7 +10,7 @@
     <td class="verticalTableIndex tableIndex">{{i}}</td>
     <td *ngFor="let j of getArrayFromNum(room ? room.xroom : 0)">
       <app-workstation (newItemEvent)="receiveItem($event)" [workstation]=" (filterWorkstationsByPosition(filterWorkstationsByRoom(workstationsList, room.id),i,j))"
-      ></app-workstation>
+      [insertedPosX]="i" [insertedPosY]="j" [insertedRoomId]="room.id"></app-workstation>
     </td>
   </tr>
   </tbody>
