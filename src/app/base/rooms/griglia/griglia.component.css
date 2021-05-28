@@ -5,3 +5,18 @@
 .verticalTableIndex {
   font-weight: bold;
 }
+table{
+  display:table;
+  width:100%;
+  table-layout:fixed;
+}
+tr,td{
+  border-style: solid;
+  border-color: darkgrey;
+}
+th{
+  text-align: center;
+  border-style: solid;
+  border-color: darkgrey;
+}
+

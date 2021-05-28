@@ -1,10 +1,10 @@
-<button class="btn btn-{{getColorByState()}}"
+<button class="btn btn-{{getColorByState()}}" style="height: 1.2em;"
         data-toggle="modal"
         [attr.data-target] = "'#workstationModal' + id"
         data-backdrop="static" data-keyboard="false"
         (click)="print('workstationOpened')"
->{{workstation ? workstation.id : ''}}</button>
-
+></button>
+<!--{{workstation ? workstation.id : ''}} e lo style-->
 <!-- Workstation Modal -->
 <div class="modal fade" id="workstationModal{{id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
