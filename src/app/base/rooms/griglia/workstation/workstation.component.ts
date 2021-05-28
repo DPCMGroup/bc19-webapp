@@ -62,6 +62,8 @@ export class WorkstationComponent implements OnInit {
         return 'dark';
       }else if (combination.state === 3 && combination.sanit === 1){
         return 'warning';
+      }else if (combination.state === 1 && combination.sanit === 0) {
+        return 'outline-danger';
       }
 
     }else{
