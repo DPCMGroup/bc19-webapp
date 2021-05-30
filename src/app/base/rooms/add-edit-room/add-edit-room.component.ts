@@ -107,26 +107,28 @@ export class AddEditRoomComponent implements OnInit {
     }, error => alert('C\'è stato un errore'));
   }
 
-  editRoom(): void{
+  async editRoom(): Promise<void>{
     const newRoom = this.getRoomFromLocalValues();
     const newFailure = this.getRoomFailureFromLocalValues();
-    this.service.modifyRoom(newRoom).subscribe( (data) => {
-      alert( UtilsService.checkReturnType(data));
-    }, error => alert('C\'è stato un errore'));
-
     console.log('unavailable: ' + this.unavailable);
     if (newFailure !== null) {
       this.roomFailuresService.deleteFailuresById(this.id).subscribe( (data) => {
         alert(data);
+        this.roomFailuresService.addFailure(newFailure).subscribe( (data2) => {
+          alert(data2);
+          this.service.modifyRoom(newRoom).subscribe( (data) => {
+            alert( UtilsService.checkReturnType(data));
+          });
+        });
       });
       console.log('sending room failure');
       console.log(newFailure);
-      this.roomFailuresService.addFailure(newFailure).subscribe( (data) => {
-        alert(data);
-      }, error => alert('C\'è stato un errore'));
     }else{
       this.roomFailuresService.deleteFailuresById(this.id).subscribe( (data) => {
         alert(data);
+        this.service.modifyRoom(newRoom).subscribe( (data) => {
+          alert( UtilsService.checkReturnType(data));
+        });
       });
     }
 

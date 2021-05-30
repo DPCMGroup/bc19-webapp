@@ -51,8 +51,8 @@ export class AddEditWorkstationComponent implements OnInit {
 
     if (this.passedWorkstation.state === 3){
       const passedRoomWithDates = this.passedWorkstation as WorkstationDataWithDates;
-      this.startDate = UtilsService.convertWorkstationDateAPIToHtml(passedRoomWithDates.failureFrom);
-      this.endDate = UtilsService.convertWorkstationDateAPIToHtml(passedRoomWithDates.failureTo);
+      this.startDate = UtilsService.convertDateAPIToHtml(passedRoomWithDates.failureFrom);
+      this.endDate = UtilsService.convertDateAPIToHtml(passedRoomWithDates.failureTo);
     }else{
       const currentDate = new Date().toLocaleDateString();
       const parts = currentDate.split('/');
@@ -129,22 +129,27 @@ export class AddEditWorkstationComponent implements OnInit {
     console.log('toeditWorkstation');
     console.log(val);
 
-    this.service.modifyWorkstation(val).subscribe(res => {
-      alert(UtilsService.checkReturnType(res));
-    });
-
     const failure = this.getWorkFailureFromLocalValues();
 
     if (failure){
-      await this.workFailuresService.deleteFailureById(this.id).subscribe( (data) => {
-        alert('risultatoDelall: ' + data); });
+      this.workFailuresService.deleteFailureById(this.id).subscribe( (data) => {
+        alert('risultatoDelall: ' + data);
+        this.workFailuresService.addFailure(failure).subscribe((data2) => {
+          alert('risultato addworkstation failure: ' + data2);
+          this.service.modifyWorkstation(val).subscribe(res => {
+            alert(UtilsService.checkReturnType(res));
+          });
+        });
+      });
       console.log('toinsertfailure');
       console.log(failure);
-      this.workFailuresService.addFailure(failure).subscribe((data) => {
-        alert('risultato addworkstation failure: ' + data); });
     }else{
       this.workFailuresService.deleteFailureById(this.id).subscribe( (data) => {
-        alert('risultatoDelall: ' + data); });
+        alert('risultatoDelall: ' + data);
+        this.service.modifyWorkstation(val).subscribe(res => {
+          alert(UtilsService.checkReturnType(res));
+        });
+      });
 
 
     }

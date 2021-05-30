@@ -203,7 +203,7 @@ export class RoomsComponent implements OnInit {
     const room = this.getRoomInfoById(roomId);
     // console.log('roomId: ' + roomId);
     if (room.unavailable === 1){
-      console.log('roomID: ' + roomId);
+      // console.log('roomID: ' + roomId);
       const obj = {
         failureFrom : UtilsService.convertDateAPIToHtml((room as RoomDataWithDates).failureFrom),
         failureTo : UtilsService.convertDateAPIToHtml((room as RoomDataWithDates).failureTo)
