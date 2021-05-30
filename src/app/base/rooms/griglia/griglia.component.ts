@@ -3,7 +3,6 @@ import {WorkstationData} from '../../../models/workstation-data';
 import {WorkstationsService} from '../../../services/workstations.service';
 import {RoomData} from '../../../models/room-data';
 import {RoomsService} from '../../../services/rooms.service';
-import {filter} from 'rxjs/operators';
 
 @Component({
   selector: 'app-griglia',
@@ -32,16 +31,12 @@ export class GrigliaComponent implements OnInit, OnChanges{
 
 
   async init(): Promise<void> {
+    console.log('griglia init');
+    // console.log(this.workstationsList);
     // tslint:disable-next-line:max-line-length
     this.roomArray = this.workstationsToRoomGrid(this.workstationsList, this.room.xroom, this.room.yroom);
 
     // console.log(this.workstationsList[0]);
-  }
-
-  filterWorkstationsByRoom(works: WorkstationData[], roomId: number): WorkstationData[] {
-    const filteredWorks = works.filter( (w) => w.idroom === roomId ? true : false);
-
-    return filteredWorks;
   }
 
   filterWorkstationsByPosition(works: WorkstationData[], x: number, y: number): WorkstationData{
@@ -64,7 +59,6 @@ export class GrigliaComponent implements OnInit, OnChanges{
   }
 
   workstationsToRoomGrid(works: WorkstationData[], dimx: number, dimy: number): WorkstationData[][] {
-    console.log('started organizing grid for room: ' + this.room.id);
     const roomArr: WorkstationData[][] = [];
     for (let i = 0; i < dimx; i += 1){
       roomArr.push([]);
@@ -80,7 +74,6 @@ export class GrigliaComponent implements OnInit, OnChanges{
         }
       }
     }
-    console.log('finished organizing grid for room: ' + this.room.id);
     return roomArr;
   }
 
