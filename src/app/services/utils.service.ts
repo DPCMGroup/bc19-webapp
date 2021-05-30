@@ -65,13 +65,21 @@ export class UtilsService {
 
 
   public static convertDateAPIToHtml(datetime: string): string{
-    // console.log('convert datetime: ' + datetime);
+    console.log('convert datetime: ' + datetime);
     if (datetime){
-      const date = datetime.split(' ')[0];
-      const dateParts = date.split('-');
-      const newDate = dateParts[2] + '-' + dateParts[1] + '-' + dateParts[0];
-      // console.log('date conversion: '+newDate);
-      return newDate;
+      return datetime.split(' ')[0];
+    }else{
+      return null;
+    }
+  }
+
+  public static convertWorkstationDateAPIToHtml(datetime: string): string{
+    console.log('workstation convert datetime: ' + datetime);
+    if (datetime){
+      const v1 = datetime.split(' ')[0];
+      const parts = v1.split('/');
+      const conv = parts[2] + '-' + parts[1] + '-' + parts[0];
+      return conv;
     }else{
       return null;
     }

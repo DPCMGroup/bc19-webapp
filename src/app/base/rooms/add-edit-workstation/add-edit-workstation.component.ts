@@ -51,8 +51,8 @@ export class AddEditWorkstationComponent implements OnInit {
 
     if (this.passedWorkstation.state === 3){
       const passedRoomWithDates = this.passedWorkstation as WorkstationDataWithDates;
-      this.startDate = UtilsService.convertDateAPIToHtml(passedRoomWithDates.failureFrom);
-      this.endDate = UtilsService.convertDateAPIToHtml(passedRoomWithDates.failureTo);
+      this.startDate = UtilsService.convertWorkstationDateAPIToHtml(passedRoomWithDates.failureFrom);
+      this.endDate = UtilsService.convertWorkstationDateAPIToHtml(passedRoomWithDates.failureTo);
     }else{
       const currentDate = new Date().toLocaleDateString();
       const parts = currentDate.split('/');
@@ -119,19 +119,34 @@ export class AddEditWorkstationComponent implements OnInit {
     }, error => alert('C\'è stato un errore'));
   }
 
-  editWorkstation(): void{
+  async editWorkstation(): Promise<void>{
     const val = this.getWorkstationFromLocalValues();
     if (val == null){
       alert('Valori non validi');
       return;
     }
-    const fail = this.getWorkFailureFromLocalValues();
+
+    console.log('toeditWorkstation');
+    console.log(val);
+
     this.service.modifyWorkstation(val).subscribe(res => {
       alert(UtilsService.checkReturnType(res));
-    }, error => alert('C\'è stato un errore'));
-    this.workFailuresService.deleteFailureById(this.id).subscribe( (data) => alert(data));
-    if (fail !== null) {
-      this.workFailuresService.addFailure(fail).subscribe((data) => alert(data));
+    });
+
+    const failure = this.getWorkFailureFromLocalValues();
+
+    if (failure){
+      await this.workFailuresService.deleteFailureById(this.id).subscribe( (data) => {
+        alert('risultatoDelall: ' + data); });
+      console.log('toinsertfailure');
+      console.log(failure);
+      this.workFailuresService.addFailure(failure).subscribe((data) => {
+        alert('risultato addworkstation failure: ' + data); });
+    }else{
+      this.workFailuresService.deleteFailureById(this.id).subscribe( (data) => {
+        alert('risultatoDelall: ' + data); });
+
+
     }
   }
 }
