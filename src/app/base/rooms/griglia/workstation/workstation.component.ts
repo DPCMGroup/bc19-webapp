@@ -50,7 +50,7 @@ export class WorkstationComponent implements OnInit, OnChanges {
     this.archived = this.workstation !== null ? this.workstation.archived : 0;
     if ( this.workstation != null && this.workstation.state === 3){
       const passedWorkstationWithDates = this.workstation as WorkstationDataWithDates;
-      console.log('workId: ' + this.workstation.id);
+
       this.startDate = UtilsService.convertDateAPIToHtml(passedWorkstationWithDates.failureFrom);
       this.endDate = UtilsService.convertDateAPIToHtml(passedWorkstationWithDates.failureTo);
     }else{

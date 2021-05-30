@@ -14,17 +14,16 @@ export class GrigliaComponent implements OnInit, OnChanges{
 
   constructor(private workstationService: WorkstationsService, private roomService: RoomsService) { }
 
+  // are passed already filtered for this room
   @Input() workstationsList: WorkstationData[] = [];
-  roomsList: RoomData[] = [];
   roomArray: WorkstationData[][] = [];
-  room: RoomData = null;
-  @Input() roomId: number;
+  @Input() room: RoomData = null;
   @Input() changeVariable = false;
 
   @Output() newItemEvent = new EventEmitter<WorkstationData>();
 
   ngOnInit(): void {
-    this.init();
+    // this.init();
   }
 
   ngOnChanges(): void {
@@ -33,15 +32,8 @@ export class GrigliaComponent implements OnInit, OnChanges{
 
 
   async init(): Promise<void> {
-    // await this.workstationService.getWorkstationList().toPromise().then((data: WorkstationData[]) => {this.workstationsList = data; });
-
-    await this.roomService.getRoomList().toPromise().then( (data: RoomData[]) => {this.roomsList = data; });
-    // console.log(`this.roomsList:`);
-    // console.log(this.roomsList);
-    this.room = this.filterSingleRoom(this.roomsList, this.roomId);
-    // console.log(`this.room:  ${this.room}`);
     // tslint:disable-next-line:max-line-length
-    this.roomArray = this.workstationsToRoomGrid(this.filterWorkstationsByRoom(this.workstationsList, this.roomId), this.room.xroom, this.room.yroom);
+    this.roomArray = this.workstationsToRoomGrid(this.workstationsList, this.room.xroom, this.room.yroom);
 
     // console.log(this.workstationsList[0]);
   }
@@ -52,13 +44,10 @@ export class GrigliaComponent implements OnInit, OnChanges{
     return filteredWorks;
   }
 
-  filterSingleRoom(rooms: RoomData[], roomid: number): RoomData {
-    return rooms.filter( (r) => r.id === roomid ? true : false)[0];
-  }
-
   filterWorkstationsByPosition(works: WorkstationData[], x: number, y: number): WorkstationData{
     // console.log(`${x} : ${y}`);
     // console.log(works.length);
+
 
     const filteredWorks: WorkstationData[] = [];
     for (const w of works){
@@ -66,6 +55,7 @@ export class GrigliaComponent implements OnInit, OnChanges{
         filteredWorks.push(w);
       }
     }
+
     if (filteredWorks.length > 0){
       return filteredWorks[0];
     }else{
@@ -74,6 +64,7 @@ export class GrigliaComponent implements OnInit, OnChanges{
   }
 
   workstationsToRoomGrid(works: WorkstationData[], dimx: number, dimy: number): WorkstationData[][] {
+    console.log('started organizing grid for room: ' + this.room.id);
     const roomArr: WorkstationData[][] = [];
     for (let i = 0; i < dimx; i += 1){
       roomArr.push([]);
@@ -89,6 +80,7 @@ export class GrigliaComponent implements OnInit, OnChanges{
         }
       }
     }
+    console.log('finished organizing grid for room: ' + this.room.id);
     return roomArr;
   }
 
