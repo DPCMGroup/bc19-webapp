@@ -47,8 +47,8 @@ export class AddEditRoomComponent implements OnInit {
     this.unavailable = this.passedRoom.unavailable === 1 ? true : false;
     if (this.passedRoom.unavailable === 1){
       const passedRoomWithDates = this.passedRoom as RoomDataWithDates;
-      this.startDate = UtilsService.convertDateAPIToHtml(passedRoomWithDates.failureFrom);
-      this.endDate = UtilsService.convertDateAPIToHtml(passedRoomWithDates.failureTo);
+      this.startDate = passedRoomWithDates.failureFrom.split(' ')[0];
+      this.endDate = passedRoomWithDates.failureTo.split(' ')[0];
     }else{
       const currentDate = new Date().toLocaleDateString();
       const parts = currentDate.split('/');

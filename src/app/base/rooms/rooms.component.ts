@@ -201,11 +201,15 @@ export class RoomsComponent implements OnInit {
 
   getRoomsUnavailabilityDates(roomId: number): any {
     const room = this.getRoomInfoById(roomId);
+    // console.log('roomId: ' + roomId);
     if (room.unavailable === 1){
-      return {
+      const obj = {
         failureFrom : UtilsService.convertDateAPIToHtml((room as RoomDataWithDates).failureFrom),
         failureTo : UtilsService.convertDateAPIToHtml((room as RoomDataWithDates).failureTo)
       };
+      // console.log('roomDates obj');
+      // console.log(obj);
+      return obj;
     }
     return null;
   }
