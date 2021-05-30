@@ -1,5 +1,5 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
-import {WorkstationData} from '../../../../models/workstation-data';
+import {Component, EventEmitter, Input, OnInit, OnChanges, Output} from '@angular/core';
+import {WorkstationData, WorkstationDataWithDates} from '../../../../models/workstation-data';
 import {WorkstationsService} from '../../../../services/workstations.service';
 import {UtilsService} from '../../../../services/utils.service';
 
@@ -16,7 +16,6 @@ export class WorkstationComponent implements OnInit, OnChanges {
   @Input() insertedPosX: number;
   @Input() insertedPosY: number;
   @Input() insertedRoomId: number;
-
   id = 0;
   tag = '';
   workstationname = '';
@@ -26,6 +25,8 @@ export class WorkstationComponent implements OnInit, OnChanges {
   state = 0;
   sanitized = 0;
   archived = 0;
+  startDate = '';
+  endDate = '';
 
   @Output() newItemEvent = new EventEmitter<WorkstationData>();
 
@@ -47,6 +48,22 @@ export class WorkstationComponent implements OnInit, OnChanges {
     this.state = this.workstation !== null ? this.workstation.state : 0;
     this.sanitized = this.workstation !== null ? this.workstation.sanitized : 0;
     this.archived = this.workstation !== null ? this.workstation.archived : 0;
+    if ( this.workstation != null && this.workstation.state === 3){
+      const passedWorkstationWithDates = this.workstation as WorkstationDataWithDates;
+      console.log('workId: ' + this.workstation.id);
+      this.startDate = UtilsService.convertDateAPIToHtml(passedWorkstationWithDates.failureFrom);
+      this.endDate = UtilsService.convertDateAPIToHtml(passedWorkstationWithDates.failureTo);
+    }else{
+      const currentDate = new Date().toLocaleDateString();
+      const parts = currentDate.split('/');
+      for (let i = 0; i < parts.length; i++){
+        parts[i] = parts[i].length === 1 ? '0' + parts[i] : parts[i];
+      }
+      const newDate = parts[2] + '-' + parts[0] + '-' + parts[1];
+      // console.log(newDate);
+      this.startDate = newDate;
+      this.endDate = '2030-01-01';
+    }
   }
 
   getColorByState(): string{

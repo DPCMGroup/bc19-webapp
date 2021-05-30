@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, QueryList
 import {RoomsService} from 'src/app/services/rooms.service';
 import {AddEditWorkstationComponent} from './add-edit-workstation/add-edit-workstation.component';
 import {WorkstationData} from '../../models/workstation-data';
-import {RoomData} from '../../models/room-data';
+import {RoomData, RoomDataWithDates} from '../../models/room-data';
 import {WorkstationsService} from '../../services/workstations.service';
 import {filter} from 'rxjs/operators';
 import {UtilsService} from '../../services/utils.service';
@@ -18,7 +18,7 @@ export class RoomsComponent implements OnInit {
   }
 
   roomsMap = new Map<number, WorkstationData[]>();
-  roomsList: any = [];
+  roomsList: RoomData[] = [];
   workstationsList: any = [];
   notifyChangeVariable = false; // I'm not sure this is needed anymore, since we have workstationAction and roomAction that change
   // search
@@ -43,7 +43,8 @@ export class RoomsComponent implements OnInit {
     return Array.from(this.roomsMap.keys());
   }
 
-  getRoomInfoById(id): any {
+  getRoomInfoById(id): RoomData {
+    // console.log(this.roomsList.find( o => o.id === id ).unavailable === 0);
     return this.roomsList.find( o => o.id === id );
   }
 
@@ -121,22 +122,17 @@ export class RoomsComponent implements OnInit {
       console.log('3');
       // filtro stanza
       for (const r of this.roomsList){
-        if (/* nome stanza è quello cercato */ r.roomname === filterRoomName){
+        if (r.roomname === filterRoomName) {
           tempRoomsMap.set(r.id, []);
         }
       }
-      // I divide the workstations by their room
-      // If there is a workstation with a roomid not present in roomList,
-      // i add the workstation anyway, inside a new entry of the map
-      const stanza = this.getRoomInfoByName(filterRoomName);
-      for (const w of this.workstationsList){
-        if (/* idStanza della postazione corrisponde a quello della stanza con il nome cercato*/ stanza != null && w.idroom === stanza.id) {
-          if (tempRoomsMap.get(w.idroom)) {
-          } else {
-            tempRoomsMap.set(w.idroom, []);
-          }
-          tempRoomsMap.get(w.idroom).push(w);
-        }
+    }
+    // I divide the workstations by their room
+    // If there is a workstation with a roomid not present in roomList,
+    // i add the workstation anyway, inside a new entry of the map
+    for (const w of this.workstationsList){
+      if (tempRoomsMap.get(w.idroom)) {
+        tempRoomsMap.get(w.idroom).push(w);
       }
     }
     // Put in the map all the rooms saved in the server, also the empty ones.
@@ -252,6 +248,22 @@ export class RoomsComponent implements OnInit {
       }
     }
     return occupantsNum;
+  }
+
+  getRoomsUnavailabilityDates(roomId: number): any {
+    const room = this.getRoomInfoById(roomId);
+    // console.log('roomId: ' + roomId);
+    if (room.unavailable === 1){
+      // console.log('roomID: ' + roomId);
+      const obj = {
+        failureFrom : UtilsService.convertDateAPIToHtml((room as RoomDataWithDates).failureFrom),
+        failureTo : UtilsService.convertDateAPIToHtml((room as RoomDataWithDates).failureTo)
+      };
+      // console.log('roomDates obj');
+      // console.log(obj);
+      return obj;
+    }
+    return null;
   }
 
   selectWorkstationName(name: string): void{

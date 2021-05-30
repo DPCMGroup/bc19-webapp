@@ -24,6 +24,10 @@
           <p>Tag: {{tag}}</p>
           <p>Stato: {{stateNumToString(state)}}</p>
           <p>Sanificato: {{sanitizedNumToString(sanitized)}}</p>
+          <div *ngIf="state === 3">
+            <p id="startDate" type="date">Data inizio: {{startDate}}</p>
+            <p id="endDate">Data fine: {{endDate}}</p>
+          </div>
         </div>
       </div>
       <div class="modal-footer" *ngIf="workstation !== null">

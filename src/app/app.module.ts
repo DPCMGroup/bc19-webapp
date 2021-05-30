@@ -50,7 +50,7 @@ import { WorkstationComponent } from './base/rooms/griglia/workstation/workstati
   http://192.168.210.35:8000 (if connected to vpn)
   http://localhost:8000 (if using local server)
    */
-  providers: [{provide: 'apiUrl', useValue: 'http://dpcm2077.duckdns.org:8000'},
+  providers: [{provide: 'apiUrl', useValue: 'http://localhost:8000'},
     RoomsService, WorkstationsService, UserService, LoginService],
   bootstrap: [AppComponent]
 })

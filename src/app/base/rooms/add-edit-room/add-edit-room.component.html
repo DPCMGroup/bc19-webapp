@@ -8,6 +8,19 @@
            placeholder="Inserire dimensione x">
     <input type="text" class="form-control" [(ngModel)]="yroom"
            placeholder="Inserire dimensione y">
+    <fieldset *ngIf="action === 'edit'">
+      <div class="from-check">
+
+        <input id="checkbox1" type="checkbox" class="form-check-input" [(ngModel)]="unavailable">
+        <label for="checkbox1" class="form-check-label">Inaccessibile</label>
+      </div>
+      <div *ngIf="unavailable">
+        <label for="startDate">Data inizio</label>
+        <input id="startDate" type="date"  [(ngModel)]="startDate">
+        <label for="endDate">Data fine</label>
+        <input id="endDate" type="date" [(ngModel)]="endDate">
+      </div>
+    </fieldset>
   </div>
 </div>
 

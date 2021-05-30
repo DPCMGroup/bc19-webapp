@@ -6,3 +6,9 @@ export class RoomData {
   archived = 0;
   unavailable = 0;
 }
+
+export class RoomDataWithDates extends RoomData{
+  isDataSet = 1;
+  failureFrom = '';
+  failureTo = '';
+}
