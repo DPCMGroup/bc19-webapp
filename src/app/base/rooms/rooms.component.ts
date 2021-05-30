@@ -254,7 +254,7 @@ export class RoomsComponent implements OnInit {
     return occupantsNum;
   }
 
-  selectWorkstationName(name: string){
+  selectWorkstationName(name: string): void{
     this.selectedWorkstationName = name;
   }
 

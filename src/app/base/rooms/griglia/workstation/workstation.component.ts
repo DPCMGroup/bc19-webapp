@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
 import {WorkstationData} from '../../../../models/workstation-data';
 import {WorkstationsService} from '../../../../services/workstations.service';
 import {UtilsService} from '../../../../services/utils.service';
@@ -8,7 +8,7 @@ import {UtilsService} from '../../../../services/utils.service';
   templateUrl: './workstation.component.html',
   styleUrls: ['./workstation.component.css']
 })
-export class WorkstationComponent implements OnInit {
+export class WorkstationComponent implements OnInit, OnChanges {
 
   constructor(private workstationService: WorkstationsService) { }
 
@@ -30,6 +30,10 @@ export class WorkstationComponent implements OnInit {
   @Output() newItemEvent = new EventEmitter<WorkstationData>();
 
   ngOnInit(): void {
+    this.setAttributes();
+  }
+
+  ngOnChanges(): void {
     this.setAttributes();
   }
 
