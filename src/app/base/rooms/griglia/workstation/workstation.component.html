@@ -1,4 +1,4 @@
-<button class="btn btn-{{getColorByState()}}" style="height: 1.2em;"
+<button title="{{tag + '\n' + workstationname + '\n' + stateNumToString(state) + '\n' + sanitizedNumToString(sanitized)}}" class="btn btn-{{getColorByState()}} workstation"
         data-toggle="modal"
         [attr.data-target] = "'#workstationModal' + insertedPosX.toString() + insertedPosY.toString() + insertedRoomId.toString()"
         data-backdrop="static" data-keyboard="false"
