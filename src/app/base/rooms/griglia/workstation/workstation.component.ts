@@ -39,16 +39,16 @@ export class WorkstationComponent implements OnInit, OnChanges {
   }
 
   setAttributes(): void {
-    this.id = this.workstation !== null ? this.workstation.id : 0;
-    this.tag = this.workstation !== null ? this.workstation.tag : '';
-    this.workstationname = this.workstation !== null ? this.workstation.workstationname : '';
-    this.xworkstation = this.workstation !== null ? this.workstation.xworkstation : 0;
-    this.yworkstation = this.workstation !== null ? this.workstation.yworkstation : 0;
-    this.idroom = this.workstation !== null ? this.workstation.idroom : 0;
-    this.state = this.workstation !== null ? this.workstation.state : 0;
-    this.sanitized = this.workstation !== null ? this.workstation.sanitized : 0;
-    this.archived = this.workstation !== null ? this.workstation.archived : 0;
-    if ( this.workstation != null && this.workstation.state === 3){
+    this.id = this.workstation ? this.workstation.id : 0;
+    this.tag = this.workstation ? this.workstation.tag : '';
+    this.workstationname = this.workstation ? this.workstation.workstationname : '';
+    this.xworkstation = this.workstation ? this.workstation.xworkstation : 0;
+    this.yworkstation = this.workstation ? this.workstation.yworkstation : 0;
+    this.idroom = this.workstation ? this.workstation.idroom : 0;
+    this.state = this.workstation ? this.workstation.state : 0;
+    this.sanitized = this.workstation ? this.workstation.sanitized : 0;
+    this.archived = this.workstation ? this.workstation.archived : 0;
+    if ( this.workstation && this.workstation.state === 3){
       const passedWorkstationWithDates = this.workstation as WorkstationDataWithDates;
 
       this.startDate = UtilsService.convertDateAPIToHtml(passedWorkstationWithDates.failureFrom);
@@ -135,8 +135,12 @@ export class WorkstationComponent implements OnInit, OnChanges {
     return typeString;
   }
 
-  print(s: string): void {
-    console.log(s);
+  getIdentifier(): string{
+    if (this.insertedPosX && this.insertedPosY && this.insertedRoomId){
+      return this.insertedPosX.toString() + this.insertedPosY.toString() + this.insertedRoomId.toString();
+    }else{
+      return '';
+    }
   }
 
 }

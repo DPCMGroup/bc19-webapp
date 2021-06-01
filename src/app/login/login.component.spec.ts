@@ -5,42 +5,30 @@ import {LoginService} from '../services/login.service';
 import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
 import {LoginData} from '../models/login-data';
 import {UserData} from '../models/user-data';
-import {async, BehaviorSubject, Observable} from 'rxjs';
+import {async, BehaviorSubject, Observable, of} from 'rxjs';
+import {NgModule} from '@angular/core';
 
-/*
-class MockLoginService {
-  APIUrl = '';
-  http = null;
-  login(val: LoginData): Observable<UserData> {
-    const returnData = new UserData();
-    returnData.type = 0;
-    const behaviorSubject = new BehaviorSubject<UserData>(returnData);
-    return behaviorSubject;
-  }
-}
-
- */
-
-fdescribe('LoginComponent', () => {
+describe('LoginComponent', () => {
   let component: LoginComponent;
-  let service: LoginService;
-  let httpTestingController: HttpTestingController;
+  let serviceStub: any;
   let fixture: ComponentFixture<LoginComponent>;
 
+
   beforeEach(async () => {
+    serviceStub = {
+      login: () => of('10')
+    };
     await TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule ],
-      declarations: [ LoginComponent ]
+      declarations: [ LoginComponent ],
+      providers: [ {provide: LoginService, useValue: serviceStub}]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    httpTestingController = TestBed.get(HttpTestingController);
-    service = TestBed.get(LoginService);
-    jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
+    const de = fixture.debugElement;
     fixture.detectChanges();
   });
 
@@ -48,19 +36,30 @@ fdescribe('LoginComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should set error hidden', () => {
+  it('should set errors hidden on focus', () => {
     component.focused();
     expect(component.errorVisible).toBe('hidden');
+    expect(component.errorVisible1).toBe('hidden');
   });
 
-  it('error visible', () => {
+  it('should set error visible', () => {
     component.setErrorVisible(true);
     expect(component.errorVisible).toBe('visible');
   });
 
-  it('error hidden', () => {
+  it('should set error1 visible', () => {
+    component.setErrorVisible_(true);
+    expect(component.errorVisible1).toBe('visible');
+  });
+
+  it('should set error hidden', () => {
     component.setErrorVisible(false);
     expect(component.errorVisible).toBe('hidden');
+  });
+
+  it('should set error1 hidden', () => {
+    component.setErrorVisible_(false);
+    expect(component.errorVisible1).toBe('hidden');
   });
 
 });
