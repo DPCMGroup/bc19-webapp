@@ -1,0 +1,32 @@
+
+
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th>WorkstationID</th>
+    <th>WorkstationX</th>
+    <th>WorkstationY</th>
+    <th>Room</th>
+    <th *ngIf="type === 'Disinfection'" >Role</th>
+    <th *ngIf="type === 'Occupation'" >Username</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let dataItem of ReportList">
+    <td>{{dataItem.WorkstationId}}</td>
+    <td>{{dataItem.Xposition}}</td>
+    <td>{{dataItem.Yposition}}</td>
+    <td>{{dataItem.Room}}</td>
+    <td *ngIf="type === 'Disinfection'" >{{dataItem.Role}}</td>
+    <td *ngIf="type === 'Occupation'" >{{dataItem.Username}}</td>
+  </tr>
+  </tbody>
+
+
+
+
+</table>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<!-- Auto width -->
+<button class="btn"><i class="fa fa-download"></i> Download</button>

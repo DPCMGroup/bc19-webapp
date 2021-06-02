@@ -1,15 +1,46 @@
-<form>
-  <fieldset>
-    <legend>General search filters</legend>
-    <p>Insert the dates:
-    <label for="from">From: </label><input type="date" id="from">
-      <label for="to">To: </label><input type="date" id="to"></p>
-    <label for="id">Insert workstation id:</label><input type="text" id="id" name="id">
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{ModalTitle}}</h5>
+        <button type="button" class="close"
+                data-dismiss="modal" aria-label="Close"
+                (click)="closeClick()" >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+       <app-show-report [report]="report" *ngIf="ActivateShowReportComp"></app-show-report>
+      </div>
+    </div>
+  </div>
+</div>
 
-  </fieldset>
-  <fieldset>
-    <legend>Report type</legend>
-    <input type="radio" id="occupazioni" value="occupazioni" name="type"><label for="occupazioni">Occupation</label><br>
-    <input type="radio" id="sanificazioni" value="sanificazioni" name="type"><label for="sanificazioni">Disinfection</label>
-  </fieldset>
- </form>
+
+<div>
+  <form>
+    <fieldset>
+      <legend>General search filters</legend>
+        <label for="from">From:</label><input type="date" id="from">
+        <label for="to">To:</label><input type="date" id="to"><br>
+        <label for="id">Workstation id:</label><input type="text" id="id" name="id">
+
+    </fieldset>
+    <hr>
+    <fieldset>
+      <legend>Report type</legend>
+        <input type="radio" id="occupazioni" (change)="setRadio('Occupation')" value="occupazioni" name="type" checked><label for="occupazioni">Occupation</label>
+        <input type="radio" id="sanificazioni" (change)="setRadio('Disinfection')" value="sanificazioni" name="type"><label for="sanificazioni">Disinfection</label>
+    </fieldset>
+    <button type="submit" class="btn btn-primary float-right m-2"
+            (click)="addClick()"
+            data-backdrop="static" data-keyboard="false" value="conferma"
+    >
+      Show
+    </button>
+  </form>
+</div>
+
+<app-show-report [type]="confirmedType" ></app-show-report>
+
