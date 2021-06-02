@@ -9,9 +9,9 @@ import {RoomsService} from '../../../services/rooms.service';
   templateUrl: './griglia.component.html',
   styleUrls: ['./griglia.component.css']
 })
-export class GrigliaComponent implements OnInit, OnChanges{
+export class GrigliaComponent implements OnChanges{
 
-  constructor(private workstationService: WorkstationsService, private roomService: RoomsService) { }
+  constructor() { }
 
   // are passed already filtered for this room
   @Input() workstationsList: WorkstationData[] = [];
@@ -20,10 +20,6 @@ export class GrigliaComponent implements OnInit, OnChanges{
   @Input() changeVariable = false;
 
   @Output() newItemEvent = new EventEmitter<WorkstationData>();
-
-  ngOnInit(): void {
-    // this.init();
-  }
 
   ngOnChanges(): void {
     this.init();
@@ -40,10 +36,6 @@ export class GrigliaComponent implements OnInit, OnChanges{
   }
 
   filterWorkstationsByPosition(works: WorkstationData[], x: number, y: number): WorkstationData{
-    // console.log(`${x} : ${y}`);
-    // console.log(works.length);
-
-
     const filteredWorks: WorkstationData[] = [];
     for (const w of works){
       if ( w.xworkstation === x && w.yworkstation === y){

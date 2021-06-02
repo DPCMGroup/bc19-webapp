@@ -14,7 +14,7 @@
         <input id="checkbox1" type="checkbox" class="form-check-input" [(ngModel)]="unavailable">
         <label for="checkbox1" class="form-check-label">Inaccessibile</label>
       </div>
-      <div *ngIf="unavailable">
+      <div *ngIf="unavailable" id="roomUnavailabilityFields">
         <label for="startDate">Data inizio</label>
         <input id="startDate" type="date"  [(ngModel)]="startDate">
         <label for="endDate">Data fine</label>

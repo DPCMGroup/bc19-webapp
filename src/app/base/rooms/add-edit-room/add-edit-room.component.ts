@@ -10,7 +10,7 @@ import {RoomFailuresService} from '../../../services/room-failures.service';
   templateUrl: './add-edit-room.component.html',
   styleUrls: ['./add-edit-room.component.css']
 })
-export class AddEditRoomComponent implements OnInit {
+export class AddEditRoomComponent {
 
   constructor(private service: RoomsService, private roomFailuresService: RoomFailuresService) { }
 
@@ -28,10 +28,6 @@ export class AddEditRoomComponent implements OnInit {
 
   @Input() passedRoom: any;
   @Input() action: string;
-
-
-  ngOnInit(): void {
-  }
 
   // tslint:disable-next-line:use-lifecycle-interface
   ngOnChanges(): void {
@@ -62,7 +58,7 @@ export class AddEditRoomComponent implements OnInit {
     }
   }
 
-  getRoomFromLocalValues(): any{
+  getRoomFromLocalValues(): RoomData{
     const newRoom: RoomData = {
       id: this.id,
       roomname: this.roomname,
@@ -74,7 +70,7 @@ export class AddEditRoomComponent implements OnInit {
     return newRoom;
   }
 
-  getRoomFailureFromLocalValues(): any {
+  getRoomFailureFromLocalValues(): RoomFailureData {
     if (this.unavailable === true) {
       const newFailure: RoomFailureData = {
         idroom: this.id,
@@ -116,8 +112,8 @@ export class AddEditRoomComponent implements OnInit {
         alert(data);
         this.roomFailuresService.addFailure(newFailure).subscribe( (data2) => {
           alert(data2);
-          this.service.modifyRoom(newRoom).subscribe( (data) => {
-            alert( UtilsService.checkReturnType(data));
+          this.service.modifyRoom(newRoom).subscribe( (data3) => {
+            alert( UtilsService.checkReturnType(data3));
           });
         });
       });
@@ -126,8 +122,8 @@ export class AddEditRoomComponent implements OnInit {
     }else{
       this.roomFailuresService.deleteFailuresById(this.id).subscribe( (data) => {
         alert(data);
-        this.service.modifyRoom(newRoom).subscribe( (data) => {
-          alert( UtilsService.checkReturnType(data));
+        this.service.modifyRoom(newRoom).subscribe( (data2) => {
+          alert( UtilsService.checkReturnType(data2));
         });
       });
     }
