@@ -1,6 +1,6 @@
 import { SanitizationData } from './sanitization-data';
 
-describe('Sanitization', () => {
+describe('SanitizationData', () => {
   it('should create an instance', () => {
     expect(new SanitizationData()).toBeTruthy();
   });

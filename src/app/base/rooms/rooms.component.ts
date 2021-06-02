@@ -33,7 +33,6 @@ export class RoomsComponent implements OnInit {
   filterWorkstationName: string;
   filterRoomName: string;
   roomVisible = new Map<number, boolean>();
-  selectedWorkstationName: string;
 
   ngOnInit(): void {
     this.refreshAll();
@@ -211,10 +210,6 @@ export class RoomsComponent implements OnInit {
   }
 
   searchOccupation(): void {
-    // leggi WorkstationId: string;
-    // e Username: string;
-    // Poi user this.filer
-    this.selectWorkstationName(this.filterWorkstationName);
     this.refreshAll(this.filterWorkstationName);
   }
 
@@ -261,10 +256,6 @@ export class RoomsComponent implements OnInit {
       return obj;
     }
     return null;
-  }
-
-  selectWorkstationName(name: string): void{
-    this.selectedWorkstationName = name;
   }
 
 

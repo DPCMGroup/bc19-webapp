@@ -6,29 +6,14 @@ import {ReportsService} from '../../services/reports.service';
   templateUrl: './report.component.html',
   styleUrls: ['./report.component.css']
 })
-export class ReportComponent implements OnInit {
+export class ReportComponent {
 
 
   constructor(private reportsService: ReportsService) {
   }
 
-  ReportList: any = [];
-  ModalTitle: string | undefined;
-  report: any;
-  // tslint:disable-next-line
-  ActivateShowReportComp: boolean = false;
-
   type = 'occupations';
   confirmedType = '';
-
-  ngOnInit(): void {
-    this.refreshReportList();
-    console.log(this.type);
-  }
-
-  ngOnChange(): void {
-    console.log('changed');
-  }
 
   setRadio(s: string): void{
     this.type = s;
@@ -37,26 +22,5 @@ export class ReportComponent implements OnInit {
 
   confirmReportType(): void {
     this.confirmedType = this.type;
-  }
-
-  // tslint:disable-next-line:typedef
-  addClick() {
-    this.ModalTitle = 'Show Report';
-    this.ActivateShowReportComp = true;
-    // I copy the values of my filter to the confirmed one, that will be used by the show-report component
-    this.confirmedType = this.type;
-  }
-
-  // tslint:disable-next-line:typedef
-  closeClick() {
-    this.ActivateShowReportComp = false;
-    this.refreshReportList();
-  }
-
-  // tslint:disable-next-line:typedef
-  refreshReportList() {
-    /*this.service.getReportList().subscribe(data => {
-      this.ReportList = data;
-    });*/
   }
 }

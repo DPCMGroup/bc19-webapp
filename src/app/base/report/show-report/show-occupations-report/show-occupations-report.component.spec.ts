@@ -4,6 +4,7 @@ import { ShowOccupationsReportComponent } from './show-occupations-report.compon
 import {of} from 'rxjs';
 import {ReportComponent} from '../../report.component';
 import {ReportsService} from '../../../../services/reports.service';
+import {OccupationData} from '../../../../models/occupation-data';
 
 describe('ShowOccupationsReportComponent', () => {
   let component: ShowOccupationsReportComponent;
@@ -31,5 +32,11 @@ describe('ShowOccupationsReportComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should set occupationsList', () => {
+    const list = [new OccupationData()];
+    component.setOccupations(list);
+    expect(component.occupationsList).toEqual(list);
   });
 });

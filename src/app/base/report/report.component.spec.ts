@@ -31,4 +31,17 @@ describe('ReportComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should set type', () => {
+    component.type = 'a';
+    component.setRadio('b');
+    expect(component.type).toBe('b');
+  });
+
+  it('should set confirmedType', () => {
+    component.type = 'a';
+    component.confirmedType = 'b';
+    component.confirmReportType();
+    expect(component.confirmedType).toBe('a');
+  });
 });
