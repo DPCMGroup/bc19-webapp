@@ -20,7 +20,7 @@ export class GrigliaComponent implements OnChanges{
   @Output() newItemEvent = new EventEmitter<WorkstationData>();
 
   ngOnChanges(): void {
-    this.init().then();
+    this.init();
   }
 
 
