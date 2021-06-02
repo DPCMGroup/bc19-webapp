@@ -23,7 +23,7 @@ export class ShowReportsReportComponent implements OnInit {
   }
 
   refresh(): void {
-    this.reportsService.getReports().subscribe( (data) => {
+    this.reportsService.getReportsReport().subscribe( (data) => {
       this.setReports(data);
     });
   }

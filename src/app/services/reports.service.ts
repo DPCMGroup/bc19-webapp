@@ -33,7 +33,7 @@ export class ReportsService {
     return this.http.post<SanitizationData[]>(this.APIUrl + '/report/sanitizations', params);
   }
 
-  getReports(): Observable<ReportData[]> {
+  getReportsReport(): Observable<ReportData[]> {
     return this.http.get<ReportData[]>(this.APIUrl + '/report/all');
   }
 }
