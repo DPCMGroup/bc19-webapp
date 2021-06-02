@@ -1,8 +1,6 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, Output} from '@angular/core';
 import {WorkstationData} from '../../../models/workstation-data';
-import {WorkstationsService} from '../../../services/workstations.service';
 import {RoomData} from '../../../models/room-data';
-import {RoomsService} from '../../../services/rooms.service';
 
 @Component({
   selector: 'app-griglia',
@@ -22,7 +20,7 @@ export class GrigliaComponent implements OnChanges{
   @Output() newItemEvent = new EventEmitter<WorkstationData>();
 
   ngOnChanges(): void {
-    this.init();
+    this.init().then();
   }
 
 

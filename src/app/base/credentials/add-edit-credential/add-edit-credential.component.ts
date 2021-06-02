@@ -8,7 +8,7 @@ import {UtilsService} from '../../../services/utils.service';
   templateUrl: './add-edit-credential.component.html',
   styleUrls: ['./add-edit-credential.component.css']
 })
-export class AddEditCredentialComponent implements OnInit {
+export class AddEditCredentialComponent{
   constructor(private service: UserService ) { }
 
   // these are the values that can be edited by the webapp user
@@ -23,9 +23,6 @@ export class AddEditCredentialComponent implements OnInit {
 
   @Input() action: string;
   @Input() credential: any;
-
-  ngOnInit(): void {
-  }
 
   // tslint:disable-next-line:use-lifecycle-interface
   ngOnChanges(): void {

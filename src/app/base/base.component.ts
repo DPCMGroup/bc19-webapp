@@ -6,12 +6,9 @@ import {LocalAccountService} from '../services/local-account.service';
   templateUrl: './base.component.html',
   styleUrls: ['./base.component.css']
 })
-export class BaseComponent implements OnInit {
+export class BaseComponent{
 
   constructor(private localAccountService: LocalAccountService) { }
-
-  ngOnInit(): void {
-  }
 
   logout(): void {
     if (confirm('Are you sure?')){
