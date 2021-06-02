@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { GrigliaComponent } from './griglia.component';
 import {WorkstationData} from '../../../models/workstation-data';
 
-fdescribe('GrigliaComponent', () => {
+describe('GrigliaComponent', () => {
   let component: GrigliaComponent;
   let fixture: ComponentFixture<GrigliaComponent>;
 
