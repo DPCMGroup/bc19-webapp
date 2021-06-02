@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {SharedService} from 'src/app/shared.service';
+import {ReportsService} from '../../services/reports.service';
 
 @Component({
   selector: 'app-report',
@@ -9,7 +9,7 @@ import {SharedService} from 'src/app/shared.service';
 export class ReportComponent implements OnInit {
 
 
-  constructor(private service: SharedService) {
+  constructor(private reportsService: ReportsService) {
   }
 
   ReportList: any = [];
@@ -18,8 +18,8 @@ export class ReportComponent implements OnInit {
   // tslint:disable-next-line
   ActivateShowReportComp: boolean = false;
 
-  type = 'Occupation';
-  confirmedType = 'Occupation';
+  type = 'occupations';
+  confirmedType = 'occupations';
 
   ngOnInit(): void {
     this.refreshReportList();

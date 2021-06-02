@@ -19,6 +19,8 @@ import {UserService} from './services/user.service';
 import {LoginService} from './services/login.service';
 import { GrigliaComponent } from './base/rooms/griglia/griglia.component';
 import { WorkstationComponent } from './base/rooms/griglia/workstation/workstation.component';
+import { ShowOccupationsReportComponent } from './base/report/show-report/show-occupations-report/show-occupations-report.component';
+import { ShowSanitizationsReportComponent } from './base/report/show-report/show-sanitizations-report/show-sanitizations-report.component';
 
 // @ts-ignore
 // @ts-ignore
@@ -37,6 +39,8 @@ import { WorkstationComponent } from './base/rooms/griglia/workstation/workstati
     AddEditRoomComponent,
     GrigliaComponent,
     WorkstationComponent,
+    ShowOccupationsReportComponent,
+    ShowSanitizationsReportComponent,
   ],
   imports: [
     BrowserModule,
