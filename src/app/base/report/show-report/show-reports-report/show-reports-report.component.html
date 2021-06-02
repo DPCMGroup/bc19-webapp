@@ -1,30 +1,25 @@
 
 
 <table class="table table-striped">
+  <caption>Report dei report</caption>
   <thead>
   <tr>
-    <th>Id report</th>
-    <th>Data ora report</th>
-    <th>Hash transazione</th>
-    <th>Hash dati</th>
+    <th scope="col">Id report</th>
+    <th scope="col">Data ora report</th>
+    <th scope="col">Hash transazione</th>
+    <th scope="col">Hash dati</th>
   </tr>
   </thead>
   <tbody>
   <tr *ngFor="let dataItem of reportsList">
-    <td>{{dataItem.idsanitize}}</td>
-    <td>{{dataItem.iduser}}</td>
-    <td>{{dataItem.username}}</td>
-    <td>{{dataItem.name}}</td>
-    <td>{{dataItem.surname}}</td>
-    <td>{{dataItem.time}}</td>
+    <td>{{dataItem.id}}</td>
+    <td>{{dataItem.reporttime}}</td>
+    <td>{{dataItem.blockchainhask}}</td>
+    <td>{{dataItem.fileHash}}</td>
   </tr>
   </tbody>
-
-
-
-
 </table>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <!-- Auto width -->
-<button class="btn"><i class="fa fa-download"></i> Download</button>
+<button class="btn"><em class="fa fa-download"></em> Download</button>

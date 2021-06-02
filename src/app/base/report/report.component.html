@@ -1,19 +1,20 @@
-
 <div>
   <form>
     <fieldset>
       <legend>General search filters</legend>
-        <label for="from">From:</label><input type="date" id="from">
-        <label for="to">To:</label><input type="date" id="to"><br>
-        <label for="id">Workstation id:</label><input type="text" id="id" name="id">
+      <label for="from">From:</label><input type="date" id="from">
+      <label for="to">To:</label><input type="date" id="to"><br>
+      <label for="id">Workstation id:</label><input type="text" id="id" name="id">
 
     </fieldset>
     <hr>
     <fieldset>
       <legend>Report type</legend>
-        <input type="radio" id="occupazioni" (change)="setRadio('occupations')" value="occupazioni" name="type" checked><label for="occupazioni">Occupazioni</label>
-        <input type="radio" id="sanificazioni" (change)="setRadio('sanitizations')" value="sanificazioni" name="type"><label for="sanificazioni">Disinfezioni</label>
-        <input type="radio" id="report" (change)="setRadio('report')" value="report" name="type"><label for="report">Report</label>
+      <input type="radio" id="occupazioni" (change)="setRadio('occupations')" value="occupazioni" name="type"
+             checked><label for="occupazioni">Occupazioni</label>
+      <input type="radio" id="sanificazioni" (change)="setRadio('sanitizations')" value="sanificazioni"
+             name="type"><label for="sanificazioni">Disinfezioni</label>
+      <input type="radio" id="report" (change)="setRadio('report')" value="report" name="type"><label for="report">Report</label>
     </fieldset>
     <button type="submit" class="btn btn-primary float-right m-2"
             (click)="addClick()"

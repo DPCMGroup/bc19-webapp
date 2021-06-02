@@ -11,9 +11,10 @@
     <input type="text" class="form-control" [(ngModel)]="yworkstation"
            placeholder="Inserire la posizione y">
     <fieldset *ngIf="action === 'edit'">
+      <legend>Impostazione stato guasto</legend>
       <div class="from-check">
         <input id="checkbox1" type="checkbox" class="form-check-input" [(ngModel)]="stateIsBroken">
-        <label for="checkbox1" class="form-check-label">Inaccessibile</label>
+        <label for="checkbox1" class="form-check-label">Guasto</label>
       </div>
       <div *ngIf="stateIsBroken">
         <label for="startDate">Data inizio</label>
