@@ -19,7 +19,7 @@ export class ReportComponent implements OnInit {
   ActivateShowReportComp: boolean = false;
 
   type = 'occupations';
-  confirmedType = 'occupations';
+  confirmedType = '';
 
   ngOnInit(): void {
     this.refreshReportList();
@@ -33,6 +33,10 @@ export class ReportComponent implements OnInit {
   setRadio(s: string): void{
     this.type = s;
     console.log(this.type);
+  }
+
+  confirmReportType(): void {
+    this.confirmedType = this.type;
   }
 
   // tslint:disable-next-line:typedef

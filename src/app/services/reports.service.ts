@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {OccupationData} from '../models/occupation-data';
 import {Observable} from 'rxjs';
 import {SanitizationData} from '../models/sanitization-data';
+import {ReportData} from '../models/report-data';
 
 @Injectable({
   providedIn: 'root'
@@ -30,5 +31,9 @@ export class ReportsService {
       endtime: endTime
     };
     return this.http.post<SanitizationData[]>(this.APIUrl + '/report/sanitizations', params);
+  }
+
+  getReports(): Observable<ReportData[]> {
+    return this.http.get<ReportData[]>(this.APIUrl + '/report/all');
   }
 }

@@ -21,6 +21,7 @@ import { GrigliaComponent } from './base/rooms/griglia/griglia.component';
 import { WorkstationComponent } from './base/rooms/griglia/workstation/workstation.component';
 import { ShowOccupationsReportComponent } from './base/report/show-report/show-occupations-report/show-occupations-report.component';
 import { ShowSanitizationsReportComponent } from './base/report/show-report/show-sanitizations-report/show-sanitizations-report.component';
+import { ShowReportsReportComponent } from './base/report/show-report/show-reports-report/show-reports-report.component';
 
 // @ts-ignore
 // @ts-ignore
@@ -41,6 +42,7 @@ import { ShowSanitizationsReportComponent } from './base/report/show-report/show
     WorkstationComponent,
     ShowOccupationsReportComponent,
     ShowSanitizationsReportComponent,
+    ShowReportsReportComponent,
   ],
   imports: [
     BrowserModule,
