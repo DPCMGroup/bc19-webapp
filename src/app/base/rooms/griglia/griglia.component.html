@@ -3,12 +3,12 @@
   <caption>Griglia rappresentante una stanza</caption>
   <thead>
     <tr>
-      <th class="tableIndex" *ngFor="let i of getArrayFromNum(room ? room.xroom+1 : 0)">{{i-1 !== -1 ? i-1 : ""}}</th>
+      <th scope="col" class="tableIndex" *ngFor="let i of getArrayFromNum(room ? room.xroom+1 : 0)">{{i-1 !== -1 ? i-1 : ""}}</th>
     </tr>
   </thead>
   <tbody>
   <tr *ngFor="let i of getArrayFromNum(room ? room.yroom : 0)">
-    <td class="verticalTableIndex tableIndex">{{i}}</td>
+    <th scope="row" class="verticalTableIndex tableIndex">{{i}}</th>
     <td *ngFor="let j of getArrayFromNum(room ? room.xroom : 0)">
       <app-workstation (newItemEvent)="receiveItem($event)" [workstation]=" (filterWorkstationsByPosition(workstationsList,i,j))"
       [insertedPosX]="i" [insertedPosY]="j" [insertedRoomId]="room.id"></app-workstation>
