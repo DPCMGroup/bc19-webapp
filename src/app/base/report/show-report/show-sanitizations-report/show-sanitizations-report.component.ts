@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnChanges, OnInit} from '@angular/core';
 import {SanitizationData} from '../../../../models/sanitization-data';
 import {ReportsService} from '../../../../services/reports.service';
 import {OccupationData} from '../../../../models/occupation-data';
@@ -8,12 +8,17 @@ import {OccupationData} from '../../../../models/occupation-data';
   templateUrl: './show-sanitizations-report.component.html',
   styleUrls: ['./show-sanitizations-report.component.css']
 })
-export class ShowSanitizationsReportComponent implements OnInit {
+export class ShowSanitizationsReportComponent implements OnChanges {
 
   constructor(private reportsService: ReportsService) { }
 
+  @Input() startDate: string;
+  @Input() endDate: string;
+  @Input() changeVariable: boolean;
+
   sanitizationsList: SanitizationData[] = [];
-  ngOnInit(): void {
+
+  ngOnChanges(): void {
     this.refresh();
   }
 
@@ -22,7 +27,7 @@ export class ShowSanitizationsReportComponent implements OnInit {
   }
 
   refresh(): void {
-    this.reportsService.getSanitizationsReport().subscribe( (data) => {
+    this.reportsService.getSanitizationsReport(this.startDate, this.endDate).subscribe( (data) => {
       this.setOccupations(data);
     });
   }

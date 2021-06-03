@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnChanges, OnInit} from '@angular/core';
 import {OccupationData} from '../../../../models/occupation-data';
 import {ReportsService} from '../../../../services/reports.service';
 
@@ -7,12 +7,17 @@ import {ReportsService} from '../../../../services/reports.service';
   templateUrl: './show-occupations-report.component.html',
   styleUrls: ['./show-occupations-report.component.css']
 })
-export class ShowOccupationsReportComponent implements OnInit {
+export class ShowOccupationsReportComponent implements OnChanges {
 
   constructor(private reportsService: ReportsService) { }
 
+  @Input() startDate: string;
+  @Input() endDate: string;
+  @Input() changeVariable: boolean;
+
   occupationsList: OccupationData[] = [];
-  ngOnInit(): void {
+
+  ngOnChanges(): void {
     this.refresh();
   }
 
@@ -21,7 +26,8 @@ export class ShowOccupationsReportComponent implements OnInit {
   }
 
   refresh(): void {
-    this.reportsService.getOccupationsReport().subscribe( (data) => {
+    console.log(`${this.startDate} : ${this.endDate}`);
+    this.reportsService.getOccupationsReport(this.startDate, this.endDate).subscribe( (data) => {
       this.setOccupations(data);
     });
   }

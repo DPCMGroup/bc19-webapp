@@ -16,7 +16,7 @@ export class ReportsService {
   ) { }
 
   getOccupationsReport(startTime = '2021-06-01 00:00:00',
-                       endTime = '2021-06-03 00:00:00'): Observable<OccupationData[]> {
+                       endTime = '2021-06-04 00:00:00'): Observable<OccupationData[]> {
     const params = {
       starttime: startTime,
       endtime: endTime
@@ -25,7 +25,7 @@ export class ReportsService {
   }
 
   getSanitizationsReport(startTime = '2021-06-01 00:00:00',
-                         endTime = '2021-06-03 00:00:00'): Observable<SanitizationData[]> {
+                         endTime = '2021-06-04 00:00:00'): Observable<SanitizationData[]> {
     const params = {
       starttime: startTime,
       endtime: endTime

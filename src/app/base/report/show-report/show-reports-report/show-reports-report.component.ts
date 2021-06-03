@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnChanges, OnInit} from '@angular/core';
 import {SanitizationData} from '../../../../models/sanitization-data';
 import {ReportsService} from '../../../../services/reports.service';
 import {OccupationData} from '../../../../models/occupation-data';
@@ -9,12 +9,14 @@ import {ReportData} from '../../../../models/report-data';
   templateUrl: './show-reports-report.component.html',
   styleUrls: ['./show-reports-report.component.css']
 })
-export class ShowReportsReportComponent implements OnInit {
+export class ShowReportsReportComponent implements OnChanges {
 
   constructor(private reportsService: ReportsService) { }
 
+  @Input() changeVariable: boolean;
+
   reportsList: ReportData[] = [];
-  ngOnInit(): void {
+  ngOnChanges(): void {
     this.refresh();
   }
 

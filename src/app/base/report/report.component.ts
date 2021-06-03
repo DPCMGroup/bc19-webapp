@@ -14,6 +14,9 @@ export class ReportComponent {
 
   type = 'occupations';
   confirmedType = '';
+  startDate = '2020-01-01';
+  endDate = '2030-01-01';
+  changeVariable = true;
 
   setRadio(s: string): void{
     this.type = s;
@@ -22,5 +25,27 @@ export class ReportComponent {
 
   confirmReportType(): void {
     this.confirmedType = this.type;
+    this.notifyChange();
+  }
+
+  notifyChange(): void {
+    this.changeVariable = !this.changeVariable;
+  }
+
+  getPossibleOperations(): string[]{
+    switch (this.type){
+      case 'occupations':
+        return ['dates_search'];
+        break;
+      case 'sanitizations':
+        return ['dates_search'];
+        break;
+      case 'reports':
+        return [];
+        break;
+      default:
+        return [];
+        break;
+    }
   }
 }

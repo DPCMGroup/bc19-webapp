@@ -1,9 +1,13 @@
 <div>
   <form>
-    <fieldset>
-      <legend>General search filters</legend>
-      <label for="from">From:</label><input type="date" id="from">
-      <label for="to">To:</label><input type="date" id="to"><br>
+    <fieldset *ngIf="getPossibleOperations().includes('dates_search')">
+      <legend>Filtro date</legend>
+      <label for="from">From:</label><input type="date" id="from" name="from" [(ngModel)]="startDate">
+      <label for="to">To:</label><input type="date" id="to" name="to" [(ngModel)]="endDate"><br>
+
+    </fieldset>
+    <fieldset *ngIf="getPossibleOperations().includes('values_search')">
+      <legend>Ricerca per valori</legend>
       <label for="id">Workstation id:</label><input type="text" id="id" name="id">
 
     </fieldset>
@@ -14,7 +18,7 @@
              checked><label for="occupazioni">Occupazioni</label>
       <input type="radio" id="sanificazioni" (change)="setRadio('sanitizations')" value="sanificazioni"
              name="type"><label for="sanificazioni">Disinfezioni</label>
-      <input type="radio" id="report" (change)="setRadio('report')" value="report" name="type"><label for="report">Report</label>
+      <input type="radio" id="report" (change)="setRadio('reports')" value="report" name="type"><label for="report">Report</label>
     </fieldset>
     <button type="submit" class="btn btn-primary float-right m-2"
             (click)="confirmReportType()"
@@ -25,7 +29,12 @@
   </form>
 </div>
 
-<app-show-occupations-report *ngIf="confirmedType === 'occupations'"></app-show-occupations-report>
-<app-show-sanitizations-report *ngIf="confirmedType === 'sanitizations'"></app-show-sanitizations-report>
-<app-show-reports-report *ngIf="confirmedType === 'report'"></app-show-reports-report>
+<app-show-occupations-report *ngIf="confirmedType === 'occupations'"
+                             [startDate]="startDate" [endDate]="endDate"
+                             [changeVariable]="changeVariable"></app-show-occupations-report>
+<app-show-sanitizations-report *ngIf="confirmedType === 'sanitizations'"
+                               [startDate]="startDate" [endDate]="endDate"
+                               [changeVariable]="changeVariable"></app-show-sanitizations-report>
+<app-show-reports-report *ngIf="confirmedType === 'reports'"
+                         [changeVariable]="changeVariable"></app-show-reports-report>
 
