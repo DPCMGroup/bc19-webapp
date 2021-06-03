@@ -9,12 +9,12 @@
       <label for="to">A:</label><input type="date" id="to" name="to" [(ngModel)]="endDate"><br>
 
     </fieldset>
-    <fieldset>
+    <fieldset *ngIf="getPossibleOperations().includes('complete_report')">
       <legend>Report completo</legend>
       <!-- Auto width -->
       <button class="btn" (click)="downloadCompleteReport()"><em class="fa fa-download"></em> Scarica report completo</button>
     </fieldset>
-    <fieldset *ngIf="getPossibleOperations().includes('complete_report')">
+    <fieldset *ngIf="getPossibleOperations().includes('search_fields')">
       <legend>Ricerca per valori</legend>
       <label for="id">Id postazione:</label><input type="text" id="id" name="id">
     </fieldset>
