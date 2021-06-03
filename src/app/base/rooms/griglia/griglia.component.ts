@@ -25,27 +25,16 @@ export class GrigliaComponent implements OnChanges{
 
 
   async init(): Promise<void> {
-    console.log('griglia init');
-    // console.log(this.workstationsList);
-    // tslint:disable-next-line:max-line-length
     this.roomArray = this.workstationsToRoomGrid(this.workstationsList, this.room.xroom, this.room.yroom);
-
-    // console.log(this.workstationsList[0]);
   }
 
   filterWorkstationsByPosition(works: WorkstationData[], x: number, y: number): WorkstationData{
-    const filteredWorks: WorkstationData[] = [];
     for (const w of works){
       if ( w.xworkstation === x && w.yworkstation === y){
-        filteredWorks.push(w);
+        return w;
       }
     }
-
-    if (filteredWorks.length > 0){
-      return filteredWorks[0];
-    }else{
-      return null;
-    }
+    return null;
   }
 
   workstationsToRoomGrid(works: WorkstationData[], dimx: number, dimy: number): WorkstationData[][] {
@@ -53,11 +42,8 @@ export class GrigliaComponent implements OnChanges{
     for (let i = 0; i < dimx; i += 1){
       roomArr.push([]);
       for (let j = 0; j < dimy; j += 1){
-        // console.log(`${i} : ${j}`);
         const filteredWork = this.filterWorkstationsByPosition(works, i, j);
         if (filteredWork){
-          // console.log('true');
-
           roomArr[i].push(filteredWork);
         }else{
           roomArr[i].push(null);

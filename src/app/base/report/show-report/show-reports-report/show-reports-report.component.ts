@@ -34,6 +34,4 @@ export class ShowReportsReportComponent implements OnChanges {
   getDownloadData(): string{
     return UtilsService.objectArrayToCsv(this.reportsList);
   }
-
-
 }

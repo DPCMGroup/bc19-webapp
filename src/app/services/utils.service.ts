@@ -102,4 +102,21 @@ export class UtilsService {
     return typeString;
   }
 
+  static getDefaulStartAndEndDates(): any {
+    const dates = {
+      startDate: '',
+      endDate: ''
+    };
+    const currentDate = new Date().toLocaleDateString();
+    const parts = currentDate.split('/');
+    for (let i = 0; i < parts.length; i++){
+      parts[i] = parts[i].length === 1 ? '0' + parts[i] : parts[i];
+    }
+    const newDate = parts[2] + '-' + parts[0] + '-' + parts[1];
+    dates.startDate = newDate;
+    dates.endDate = '2030-01-01';
+
+    return dates;
+  }
+
 }

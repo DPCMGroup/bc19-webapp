@@ -31,30 +31,25 @@ export class AddEditRoomComponent {
 
   // tslint:disable-next-line:use-lifecycle-interface
   ngOnChanges(): void {
-    console.log('passedRoom');
-    console.log(this.passedRoom);
-    // console.log('changed');
+    this.copyValues();
+  }
+
+  copyValues(): void {
     // assign passed room values into my values (just the values that need to be assigned)
     this.id = this.passedRoom.id;
     this.roomname = this.passedRoom.roomname;
     this.xroom = this.passedRoom.xroom;
     this.yroom = this.passedRoom.yroom;
     this.archived = this.passedRoom.archived;
-    this.unavailable = this.passedRoom.unavailable === 1 ? true : false;
+    this.unavailable = this.passedRoom.unavailable === 1;
     if (this.passedRoom.unavailable === 1){
       const passedRoomWithDates = this.passedRoom as RoomDataWithDates;
       this.startDate = UtilsService.convertDateAPIToHtml(passedRoomWithDates.failureFrom);
       this.endDate = UtilsService.convertDateAPIToHtml(passedRoomWithDates.failureTo);
     }else{
-      const currentDate = new Date().toLocaleDateString();
-      const parts = currentDate.split('/');
-      for (let i = 0; i < parts.length; i++){
-        parts[i] = parts[i].length === 1 ? '0' + parts[i] : parts[i];
-      }
-      const newDate = parts[2] + '-' + parts[0] + '-' + parts[1];
-      console.log(newDate);
-      this.startDate = newDate;
-      this.endDate = '2030-01-01';
+      const defaultDates = UtilsService.getDefaulStartAndEndDates();
+      this.startDate = defaultDates.startDate;
+      this.endDate = defaultDates.endDate;
     }
   }
 
@@ -97,7 +92,6 @@ export class AddEditRoomComponent {
     // set values that may be not already set or set improperly but that the server requires
     newRoom.id = 0;
     newRoom.archived = 0;
-    // console.log(newRoom);
     this.service.addRoom(newRoom).subscribe( (data) => {
       alert(UtilsService.checkReturnType(data));
     }, error => alert('C\'è stato un errore'));
@@ -106,7 +100,6 @@ export class AddEditRoomComponent {
   async editRoom(): Promise<void>{
     const newRoom = this.getRoomFromLocalValues();
     const newFailure = this.getRoomFailureFromLocalValues();
-    console.log('unavailable: ' + this.unavailable);
     if (newFailure !== null) {
       this.roomFailuresService.deleteFailuresById(this.id).subscribe( (data) => {
         alert(data);
@@ -117,8 +110,6 @@ export class AddEditRoomComponent {
           });
         });
       });
-      console.log('sending room failure');
-      console.log(newFailure);
     }else{
       this.roomFailuresService.deleteFailuresById(this.id).subscribe( (data) => {
         alert(data);

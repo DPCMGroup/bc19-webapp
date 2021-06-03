@@ -5,6 +5,7 @@ import {RoomsService} from '../../../services/rooms.service';
 import {RoomFailuresService} from '../../../services/room-failures.service';
 import {UtilsService} from '../../../services/utils.service';
 import {of} from 'rxjs';
+import {RoomData} from '../../../models/room-data';
 
 describe('AddEditRoomComponent', () => {
   let component: AddEditRoomComponent;
@@ -82,20 +83,52 @@ describe('AddEditRoomComponent', () => {
     expect(component.editRoom).toHaveBeenCalled();
   });
 
-  /*
-  it('addRoom', () => {
-    spyOn(roomsServiceStub, 'addRoom');
-    component.addRoom();
-    expect(roomsServiceStub.addRoom).toHaveBeenCalled();
-  });*/
+  it('should call copyValues on change', () => {
+    spyOn(component, 'copyValues');
+    component.ngOnChanges();
+    expect(component.copyValues).toHaveBeenCalledOnceWith();
+  });
 
+  it('should copy values properly if available', () => {
+    component.passedRoom = new RoomData();
+    component.passedRoom.id = 0;
+    component.passedRoom.roomname = '';
+    component.passedRoom.xroom = '';
+    component.passedRoom.yroom = '';
+    component.passedRoom.archived = 0;
+    component.passedRoom.unavailable = 0;
+    component.copyValues();
 
-  /*it('should show unavailability fields', () => {
-    component.action = 'edit';
-    component.unavailable = true;
-    fixture.detectChanges();
-    document.getElementById('openAddEditRoomModal').click();
-    expect(document.getElementById('roomUnavailabilityFields')).toBeTruthy();
-  });*/
+    expect(component.id).toBe(0);
+    expect(component.roomname).toBe('');
+    expect(component.xroom).toBe('');
+    expect(component.yroom).toBe('');
+    expect(component.archived).toBe(0);
+    expect(component.unavailable).toBe(false);
+    expect(component.startDate).toBe(UtilsService.getDefaulStartAndEndDates().startDate);
+    expect(component.endDate).toBe('2030-01-01');
+  });
+
+  it('should copy values properly if unavailable', () => {
+    component.passedRoom = new RoomData();
+    component.passedRoom.id = 0;
+    component.passedRoom.roomname = '';
+    component.passedRoom.xroom = '';
+    component.passedRoom.yroom = '';
+    component.passedRoom.archived = 0;
+    component.passedRoom.unavailable = 1;
+    component.passedRoom.failureFrom = '2021-01-01 00:00:00';
+    component.passedRoom.failureTo = '2022-01-01 00:00:00';
+    component.copyValues();
+
+    expect(component.id).toBe(0);
+    expect(component.roomname).toBe('');
+    expect(component.xroom).toBe('');
+    expect(component.yroom).toBe('');
+    expect(component.archived).toBe(0);
+    expect(component.unavailable).toBe(true);
+    expect(component.startDate).toBe('2021-01-01');
+    expect(component.endDate).toBe('2022-01-01');
+  });
 
 });

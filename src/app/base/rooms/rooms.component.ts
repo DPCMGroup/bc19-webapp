@@ -43,12 +43,10 @@ export class RoomsComponent implements OnInit {
   }
 
   getRoomInfoById(id): RoomData {
-    // console.log(this.roomsList.find( o => o.id === id ).unavailable === 0);
     return this.roomsList.find( o => o.id === id );
   }
 
   getRoomInfoByName(name): any {
-    console.log(this.roomsList);
     return this.roomsList.find( o => o.roomname === name );
   }
 
@@ -73,7 +71,6 @@ export class RoomsComponent implements OnInit {
       await prom2.then((data) => this.setWorkstationList(data))];
     await Promise.all(todo);
 
-    // Then populate roomsMap
     this.populateRoomsMap(filterWorkstationName, filterRoomName);
 
   }
@@ -86,7 +83,6 @@ export class RoomsComponent implements OnInit {
 
     if (filterWorkstationName == null && filterRoomName == null) {
       // non c'è alcun filtro
-        console.log('1');
         for (const r of this.roomsList){
           tempRoomsMap.set(r.id, []);
         }
@@ -101,7 +97,6 @@ export class RoomsComponent implements OnInit {
       }
     }else if (filterWorkstationName != null) {
       // filtro postazione
-      console.log('2');
 
       // I divide the workstations by their room
       // If there is a workstation with a roomid not present in roomList,
@@ -114,9 +109,7 @@ export class RoomsComponent implements OnInit {
           tempRoomsMap.get(w.idroom).push(w);
         }
       }
-      console.log(tempRoomsMap);
     } else if (filterRoomName != null) {
-      console.log('3');
       // filtro stanza
       for (const r of this.roomsList){
         if (r.roomname === filterRoomName) {
@@ -134,8 +127,6 @@ export class RoomsComponent implements OnInit {
     // Do that just if there isn't a filter. When you filter you don't want to see the empty rooms.
 
     this.roomsMap = tempRoomsMap;
-    console.log('populated all');
-    console.log(this.roomsMap);
     this.notifyChange();
   }
 
@@ -152,7 +143,6 @@ export class RoomsComponent implements OnInit {
   }
 
   deleteRoom(roomId): void {
-    // console.log(roomId);
 
     if (confirm('Sei sicuro?')){
       this.roomService.deleteRoom(roomId.toString()).subscribe( (data) => {
@@ -167,13 +157,9 @@ export class RoomsComponent implements OnInit {
     this.addEditWorkstation.idroom = idroom;
     this.workstationAction = 'add';
     this.notifyChange();
-    // console.log(this.addEditWorkstation);
   }
 
   openEditWorkstation(workstation): void{
-    console.log('rooms received item: ');
-    console.log(workstation);
-
     this.addEditWorkstation = workstation;
     this.workstationAction = 'edit';
     this.notifyChange();
@@ -198,8 +184,6 @@ export class RoomsComponent implements OnInit {
   }
 
   closeAddEditWorkstation(): void {
-    console.log('closeAddEditWorkstation');
-    // const delay = ms => new Promise(res => setTimeout(res, ms));
     this.refreshAll();
     this.notifyChange();
   }
@@ -244,15 +228,11 @@ export class RoomsComponent implements OnInit {
 
   getRoomsUnavailabilityDates(roomId: number): any {
     const room = this.getRoomInfoById(roomId);
-    // console.log('roomId: ' + roomId);
     if (room.unavailable === 1){
-      // console.log('roomID: ' + roomId);
       const obj = {
         failureFrom : UtilsService.convertDateAPIToHtml((room as RoomDataWithDates).failureFrom),
         failureTo : UtilsService.convertDateAPIToHtml((room as RoomDataWithDates).failureTo)
       };
-      // console.log('roomDates obj');
-      // console.log(obj);
       return obj;
     }
     return null;

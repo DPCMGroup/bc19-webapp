@@ -54,15 +54,9 @@ export class WorkstationComponent implements OnInit, OnChanges {
       this.startDate = UtilsService.convertDateAPIToHtml(passedWorkstationWithDates.failureFrom);
       this.endDate = UtilsService.convertDateAPIToHtml(passedWorkstationWithDates.failureTo);
     }else{
-      const currentDate = new Date().toLocaleDateString();
-      const parts = currentDate.split('/');
-      for (let i = 0; i < parts.length; i++){
-        parts[i] = parts[i].length === 1 ? '0' + parts[i] : parts[i];
-      }
-      const newDate = parts[2] + '-' + parts[0] + '-' + parts[1];
-      // console.log(newDate);
-      this.startDate = newDate;
-      this.endDate = '2030-01-01';
+      const defaultDates = UtilsService.getDefaulStartAndEndDates();
+      this.startDate = defaultDates.startDate;
+      this.endDate = defaultDates.endDate;
     }
   }
 

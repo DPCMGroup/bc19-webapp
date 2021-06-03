@@ -39,4 +39,28 @@ describe('GrigliaComponent', () => {
     component.ngOnChanges();
     expect(component.init).toHaveBeenCalled();
   });
+
+  it('should filter workstations by position', () => {
+    const work1 = new WorkstationData();
+    work1.xworkstation = 3;
+    work1.yworkstation = 7;
+    const works = [work1];
+    expect(component.filterWorkstationsByPosition(works, 3, 7)).toEqual(work1);
+    expect(component.filterWorkstationsByPosition(works, 3, 8)).toEqual(null);
+  });
+
+  it('should create grid from workstations properly', () => {
+    const work1 = new WorkstationData();
+    work1.xworkstation = 1;
+    work1.xworkstation = 2;
+    const  works1 = [work1];
+    const work2 = new WorkstationData();
+    work2.xworkstation = 4;
+    work2.xworkstation = 3;
+    const  works2 = [work2];
+    expect(component.workstationsToRoomGrid(works1, 3, 3))
+      .toEqual([[null, null, null], [null, work1, null], [null, null, null]]);
+    expect(component.workstationsToRoomGrid(works2, 2, 3))
+      .toEqual([[null, null, null], [null, null, null]]);
+  });
 });

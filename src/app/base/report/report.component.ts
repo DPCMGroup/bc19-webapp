@@ -45,16 +45,12 @@ export class ReportComponent {
     switch (this.type){
       case 'occupations':
         return ['dates_search', 'complete_report'];
-        break;
       case 'sanitizations':
         return ['dates_search', 'complete_report'];
-        break;
       case 'reports':
         return ['dates_search', 'complete_report'];
-        break;
       default:
         return [];
-        break;
     }
   }
 

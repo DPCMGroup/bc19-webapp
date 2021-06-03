@@ -26,8 +26,10 @@ export class AddEditCredentialComponent{
 
   // tslint:disable-next-line:use-lifecycle-interface
   ngOnChanges(): void {
-    console.log('add-edit-credential changed');
-    // copy the values from the credential objects that was passed to the local values
+    this.copyValues();
+  }
+
+  copyValues(): void {
     this.id = this.credential.id;
     this.username = this.credential.username;
     this.password = this.credential.password;
@@ -65,7 +67,7 @@ export class AddEditCredentialComponent{
     if (this.action === 'add'){
       this.addCredential();
     }else if (this.action === 'edit'){
-      this.editredential();
+      this.editCredential();
     }
   }
 
@@ -75,21 +77,17 @@ export class AddEditCredentialComponent{
       alert('Il tipo non è nell\'intervallo ammissibile');
       return;
     }
-    console.log('addingCredential');
-    console.log(newCredential);
     this.service.addUser(newCredential).subscribe(res => {
       alert(UtilsService.checkReturnType(res));
     }, error => (alert('C\'è stato un errore')));
   }
 
-  editredential(): void{
+  editCredential(): void{
     const newCredential = this.getCredentialFromLocalValues();
     if (newCredential == null){
       alert('Il tipo non è nell\'intervallo ammissibile');
       return;
     }
-    console.log('editingCredential');
-    console.log(newCredential);
     this.service.modifyUser(newCredential).subscribe(res => {
       alert(UtilsService.checkReturnType(res));
     }, error => (alert('C\'è stato un errore')));

@@ -30,7 +30,7 @@ describe('RoomsComponent', () => {
       modifyWorkstation: () => of()
     };
     await TestBed.configureTestingModule({
-      declarations: [ ReportComponent ],
+      declarations: [ RoomsComponent ],
       providers: [{provide: RoomsService, useValue: roomsServiceStub},
         {provide: WorkstationsService, useValue: workstationsServiceStub}]
     })
@@ -221,6 +221,63 @@ describe('RoomsComponent', () => {
     const expectedRoom = new RoomData();
     expect(component.addEditRoom).toEqual(expectedRoom);
     expect(component.roomAction).toBe('add');
+  });
+
+  it('should open edit workstation', () => {
+    component.addEditWorkstation = null;
+    const work1 = new WorkstationData();
+    work1.id = 15;
+    component.openEditWorkstation(work1);
+    expect(component.addEditWorkstation).toEqual(work1);
+    expect(component.workstationAction).toBe('edit');
+  });
+
+  it('should open edit room', () => {
+    component.addEditRoom = null;
+    const room1 = new RoomData();
+    room1.id = 15;
+    component.openEditRoom(room1);
+    expect(component.addEditRoom).toEqual(room1);
+    expect(component.roomAction).toBe('edit');
+  });
+
+  it('should close add-edit workstation', () => {
+    spyOn(component, 'refreshAll');
+    component.closeAddEditWorkstation();
+    expect(component.refreshAll).toHaveBeenCalledOnceWith();
+  });
+
+  it('should close add-edit room', () => {
+    spyOn(component, 'refreshAll');
+    component.closeAddEditRoom();
+    expect(component.refreshAll).toHaveBeenCalledOnceWith();
+  });
+
+  it('should search workstation', () => {
+    spyOn(component, 'refreshAll');
+    component.filterWorkstationName = 'name1';
+    component.searchOccupation();
+    expect(component.refreshAll).toHaveBeenCalledOnceWith('name1');
+  });
+
+  it('should search room', () => {
+    spyOn(component, 'refreshAll');
+    component.filterRoomName = 'name2';
+    component.searchRoom();
+    expect(component.refreshAll).toHaveBeenCalledOnceWith(null, 'name2');
+  });
+
+  it('should reset filter', () => {
+    spyOn(component, 'refreshAll');
+    component.resetFilter();
+    expect(component.refreshAll).toHaveBeenCalledOnceWith();
+  });
+
+  it('should invert room visibility', () => {
+    component.roomVisible = new Map<number, boolean>();
+    component.roomVisible.set(0, true);
+    component.invertRoomVisibility(0);
+    expect(component.roomVisible.get(0)).toBe(false);
   });
 
 });

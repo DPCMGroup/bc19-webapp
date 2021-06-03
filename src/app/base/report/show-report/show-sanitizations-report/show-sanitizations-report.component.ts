@@ -1,7 +1,6 @@
-import {Component, Input, OnChanges, OnInit} from '@angular/core';
+import {Component, Input, OnChanges} from '@angular/core';
 import {SanitizationData} from '../../../../models/sanitization-data';
 import {ReportsService} from '../../../../services/reports.service';
-import {OccupationData} from '../../../../models/occupation-data';
 import {UtilsService} from '../../../../services/utils.service';
 
 @Component({
@@ -40,5 +39,4 @@ export class ShowSanitizationsReportComponent implements OnChanges {
   typeNumToString(n: number): string {
     return UtilsService.typeNumToString(n);
   }
-
 }
