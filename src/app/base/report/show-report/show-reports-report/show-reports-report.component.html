@@ -13,9 +13,9 @@
   <tbody>
   <tr *ngFor="let dataItem of reportsList">
     <td>{{dataItem.id}}</td>
-    <td>{{dataItem.reporttime}}</td>
-    <td>{{dataItem.blockchainhash}}</td>
-    <td>{{dataItem.fileHash}}</td>
+    <td>{{dataItem.reporttime.substr(0,10)}}<br/>{{dataItem.reporttime.substr(10)}}</td>
+    <td class="longstring">{{dataItem.blockchainhash}}</td>
+    <td class="longstring">{{dataItem.fileHash}}</td>
   </tr>
   </tbody>
 </table>

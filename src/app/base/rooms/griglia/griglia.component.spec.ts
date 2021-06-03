@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { GrigliaComponent } from './griglia.component';
 import {WorkstationData} from '../../../models/workstation-data';
+import {RoomData} from '../../../models/room-data';
 
 describe('GrigliaComponent', () => {
   let component: GrigliaComponent;
@@ -52,15 +53,26 @@ describe('GrigliaComponent', () => {
   it('should create grid from workstations properly', () => {
     const work1 = new WorkstationData();
     work1.xworkstation = 1;
-    work1.xworkstation = 2;
+    work1.yworkstation = 2;
     const  works1 = [work1];
     const work2 = new WorkstationData();
     work2.xworkstation = 4;
-    work2.xworkstation = 3;
+    work2.yworkstation = 3;
     const  works2 = [work2];
     expect(component.workstationsToRoomGrid(works1, 3, 3))
-      .toEqual([[null, null, null], [null, work1, null], [null, null, null]]);
+      .toEqual([[null, null, null], [null, null, work1], [null, null, null]]);
     expect(component.workstationsToRoomGrid(works2, 2, 3))
       .toEqual([[null, null, null], [null, null, null]]);
+  });
+
+  it('sould setup roomArray on init call', () => {
+    spyOn(component, 'workstationsToRoomGrid');
+    const work1 = new WorkstationData();
+    component.workstationsList = [work1];
+    component.room = new RoomData();
+    component.room.xroom = 3;
+    component.room.yroom = 3;
+    component.init();
+    expect(component.workstationsToRoomGrid).toHaveBeenCalledOnceWith([work1], 3, 3);
   });
 });

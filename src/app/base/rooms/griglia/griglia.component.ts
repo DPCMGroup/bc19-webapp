@@ -24,7 +24,7 @@ export class GrigliaComponent implements OnChanges{
   }
 
 
-  async init(): Promise<void> {
+  init(): void {
     this.roomArray = this.workstationsToRoomGrid(this.workstationsList, this.room.xroom, this.room.yroom);
   }
 
