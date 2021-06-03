@@ -3,6 +3,7 @@ import {SanitizationData} from '../../../../models/sanitization-data';
 import {ReportsService} from '../../../../services/reports.service';
 import {OccupationData} from '../../../../models/occupation-data';
 import {ReportData} from '../../../../models/report-data';
+import {UtilsService} from '../../../../services/utils.service';
 
 @Component({
   selector: 'app-show-reports-report',
@@ -29,5 +30,10 @@ export class ShowReportsReportComponent implements OnChanges {
       this.setReports(data);
     });
   }
+
+  getDownloadData(): string{
+    return UtilsService.objectArrayToCsv(this.reportsList);
+  }
+
 
 }

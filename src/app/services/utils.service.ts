@@ -75,4 +75,31 @@ export class UtilsService {
       return null;
     }
   }
+
+  public static objectArrayToCsv(arr): string {
+    let text = '';
+    if (arr) {
+      arr.forEach((item) => {
+        text += Object.values(item).join(',') + ',\n';
+      });
+    }
+    return text;
+  }
+
+  static typeNumToString(type: number): string{
+    let typeString = '';
+    switch (type){
+      case 0:
+        typeString = 'Amministratore';
+        break;
+      case 1:
+        typeString = 'Dipendente';
+        break;
+      case 2:
+        typeString = 'Addetto';
+        break;
+    }
+    return typeString;
+  }
+
 }

@@ -1,6 +1,7 @@
 import {Component, Input, OnChanges, OnInit} from '@angular/core';
 import {OccupationData} from '../../../../models/occupation-data';
 import {ReportsService} from '../../../../services/reports.service';
+import {UtilsService} from '../../../../services/utils.service';
 
 @Component({
   selector: 'app-show-occupations-report',
@@ -8,7 +9,6 @@ import {ReportsService} from '../../../../services/reports.service';
   styleUrls: ['./show-occupations-report.component.css']
 })
 export class ShowOccupationsReportComponent implements OnChanges {
-
   constructor(private reportsService: ReportsService) { }
 
   @Input() startDate: string;
@@ -31,5 +31,13 @@ export class ShowOccupationsReportComponent implements OnChanges {
       this.setOccupations(data);
     });
   }
+  getDownloadData(): string{
+    return UtilsService.objectArrayToCsv(this.occupationsList);
+  }
 
+  typeNumToString(n: number): string {
+    return UtilsService.typeNumToString(n);
+  }
 }
+
+

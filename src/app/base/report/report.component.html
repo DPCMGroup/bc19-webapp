@@ -1,24 +1,32 @@
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 <div>
   <form>
     <fieldset *ngIf="getPossibleOperations().includes('dates_search')">
       <legend>Filtro date</legend>
-      <label for="from">From:</label><input type="date" id="from" name="from" [(ngModel)]="startDate">
-      <label for="to">To:</label><input type="date" id="to" name="to" [(ngModel)]="endDate"><br>
+      <label for="from">Da:</label><input type="date" id="from" name="from" [(ngModel)]="startDate">
+      <label for="to">A:</label><input type="date" id="to" name="to" [(ngModel)]="endDate"><br>
 
     </fieldset>
-    <fieldset *ngIf="getPossibleOperations().includes('values_search')">
+    <fieldset>
+      <legend>Report completo</legend>
+      <!-- Auto width -->
+      <button class="btn" (click)="downloadCompleteReport()"><em class="fa fa-download"></em> Scarica report completo</button>
+    </fieldset>
+    <fieldset *ngIf="getPossibleOperations().includes('complete_report')">
       <legend>Ricerca per valori</legend>
-      <label for="id">Workstation id:</label><input type="text" id="id" name="id">
-
+      <label for="id">Id postazione:</label><input type="text" id="id" name="id">
     </fieldset>
     <hr>
     <fieldset>
-      <legend>Report type</legend>
+      <legend>Tipi di report</legend>
       <input type="radio" id="occupazioni" (change)="setRadio('occupations')" value="occupazioni" name="type"
              checked><label for="occupazioni">Occupazioni</label>
       <input type="radio" id="sanificazioni" (change)="setRadio('sanitizations')" value="sanificazioni"
              name="type"><label for="sanificazioni">Disinfezioni</label>
       <input type="radio" id="report" (change)="setRadio('reports')" value="report" name="type"><label for="report">Report</label>
+      <h6 *ngIf="type === 'reports'">Questa lista non è filtrabile</h6>
     </fieldset>
     <button type="submit" class="btn btn-primary float-right m-2"
             (click)="confirmReportType()"
@@ -37,4 +45,8 @@
                                [changeVariable]="changeVariable"></app-show-sanitizations-report>
 <app-show-reports-report *ngIf="confirmedType === 'reports'"
                          [changeVariable]="changeVariable"></app-show-reports-report>
+
+
+<!-- Auto width -->
+<button class="btn" (click)="download()"><em class="fa fa-download"></em>Scarica</button>
 

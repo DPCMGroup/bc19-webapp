@@ -2,6 +2,7 @@ import {Component, Input, OnChanges, OnInit} from '@angular/core';
 import {SanitizationData} from '../../../../models/sanitization-data';
 import {ReportsService} from '../../../../services/reports.service';
 import {OccupationData} from '../../../../models/occupation-data';
+import {UtilsService} from '../../../../services/utils.service';
 
 @Component({
   selector: 'app-show-sanitizations-report',
@@ -30,6 +31,14 @@ export class ShowSanitizationsReportComponent implements OnChanges {
     this.reportsService.getSanitizationsReport(this.startDate, this.endDate).subscribe( (data) => {
       this.setOccupations(data);
     });
+  }
+
+  getDownloadData(): string{
+    return UtilsService.objectArrayToCsv(this.sanitizationsList);
+  }
+
+  typeNumToString(n: number): string {
+    return UtilsService.typeNumToString(n);
   }
 
 }
