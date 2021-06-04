@@ -6,7 +6,7 @@ import {LoginComponent} from './login/login.component';
 import {CredentialsComponent} from './base/credentials/credentials.component';
 import {ReportComponent} from './base/report/report.component';
 import {RoomsComponent} from './base/rooms/rooms.component';
-import {GrigliaComponent} from './base/rooms/griglia/griglia.component';
+import {GridComponent} from './base/rooms/grid/grid.component';
 
 const routes: Routes = [
   {

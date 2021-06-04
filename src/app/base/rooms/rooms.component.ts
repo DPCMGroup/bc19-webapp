@@ -1,10 +1,8 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, QueryList, ViewChildren} from '@angular/core';
+import {Component, OnInit, QueryList, ViewChildren} from '@angular/core';
 import {RoomsService} from 'src/app/services/rooms.service';
-import {AddEditWorkstationComponent} from './add-edit-workstation/add-edit-workstation.component';
 import {WorkstationData} from '../../models/workstation-data';
 import {RoomData, RoomDataWithDates} from '../../models/room-data';
 import {WorkstationsService} from '../../services/workstations.service';
-import {filter} from 'rxjs/operators';
 import {UtilsService} from '../../services/utils.service';
 
 @Component({
@@ -21,9 +19,6 @@ export class RoomsComponent implements OnInit {
   roomsList: RoomData[] = [];
   workstationsList: any = [];
   notifyChangeVariable = false; // I'm not sure this is needed anymore, since we have workstationAction and roomAction that change
-  // search
-  searchId = '';
-  searchUsername = '';
   // workstationModal
   addEditWorkstation = new WorkstationData();
   workstationAction = 'add'; // add or edit

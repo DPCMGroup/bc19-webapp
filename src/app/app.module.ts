@@ -17,8 +17,8 @@ import {RoomsService} from './services/rooms.service';
 import {WorkstationsService} from './services/workstations.service';
 import {UserService} from './services/user.service';
 import {LoginService} from './services/login.service';
-import { GrigliaComponent } from './base/rooms/griglia/griglia.component';
-import { WorkstationComponent } from './base/rooms/griglia/workstation/workstation.component';
+import { GridComponent } from './base/rooms/grid/grid.component';
+import { WorkstationComponent } from './base/rooms/grid/workstation/workstation.component';
 import { ShowOccupationsReportComponent } from './base/report/show-report/show-occupations-report/show-occupations-report.component';
 import { ShowSanitizationsReportComponent } from './base/report/show-report/show-sanitizations-report/show-sanitizations-report.component';
 import { ShowReportsReportComponent } from './base/report/show-report/show-reports-report/show-reports-report.component';
@@ -38,7 +38,7 @@ import { ShowReportsReportComponent } from './base/report/show-report/show-repor
     ReportComponent,
     RoomsComponent,
     AddEditRoomComponent,
-    GrigliaComponent,
+    GridComponent,
     WorkstationComponent,
     ShowOccupationsReportComponent,
     ShowSanitizationsReportComponent,

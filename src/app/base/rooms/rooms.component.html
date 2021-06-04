@@ -179,8 +179,8 @@
 
 
     <div [hidden]="!roomVisible.get(key)">
-      <app-griglia (newItemEvent)="openEditWorkstation($event)" [changeVariable]="notifyChangeVariable"
-      [workstationsList]="getWorkstationsListByRoomId(key)" [room]="getRoomInfoById(key)"></app-griglia>
+      <app-grid (newItemEvent)="openEditWorkstation($event)" [changeVariable]="notifyChangeVariable"
+                [workstationsList]="getWorkstationsListByRoomId(key)" [room]="getRoomInfoById(key)"></app-grid>
     </div>
   </tr>
   </tbody>

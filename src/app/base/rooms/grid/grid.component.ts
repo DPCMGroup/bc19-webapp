@@ -3,11 +3,11 @@ import {WorkstationData} from '../../../models/workstation-data';
 import {RoomData} from '../../../models/room-data';
 
 @Component({
-  selector: 'app-griglia',
-  templateUrl: './griglia.component.html',
-  styleUrls: ['./griglia.component.css']
+  selector: 'app-grid',
+  templateUrl: './grid.component.html',
+  styleUrls: ['./grid.component.css']
 })
-export class GrigliaComponent implements OnChanges{
+export class GridComponent implements OnChanges{
 
   constructor() { }
 
@@ -63,7 +63,7 @@ export class GrigliaComponent implements OnChanges{
   }
 
   receiveItem(item: WorkstationData): void {
-    console.log('griglia received item: ');
+    console.log('grid received item: ');
     console.log(item);
     this.newItemEvent.emit(item);
   }

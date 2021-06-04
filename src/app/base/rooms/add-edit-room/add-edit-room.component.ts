@@ -12,9 +12,8 @@ import {RoomFailuresService} from '../../../services/room-failures.service';
 })
 export class AddEditRoomComponent {
 
-  constructor(private service: RoomsService, private roomFailuresService: RoomFailuresService) { }
+  constructor(private workstationsService: RoomsService, private roomFailuresService: RoomFailuresService) { }
 
-// {"id": 1, "roomname": "lab1", "xroom": 10, "yroom": 10, "archived": 0}
   id: number;
   roomname: string;
   xroom: string;
@@ -92,7 +91,7 @@ export class AddEditRoomComponent {
     // set values that may be not already set or set improperly but that the server requires
     newRoom.id = 0;
     newRoom.archived = 0;
-    this.service.addRoom(newRoom).subscribe( (data) => {
+    this.workstationsService.addRoom(newRoom).subscribe( (data) => {
       alert(UtilsService.checkReturnType(data));
     }, error => alert('C\'è stato un errore'));
   }
@@ -105,7 +104,7 @@ export class AddEditRoomComponent {
         alert(data);
         this.roomFailuresService.addFailure(newFailure).subscribe( (data2) => {
           alert(data2);
-          this.service.modifyRoom(newRoom).subscribe( (data3) => {
+          this.workstationsService.modifyRoom(newRoom).subscribe( (data3) => {
             alert( UtilsService.checkReturnType(data3));
           });
         });
@@ -113,7 +112,7 @@ export class AddEditRoomComponent {
     }else{
       this.roomFailuresService.deleteFailuresById(this.id).subscribe( (data) => {
         alert(data);
-        this.service.modifyRoom(newRoom).subscribe( (data2) => {
+        this.workstationsService.modifyRoom(newRoom).subscribe( (data2) => {
           alert( UtilsService.checkReturnType(data2));
         });
       });

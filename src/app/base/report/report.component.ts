@@ -54,8 +54,6 @@ export class ReportComponent {
     }
   }
 
-
-
   download(): void{
     let filename = '';
     let content = '';

@@ -1,22 +1,22 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GrigliaComponent } from './griglia.component';
+import { GridComponent } from './grid.component';
 import {WorkstationData} from '../../../models/workstation-data';
 import {RoomData} from '../../../models/room-data';
 
 describe('GrigliaComponent', () => {
-  let component: GrigliaComponent;
-  let fixture: ComponentFixture<GrigliaComponent>;
+  let component: GridComponent;
+  let fixture: ComponentFixture<GridComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ GrigliaComponent ]
+      declarations: [ GridComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(GrigliaComponent);
+    fixture = TestBed.createComponent(GridComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
