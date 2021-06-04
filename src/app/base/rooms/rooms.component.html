@@ -1,0 +1,189 @@
+
+<button type="button" class="btn btn-primary float-right m-2"
+        (click)="resetFilter()">
+  Reset filtro
+</button>
+
+<button type="button" class="btn btn-primary float-right m-2"
+        data-toggle="modal" data-target="#searchModal"
+
+        data-backdrop="static" data-keyboard="false">
+  Cerca una postazione
+</button>
+
+<button type="button" class="btn btn-primary float-right m-2"
+        data-toggle="modal" data-target="#searchRoomModal"
+
+        data-backdrop="static" data-keyboard="false">
+  Cerca una stanza
+</button>
+
+<button type="button" class="btn btn-primary float-right m-2"
+        data-toggle="modal" data-target="#addEditRoomModal"
+        data-backdrop="static" data-keyboard="false"
+        (click)="openAddRoom()">
+  Crea una stanza
+</button>
+
+
+
+
+
+
+<!-- Search Occupations Modal -->
+<div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabelNew">Cerca una postazione</h5>
+        <button type="button" class="close"
+                data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- non so ?-->
+        <div class="form-froup row">
+
+          <label class="col-sm-2 col-form-label">Occupazioni</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" [(ngModel)]="filterWorkstationName"
+                   placeholder="Inserire nome della postazione">
+          </div>
+
+
+        </div>
+
+        <button (click)="searchOccupation()" class="btn btn-primary">
+          Cerca
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Search Occupations Modal -->
+
+<!-- Add-Edit Room Modal -->
+<div class="modal fade" id="addEditRoomModal" tabindex="-1" role="dialog" aria-labelledby="addEditRoomModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addEditRoomModalLabel">{{roomAction === 'add' ? 'Aggiungi stanza' : 'Modifica stanza'}}</h5>
+        <button id="openAddEditRoomModal" type="button" class="close"
+                data-dismiss="modal" aria-label="Chiudi"
+        (click)="closeAddEditRoom()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-add-edit-room [passedRoom]="addEditRoom"  [noticeChangeVariable]="notifyChangeVariable" [action]="roomAction" ></app-add-edit-room>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Add-Edit Room Modal -->
+
+<!-- Add-Edit Workstation Modal -->
+<div class="modal fade" id="addEditWorkstationModal" tabindex="-1" role="dialog" aria-labelledby="addEditWorkstationModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addEditWorkstationModalLabel">{{workstationAction === 'add' ? 'Aggiungi postazione' : 'Modifica postazione'}}</h5>
+        <button type="button" class="close"
+                (click)="closeAddEditWorkstation()"
+                data-dismiss="modal" aria-label="Chiudi">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-add-edit-workstation [passedWorkstation]="addEditWorkstation" [noticeChangeVariable]="notifyChangeVariable" [action]="workstationAction"></app-add-edit-workstation>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Add-Edit Workstation Modal -->
+
+<!-- Search Rooms Modal -->
+<div class="modal fade" id="searchRoomModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabelNew2">Cerca una stanza</h5>
+        <button type="button" class="close"
+                data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- non so ?-->
+        <div class="form-froup row">
+
+          <label class="col-sm-2 col-form-label">Stanza</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" [(ngModel)]="filterRoomName"
+                   placeholder="Inserire nome della stanza">
+          </div>
+
+
+        </div>
+
+        <button (click)="searchRoom()" class="btn btn-primary">
+          Cerca
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Search Occupations Modal -->
+
+<table class="table table-striped" >
+  <caption>Stanze</caption>
+  <thead>
+  <tr>
+    <th scope="col">Stanze</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let key of getRoomsMapKeys()">
+
+    <h3>Id: {{key}} | Nome: {{getRoomInfoById(key).roomname}} | Dimensioni: {{getRoomInfoById(key).xroom}}x{{getRoomInfoById(key).yroom}} | Occupanti: {{getNumberOfOccupantsByRoomId(key)}}
+    <br/>{{getRoomInfoById(key).unavailable !== 1 ? '' : ('| Inaccessibile: ' + (getRoomsUnavailabilityDates(key) ? getRoomsUnavailabilityDates(key).failureFrom + ' - ' + getRoomsUnavailabilityDates(key).failureTo : 'nessuna data' ))}}</h3>
+
+    <button type="button" class="btn btn-primary float-right m-2"
+            (click)="invertRoomVisibility(key)">
+      {{roomVisible.get(key) ? '▲' : '▼'}}
+    </button>
+
+    <button type="button" class="btn btn-primary float-right m-2"
+            data-toggle="modal" data-target="#addEditWorkstationModal"
+            data-backdrop="static" data-keyboard="false"
+            (click)="openAddWorkstation(key)">
+      Crea postazione
+    </button>
+
+    <button type="button" class="btn btn-primary float-right m-2"
+    (click)="deleteRoom(key)">
+      Elimina stanza
+    </button>
+
+    <button type="button" class="btn btn-primary float-right m-2"
+            data-toggle="modal" data-target="#addEditRoomModal"
+            data-backdrop="static" data-keyboard="false"
+            (click)="openEditRoom(this.getRoomInfoById(key))">
+      Modifica stanza
+    </button>
+
+
+
+
+    <div [hidden]="!roomVisible.get(key)">
+      <app-grid (newItemEvent)="openEditWorkstation($event)" [changeVariable]="notifyChangeVariable"
+                [workstationsList]="getWorkstationsListByRoomId(key)" [room]="getRoomInfoById(key)"></app-grid>
+    </div>
+  </tr>
+  </tbody>
+
+</table>
+

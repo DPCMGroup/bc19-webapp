@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {SharedService} from 'src/app/shared.service';
+import {UserService} from 'src/app/services/user.service';
+import {UserData} from '../../../models/user-data';
+import {UtilsService} from '../../../services/utils.service';
 
 @Component({
   selector: 'app-show-credential',
@@ -8,64 +10,75 @@ import {SharedService} from 'src/app/shared.service';
 })
 export class ShowCredentialComponent implements OnInit {
 
-  constructor(private service: SharedService) { }
+  constructor(private service: UserService) { }
 
-  CredentialList: any = [];
-  ModalTitle: string | undefined;
-  credential: any;
-  // tslint:disable-next-line
-  ActivateAddEditCredentialComp: boolean = false;
+  CredentialList: UserData[] = [];
+  addEditCredential: UserData;
+  userAction = 'add'; // add or edit
+
   ngOnInit(): void {
+    this.addEditCredential = new UserData();
     this.refreshCredentialsList();
   }
 
-  // tslint:disable-next-line:typedef
-  addClick(){
-    this.credential = {
-      Name: '',
-      Surname: '',
-      Username: '',
-      Email: '',
-      Type: 'Dipendente'};
-    this.ModalTitle = 'Add credential';
-    this.ActivateAddEditCredentialComp = true;
+
+  addClick(): void{
+    this.userAction = 'add';
+    this.addEditCredential = new UserData();
   }
 
-  // tslint:disable-next-line:typedef
-  closeClick(){
-    this.ActivateAddEditCredentialComp = false;
+  editClick(credential): void{
+    this.userAction = 'edit';
+    this.addEditCredential = credential;
+  }
+
+  closeClick(): void{
     this.refreshCredentialsList();
   }
 
-  // tslint:disable-next-line:typedef
-  refreshCredentialsList(){
-    /* JUST FOR TESTING*/
-    const tempList: any = [];
-    tempList.push({
-      Name: 'Mario',
-      Surname: 'Rossi',
-      Username: 'dip0',
-      Email: 'mario.rossi@gmail.com',
-      Type: 'Dipendente'
-    });
-    this.CredentialList = tempList;
-
-    /*
-    this.service.getWorkstationList().subscribe(data => {
-      this.CredentialList = data;
-    });
-     */
+  setCredentialsList(data: any[]): void {
+    this.CredentialList = data;
   }
 
-  // tslint:disable-next-line:typedef
-  deleteClick(item: { Username: any; }){
-    if (confirm('Are you sure??')){
-      /*
-      this.service.deleteWorkstation(item.CredentialId).subscribe(data => {
-        alert(data.toString());
-        this.refreshWorkstationList();
-      });
-       */
+  refreshCredentialsList(): void{
+    this.service.getUserList().subscribe(data => this.setCredentialsList(data));
+  }
+
+  deleteClick(item: { id: any; }): void{
+    if (confirm('Sei sicuro??')){
+
+      this.service.deleteUser(item.id).subscribe(data => {
+        alert(UtilsService.checkReturnType(data));
+        this.refreshCredentialsList();
+      }, error => (alert('C\'è stato un errore')));
     }
+  }
+
+  typeNumToString(type: number): string{
+    let typeString = '';
+    switch (type){
+      case 0:
+        typeString = 'Amministratore';
+        break;
+      case 1:
+        typeString = 'Dipendente';
+        break;
+      case 2:
+        typeString = 'Addetto';
+        break;
+    }
+    return typeString;
+  }
+  typeNumToString1(type: number): string{
+    let typeString = '';
+    switch (type){
+      case 0:
+        typeString = 'Abilitato';
+        break;
+      case 1:
+        typeString = 'Non Abilitato';
+        break;
+    }
+    return typeString;
   }
 }

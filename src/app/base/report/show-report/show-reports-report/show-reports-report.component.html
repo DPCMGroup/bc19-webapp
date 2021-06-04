@@ -1,0 +1,21 @@
+
+
+<table class="table table-striped">
+  <caption>Lista dei report</caption>
+  <thead>
+  <tr>
+    <th scope="col">Id report</th>
+    <th scope="col">DataOra report</th>
+    <th scope="col">Hash transazione</th>
+    <th scope="col">Hash dati</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let dataItem of reportsList">
+    <td>{{dataItem.id}}</td>
+    <td>{{dataItem.reporttime.substr(0,10)}}<br/>{{dataItem.reporttime.substr(10)}}</td>
+    <td class="longstring">{{dataItem.blockchainhash}}</td>
+    <td class="longstring">{{dataItem.fileHash}}</td>
+  </tr>
+  </tbody>
+</table>

@@ -1,15 +1,52 @@
-<form>
-  <fieldset>
-    <legend>General search filters</legend>
-    <p>Insert the dates:
-    <label for="from">From: </label><input type="date" id="from">
-      <label for="to">To: </label><input type="date" id="to"></p>
-    <label for="id">Insert workstation id:</label><input type="text" id="id" name="id">
 
-  </fieldset>
-  <fieldset>
-    <legend>Report type</legend>
-    <input type="radio" id="occupazioni" value="occupazioni" name="type"><label for="occupazioni">Occupation</label><br>
-    <input type="radio" id="sanificazioni" value="sanificazioni" name="type"><label for="sanificazioni">Disinfection</label>
-  </fieldset>
- </form>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<div>
+  <form>
+    <fieldset *ngIf="getPossibleOperations().includes('dates_search')">
+      <legend>Filtro date</legend>
+      <label for="from">Da:</label><input type="date" id="from" name="from" [(ngModel)]="startDate">
+      <label for="to">A:</label><input type="date" id="to" name="to" [(ngModel)]="endDate"><br>
+
+    </fieldset>
+    <fieldset *ngIf="getPossibleOperations().includes('complete_report')">
+      <legend>Report completo</legend>
+      <!-- Auto width -->
+      <button class="btn" (click)="downloadCompleteReport()"><em class="fa fa-download"></em> Scarica report completo</button>
+    </fieldset>
+    <fieldset *ngIf="getPossibleOperations().includes('search_fields')">
+      <legend>Ricerca per valori</legend>
+      <label for="id">Id postazione:</label><input type="text" id="id" name="id">
+    </fieldset>
+    <hr>
+    <fieldset>
+      <legend>Tipi di report</legend>
+      <input type="radio" id="occupazioni" (change)="setRadio('occupations')" value="occupazioni" name="type"
+             checked><label for="occupazioni">Occupazioni</label>
+      <input type="radio" id="sanificazioni" (change)="setRadio('sanitizations')" value="sanificazioni"
+             name="type"><label for="sanificazioni">Disinfezioni</label>
+      <input type="radio" id="report" (change)="setRadio('reports')" value="report" name="type"><label for="report">Report</label>
+      <h6 *ngIf="type === 'reports'">Questa lista non è filtrabile</h6>
+    </fieldset>
+    <button type="submit" class="btn btn-primary float-right m-2"
+            (click)="confirmReportType()"
+            data-backdrop="static" data-keyboard="false" value="conferma"
+    >
+      Mostra
+    </button>
+  </form>
+</div>
+
+<app-show-occupations-report *ngIf="confirmedType === 'occupations'"
+                             [startDate]="startDate" [endDate]="endDate"
+                             [changeVariable]="changeVariable"></app-show-occupations-report>
+<app-show-sanitizations-report *ngIf="confirmedType === 'sanitizations'"
+                               [startDate]="startDate" [endDate]="endDate"
+                               [changeVariable]="changeVariable"></app-show-sanitizations-report>
+<app-show-reports-report *ngIf="confirmedType === 'reports'"
+                         [changeVariable]="changeVariable"></app-show-reports-report>
+
+
+<!-- Auto width -->
+<button class="btn" (click)="download()"><em class="fa fa-download"></em>Scarica</button>
+

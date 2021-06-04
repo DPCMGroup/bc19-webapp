@@ -1,0 +1,30 @@
+form {
+  padding: 10px;
+  border: 1px solid ;
+  font: 12px Verdana, Arial, Helvetica, sans-serif;
+  color: black;
+  text-align: center;
+}
+legend{
+  color: dodgerblue;
+  font: 14px Verdana, Arial, Helvetica, sans-serif ;
+  font-weight: bold;
+}
+label {
+  margin: 5px;
+}
+
+/* Style buttons */
+.btn {
+  background-color: DodgerBlue;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+/* Darker background on mouse-over */
+.btn:hover {
+  background-color: RoyalBlue;
+}
+

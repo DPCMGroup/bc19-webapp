@@ -1,0 +1,48 @@
+<button title="{{tag + '\n' + workstationname + '\n' + stateNumToString(state) + '\n' + sanitizedNumToString(sanitized)}}" class="btn btn-{{getColorByState()}} workstation"
+        data-toggle="modal"
+        [attr.data-target] = "'#workstationModal' + getIdentifier()"
+        data-backdrop="static" data-keyboard="false"
+></button>
+<!--{{workstation ? workstation.id : ''}} e lo style-->
+<!-- Workstation Modal -->
+<div class="modal fade" id="workstationModal{{getIdentifier()}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Postazione
+          {{workstation !== null ? id + '-' + workstationname : 'non presente'}}</h5>
+        <button type="button" class="close"
+                data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div *ngIf="workstation !== null">
+        <div class="modal-body">
+          <p>Id: {{id}}</p>
+          <p>Nome: {{workstationname}}</p>
+          <p>Tag: {{tag}}</p>
+          <p>Stato: {{stateNumToString(state)}}</p>
+          <p>Sanificato: {{sanitizedNumToString(sanitized)}}</p>
+          <div *ngIf="state === 3">
+            <p id="startDate" type="date">Data inizio: {{startDate}}</p>
+            <p id="endDate">Data fine: {{endDate}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer" *ngIf="workstation !== null">
+        <button class="btn btn-primary" (click)="openEditWorkstation()"
+                data-toggle="modal"
+                data-dismiss="modal"
+                data-target="#addEditWorkstationModal"
+                data-backdrop="static" data-keyboard="false"
+        > Modifica
+        </button>
+        <button class="btn btn-primary" (click)="deleteWorkstation()"
+        > Elimina
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Workstation Modal -->

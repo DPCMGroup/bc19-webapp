@@ -1,0 +1,32 @@
+
+
+<table class="table table-striped">
+  <caption>Report delle occupazioni</caption>
+  <thead>
+  <tr>
+    <th scope="col">Id postazione</th>
+    <th scope="col">Id utente</th>
+    <th scope="col">Username</th>
+    <th scope="col">Nome</th>
+    <th scope="col">Cognome</th>
+    <th scope="col">Ruolo</th>
+    <th scope="col">DataOra inizio</th>
+    <th scope="col">DataOra fine</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let dataItem of occupationsList">
+    <td>{{dataItem.idoccupation}}</td>
+    <td>{{dataItem.iduser}}</td>
+    <td>{{dataItem.username}}</td>
+    <td>{{dataItem.name}}</td>
+    <td>{{dataItem.surname}}</td>
+    <td>{{typeNumToString(dataItem.type)}}</td>
+    <td>{{dataItem.starttime}}</td>
+    <td>{{dataItem.endtime}}</td>
+  </tr>
+  </tbody>
+</table>
+
+
+
