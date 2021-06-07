@@ -1,7 +1,8 @@
-<button title="{{tag + '\n' + workstationname + '\n' + stateNumToString(state) + '\n' + sanitizedNumToString(sanitized)}}" class="btn btn-{{getColorByState()}} workstation"
+<button title="{{getTitle()}}" class="btn btn-{{getColorByState()}} workstation"
         data-toggle="modal"
         [attr.data-target] = "'#workstationModal' + getIdentifier()"
         data-backdrop="static" data-keyboard="false"
+        class="workstation"
 ></button>
 <!--{{workstation ? workstation.id : ''}} e lo style-->
 <!-- Workstation Modal -->

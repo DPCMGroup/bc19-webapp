@@ -25,7 +25,7 @@
              checked><label for="occupazioni">Occupazioni</label>
       <input type="radio" id="sanificazioni" (change)="setRadio('sanitizations')" value="sanificazioni"
              name="type"><label for="sanificazioni">Disinfezioni</label>
-      <input type="radio" id="report" (change)="setRadio('reports')" value="report" name="type"><label for="report">Report</label>
+      <input type="radio" id="report" (change)="setRadio('reports')" value="report" name="type"><label for="report">Certificati</label>
       <h6 *ngIf="type === 'reports'">Questa lista non è filtrabile</h6>
     </fieldset>
     <button type="submit" class="btn btn-primary float-right m-2"

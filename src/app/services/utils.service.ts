@@ -80,7 +80,7 @@ export class UtilsService {
     let text = '';
     if (arr) {
       arr.forEach((item) => {
-        text += Object.values(item).join(',') + ',\n';
+        text += Object.values(item).join(',') + '\n';
       });
     }
     return text;

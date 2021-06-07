@@ -88,9 +88,11 @@ export class WorkstationComponent implements OnInit, OnChanges {
   }
 
   deleteWorkstation(): void{
-    this.workstationService.deleteWorkstation(this.workstation.id).subscribe(
-      (data) => {alert(UtilsService.checkReturnType(data)); this.workstation = null; }
-    );
+    if (confirm('Sei sicuro?')){
+      this.workstationService.deleteWorkstation(this.workstation.id).subscribe(
+        (data) => {alert(UtilsService.checkReturnType(data)); this.workstation = null; }
+      );
+    }
   }
 
   openEditWorkstation(): void {
@@ -130,10 +132,19 @@ export class WorkstationComponent implements OnInit, OnChanges {
   }
 
   getIdentifier(): string{
-    if (this.insertedPosX && this.insertedPosY && this.insertedRoomId){
-      return this.insertedPosX.toString() + this.insertedPosY.toString() + this.insertedRoomId.toString();
+    if (this.insertedRoomId){
+      return this.insertedPosX + '_' + this.insertedPosY + '_' + this.insertedRoomId.toString();
     }else{
       return '';
+    }
+  }
+
+  getTitle(): string | null{
+    if (this.workstation){
+      return this.tag + '\n' + this.workstationname + '\n' +
+        this.stateNumToString(this.state) + '\n' + this.sanitizedNumToString(this.sanitized);
+    } else{
+      return null;
     }
   }
 
