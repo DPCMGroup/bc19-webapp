@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import {Inject, Injectable} from '@angular/core';
+import {DOCUMENT} from '@angular/common';
 
 
 
@@ -118,5 +119,17 @@ export class UtilsService {
 
     return dates;
   }
+
+
+  /*
+  public static tempAlert(msg, duration = 1): void{
+    const el = document.createElement('div');
+    el.setAttribute('style', 'font-size: 5em;position:absolute;top:0%;left:20%;background-color:white;');
+    el.innerHTML = msg;
+    setTimeout(() => {
+      el.parentNode.removeChild(el);
+    }, duration);
+    document.body.appendChild(el);
+  }*/
 
 }

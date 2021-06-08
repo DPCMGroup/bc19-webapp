@@ -133,19 +133,19 @@ export class AddEditWorkstationComponent implements OnInit {
 
     if (failure){
       this.workFailuresService.deleteFailureById(this.id).subscribe( (data) => {
-        alert('risultatoDelall: ' + data);
+        // alert('risultatoDelall: ' + data);
         this.workFailuresService.addFailure(failure).subscribe((data2) => {
-          alert('risultato addworkstation failure: ' + data2);
+          // alert('risultato addworkstation failure: ' + data2);
           this.service.modifyWorkstation(val).subscribe(res => {
             alert(UtilsService.checkReturnType(res));
           });
         });
       });
-      console.log('toinsertfailure');
-      console.log(failure);
+      // console.log('toinsertfailure');
+      // console.log(failure);
     }else{
       this.workFailuresService.deleteFailureById(this.id).subscribe( (data) => {
-        alert('risultatoDelall: ' + data);
+        // alert('risultatoDelall: ' + data);
         this.service.modifyWorkstation(val).subscribe(res => {
           alert(UtilsService.checkReturnType(res));
         });

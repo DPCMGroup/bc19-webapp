@@ -101,9 +101,9 @@ export class AddEditRoomComponent {
     const newFailure = this.getRoomFailureFromLocalValues();
     if (newFailure !== null) {
       this.roomFailuresService.deleteFailuresById(this.id).subscribe( (data) => {
-        alert(data);
+        // alert(data);
         this.roomFailuresService.addFailure(newFailure).subscribe( (data2) => {
-          alert(data2);
+          // alert(data2);
           this.workstationsService.modifyRoom(newRoom).subscribe( (data3) => {
             alert( UtilsService.checkReturnType(data3));
           });
@@ -111,7 +111,7 @@ export class AddEditRoomComponent {
       });
     }else{
       this.roomFailuresService.deleteFailuresById(this.id).subscribe( (data) => {
-        alert(data);
+        // alert(data);
         this.workstationsService.modifyRoom(newRoom).subscribe( (data2) => {
           alert( UtilsService.checkReturnType(data2));
         });
