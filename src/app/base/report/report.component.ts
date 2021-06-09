@@ -101,7 +101,11 @@ export class ReportComponent {
       sanits = data;
     })];
     await Promise.all(promises);
-    content = UtilsService.objectArrayToCsv(occups) + '\n' + UtilsService.objectArrayToCsv(sanits);
+    content = 'idoccupation,idworkstation,iduser,username,name,surname,type,timestart,timend\n' +
+      UtilsService.objectArrayToCsv(occups) +
+      ',,,,,,\n' +
+      'idsanitize,idworkstation,iduser,username,name,surname,type,time\n' +
+      UtilsService.objectArrayToCsv(sanits);
     this.downloadByNameAndContent(filename, content);
   }
 
